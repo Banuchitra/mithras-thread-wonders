@@ -147,6 +147,8 @@ describe('API', () => {
   it('answers CORS preflight only for allowed origins', async () => {
     const ok = await app().request('/api/me', { method: 'OPTIONS', headers: { origin: 'http://localhost:3000', 'access-control-request-method': 'GET' } });
     expect(ok.headers.get('access-control-allow-origin')).toBe('http://localhost:3000');
+    const put = await app().request('/api/content/products/x', { method: 'OPTIONS', headers: { origin: 'http://localhost:3000', 'access-control-request-method': 'PUT' } });
+    expect(put.headers.get('access-control-allow-methods')).toContain('PUT'); // admin saves use PUT
     const bad = await app().request('/api/me', { method: 'OPTIONS', headers: { origin: 'https://evil.example', 'access-control-request-method': 'GET' } });
     expect(bad.headers.get('access-control-allow-origin')).toBeNull();
   });

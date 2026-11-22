@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { answer, type AssistantProduct } from '@/domain/assistant';
 import { whatsappUrl } from '@/domain/channels';
@@ -22,6 +23,9 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
   ]);
   const end = useRef<HTMLDivElement>(null);
   useEffect(() => end.current?.scrollIntoView({ block: 'end' }), [msgs, open]);
+  const pathname = usePathname();
+  // Customers' assistant: not needed in the admin console (and it would cover the Save bar).
+  if (pathname?.startsWith('/admin')) return null;
 
   function ask(q: string) {
     const question = q.trim();

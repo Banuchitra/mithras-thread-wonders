@@ -43,8 +43,10 @@ export function AccountMenu() {
           {staff && (
             <>
               <Link role="menuitem" href="/admin/" className={item} onClick={() => setOpen(false)}>Admin dashboard</Link>
-              <span className={`${item} cursor-default text-muted`}>Add product <em className="text-xs">(next)</em></span>
-              <span className={`${item} cursor-default text-muted`}>Customise website <em className="text-xs">(next)</em></span>
+              <Link role="menuitem" href="/admin/products/edit/" className={item} onClick={() => setOpen(false)}>Add product</Link>
+              <Link role="menuitem" href="/admin/products/" className={item} onClick={() => setOpen(false)}>Edit products</Link>
+              <Link role="menuitem" href="/admin/categories/" className={item} onClick={() => setOpen(false)}>Categories</Link>
+              <Link role="menuitem" href="/admin/website/" className={item} onClick={() => setOpen(false)}>Customise website</Link>
               {user.role === 'admin' && <Link role="menuitem" href="/admin/users/" className={item} onClick={() => setOpen(false)}>Users</Link>}
             </>
           )}

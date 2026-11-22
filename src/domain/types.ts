@@ -37,6 +37,8 @@ export interface Product {
   images: ProductImage[];
   specs: Record<string, string>;
   listings: ChannelListing[];
+  /** Optional Instagram reel, YouTube link or uploaded video file. */
+  video?: string;
   status: 'active' | 'hidden';
 }
 

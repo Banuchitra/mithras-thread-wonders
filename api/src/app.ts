@@ -50,7 +50,7 @@ export function createApp(deps: Deps) {
   app.use('/api/*', cors({
     origin: (origin) => (deps.allowedOrigins.includes(origin) ? origin : null),
     allowHeaders: ['authorization', 'content-type'],
-    allowMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     maxAge: 600,
   }));
 

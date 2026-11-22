@@ -4,13 +4,13 @@ import { notFound } from 'next/navigation';
 import { ActionButtons } from '@/components/ActionButtons';
 import { Gallery } from '@/components/Gallery';
 import { SectionTitle } from '@/components/Ornament';
+import { VideoPlayer } from '@/components/VideoPlayer';
 import { ProductCard } from '@/components/ProductCard';
 import { displayPrice } from '@/domain/money';
 import { loadCatalog } from '@/lib/catalog';
 import { pageUrl } from '@/lib/paths';
 
 type Params = { slug: string };
-export const dynamicParams = false;
 export const generateStaticParams = () => loadCatalog().products.map((p) => ({ slug: p.slug }));
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
@@ -63,7 +63,10 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
         </nav>
       )}
       <div className="mt-4 grid gap-8 md:grid-cols-2 md:gap-12">
-        <div className="arch-frame self-start md:sticky md:top-28"><Gallery images={product.images} /></div>
+        <div className="space-y-4 self-start md:sticky md:top-28">
+          <div className="arch-frame"><Gallery images={product.images} /></div>
+          <VideoPlayer url={product.video} title={product.title} poster={product.images[0]?.src} />
+        </div>
         <div>
           <p className="eyebrow text-[0.7rem] text-brand-teal-text">
             {product.availability === 'ships-from-canada' ? 'In stock · Ships within Canada' : 'Made to order'}

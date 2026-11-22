@@ -8,7 +8,6 @@ import { productsInCategory } from '@/domain/catalog';
 import { loadCatalog } from '@/lib/catalog';
 
 type Params = { collection: string; category: string };
-export const dynamicParams = false;
 export const generateStaticParams = () =>
   loadCatalog().tree.flatMap((c) => c.categories.map((cat) => ({ collection: c.id, category: cat.id })));
 

@@ -17,16 +17,17 @@ function Dashboard() {
     if (user?.role === 'admin') api<{ requests: unknown[] }>('/api/reset-requests').then((r) => setPending(r.requests.length)).catch(() => setPending(null));
   }, [user]);
   const cards = [
-    { title: 'Add a product', text: 'Upload photos and fill in the product form — or let the AI helper draft it.', href: null, soon: 'Next feature' },
-    { title: 'Edit products', text: 'Change prices, photos, descriptions, categories; hide or remove products.', href: null, soon: 'Next feature' },
-    { title: 'Customise the website', text: 'Offers banner, video panel, announcement bar, fonts, categories and menus.', href: null, soon: 'Next feature' },
+    { title: 'Add a product', text: 'Upload photos and fill in the product form.', href: '/admin/products/edit/', soon: '' },
+    { title: 'Products', text: 'Search, edit prices, photos, descriptions and videos; hide or delete products.', href: '/admin/products/', soon: '' },
+    { title: 'Collections & categories', text: 'Add, rename, reorder or hide — the shop menus update automatically.', href: '/admin/categories/', soon: '' },
+    { title: 'Customise the website', text: 'Offers banner, video panel, announcement bar, contact details, fonts, about text.', href: '/admin/website/', soon: '' },
     ...(user?.role === 'admin' ? [{ title: 'Users', text: `Add or remove people, set roles, reset passwords, open or close sign-ups.${pending ? ` ${pending} reset request${pending > 1 ? 's' : ''} waiting.` : ''}`, href: '/admin/users/', soon: '' }] : []),
   ];
   return (
     <div className="mx-auto max-w-[88rem] px-4 py-10">
       <p className="eyebrow text-brand-gold-text">Admin</p>
       <h1 className="mt-1 text-4xl font-semibold text-brand-plum">Welcome, {user?.displayName || user?.email}</h1>
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((c) => {
           const inner = (
             <>

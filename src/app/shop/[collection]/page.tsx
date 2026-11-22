@@ -8,7 +8,6 @@ import { productsInCollection } from '@/domain/catalog';
 import { loadCatalog } from '@/lib/catalog';
 
 type Params = { collection: string };
-export const dynamicParams = false;
 export const generateStaticParams = () => loadCatalog().tree.map((c) => ({ collection: c.id }));
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
