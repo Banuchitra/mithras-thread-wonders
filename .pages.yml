@@ -24,8 +24,40 @@ content:
             - { value: royal, label: "Royal — Playfair Display + Source Sans" }
       - { name: whatsapp, label: WhatsApp number (with country code), type: string, required: true }
       - { name: instagram, label: Instagram handle (without @), type: string }
+      - { name: announcement, label: Announcement bar text (top of every page), type: string }
       - { name: aboutText, label: About us text, type: text }
       - { name: currencyLocale, label: Number format locale, type: string, hidden: true }
+
+  - name: promotions
+    label: What's New (offers, banners, videos)
+    type: collection
+    path: content/promotions
+    format: yaml-frontmatter
+    view: { fields: [title, placement, startDate, endDate, hidden], primary: title, sort: [order] }
+    fields:
+      - { name: id, label: ID (lowercase, hyphens), type: string, required: true }
+      - { name: title, label: Headline, type: string, required: true }
+      - { name: subtitle, label: Text, type: string }
+      - name: placement
+        label: Where to show
+        type: select
+        options:
+          values:
+            - { value: banner, label: Rotating offers banner }
+            - { value: video, label: Video panel }
+      - name: image
+        label: Image
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - { name: alt, label: Image description, type: string }
+      - { name: video, label: Video (Instagram reel or YouTube link), type: string }
+      - { name: ctaLabel, label: Button text, type: string }
+      - { name: ctaHref, label: Button link, type: string }
+      - { name: startDate, label: Show from (optional), type: date }
+      - { name: endDate, label: Show until (optional), type: date }
+      - { name: order, label: Display order, type: number }
+      - { name: hidden, label: Hide, type: boolean }
 
   - name: collections
     label: Collections

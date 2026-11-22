@@ -51,7 +51,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-[88rem] px-4 py-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {cat && (
         <nav aria-label="Breadcrumb" className="text-sm text-muted">

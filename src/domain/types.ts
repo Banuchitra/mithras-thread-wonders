@@ -1,3 +1,5 @@
+import type { Promotion } from './promotions';
+
 // Core domain types. Pure TypeScript — no framework or vendor imports (see ADR-003).
 
 /** Exact Amazon Seller SKU — the permanent product ID (ADR-001). */
@@ -64,11 +66,14 @@ export interface SiteSettings {
   currencyLocale: string;
   fontPairing: FontPairing;
   aboutText: string;
+  /** Short line in the bar above the header (offers, shipping notes). Empty = hidden. */
+  announcement?: string;
 }
 
 /** Port: where the catalogue comes from (Markdown today, Amazon SP-API later). */
 export interface CatalogSource {
   listProducts(): Product[];
+  listPromotions(): Promotion[];
   listCollections(): Collection[];
   listCategories(): Category[];
   getSettings(): SiteSettings;

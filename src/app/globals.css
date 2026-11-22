@@ -49,7 +49,7 @@ h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .0
     radial-gradient(ellipse at 10% 90%, rgb(45 91 211 / .35), transparent 55%);
 }
 .heritage::before { content: ""; position: absolute; inset: 0; background-image: var(--motif); background-size: 84px; opacity: .08; pointer-events: none; }
-.heritage > * { position: relative; }
+.heritage > :not(.absolute) { position: relative; }
 
 /* Arch-shaped photo frame, like a temple doorway. */
 .arch { border-radius: 999px 999px 14px 14px; overflow: hidden; }
@@ -99,3 +99,7 @@ h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .0
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+.carousel-arrow { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; font-size: 1.25rem; line-height: 1;
+  color: #fff; border: 1px solid rgb(232 200 114 / .6); background: rgb(46 18 69 / .4); }
+.carousel-arrow:hover { background: rgb(46 18 69 / .8); }

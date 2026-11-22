@@ -4,6 +4,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import { moneyFromDecimal } from '@/domain/money';
+import type { Promotion } from '@/domain/promotions';
 import type { CatalogSource, Category, Collection, Product, SiteSettings } from '@/domain/types';
 
 // On disk (edited in Pages CMS): price: "35.00", currency: CAD. In the domain: Money in minor units.
@@ -24,6 +25,7 @@ function readDir<T>(dir: string): T[] {
 export const markdownCatalog: CatalogSource = {
   listProducts: () => readDir<ProductFile>('products').map(toProduct),
   listCollections: () => readDir<Collection>('collections'),
+  listPromotions: () => readDir<Promotion>('promotions'),
   listCategories: () => readDir<Category>('categories'),
   getSettings: () => JSON.parse(readFileSync(join(CONTENT, 'settings', 'site.json'), 'utf8')) as SiteSettings,
 };
