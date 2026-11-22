@@ -89,9 +89,14 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
         </section>
       )}
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? 'Close shopping assistant' : 'Open shopping assistant'}
-        className="flex items-center gap-2 rounded-full bg-brand-violet py-2.5 pl-3 pr-4 font-semibold text-white shadow-xl ring-2 ring-brand-gold-light transition hover:-translate-y-0.5">
-        <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-5 4V5Z" /><path d="M8 9h8M8 12h5" strokeLinecap="round" /></svg>
-        <span className="hidden sm:inline">{open ? 'Close' : 'Ask us'}</span>
+        className="heritage flex items-center gap-3 rounded-full py-2 pl-2 pr-5 text-white shadow-2xl ring-2 ring-brand-gold-light transition hover:-translate-y-0.5">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-brand-gold-light">
+          <Monogram variant="light" size={46} />
+        </span>
+        <span className="text-left leading-tight">
+          <span className="block font-heading text-xl font-semibold">{open ? 'Close' : 'Ask us'}</span>
+          {!open && <span className="hidden text-xs text-[#F3E3C3] sm:block">Find designs · custom orders</span>}
+        </span>
       </button>
     </div>
   );

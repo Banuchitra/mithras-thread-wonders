@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { CollectionNode } from '@/domain/catalog';
 import { asset } from '@/lib/paths';
 import { AccountMenu } from './AccountMenu';
+import { SideMenu } from './SideMenu';
 
 // Standard shop header: logo left; Shop menu built from the owner's collections/categories (grows automatically
 // as she adds them); account and cart icons top right. Desktop: hover/focus mega menu. Phone: menu drawer.
@@ -9,7 +10,7 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
   return (
     <header className="sticky top-0 z-30 bg-white/90 backdrop-blur">
       <div className="relative mx-auto flex max-w-[88rem] items-center gap-3 px-4 py-2.5">
-        <MobileMenu tree={tree} />
+        <SideMenu tree={tree} brandName={brandName} />
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <img src={asset('/images/logo.webp')} alt="" width={52} height={52}
             className="h-11 w-11 shrink-0 rounded-full object-cover ring-1 ring-brand-gold ring-offset-2 sm:h-13 sm:w-13" />
@@ -65,38 +66,5 @@ function IconLink({ href, label, children }: { href: string; label: string; chil
       className="flex h-11 w-11 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet">
       <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
     </Link>
-  );
-}
-
-function MobileMenu({ tree }: { tree: CollectionNode[] }) {
-  return (
-    <details className="group/drawer lg:hidden">
-      <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full text-brand-plum hover:bg-cream [&::-webkit-details-marker]:hidden" aria-label="Menu">
-        <svg viewBox="0 0 24 24" className="h-6 w-6 stroke-current" strokeWidth="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-      </summary>
-      <div className="fixed inset-x-0 bottom-0 top-[var(--header-h,64px)] z-40 overflow-y-auto border-t border-line bg-white px-5 py-4">
-        <ul className="space-y-1">
-          <li><Link href="/shop/" className="block py-2 font-heading text-xl font-semibold text-brand-plum">All designs</Link></li>
-          {tree.map((c) => (
-            <li key={c.id}>
-              <details>
-                <summary className="flex cursor-pointer list-none items-center justify-between py-2 font-heading text-xl font-semibold text-brand-plum [&::-webkit-details-marker]:hidden">
-                  {c.name}<span aria-hidden="true" className="text-brand-gold-text">+</span>
-                </summary>
-                <ul className="mb-2 ml-3 space-y-1 border-l border-brand-gold pl-4">
-                  <li><Link href={`/shop/${c.id}/`} className="block py-1.5 text-sm font-semibold text-brand-violet">All {c.name}</Link></li>
-                  {c.categories.map((cat) => (
-                    <li key={cat.id}><Link href={`/shop/${c.id}/${cat.id}/`} className="block py-1.5 text-sm text-ink">{cat.name}</Link></li>
-                  ))}
-                </ul>
-              </details>
-            </li>
-          ))}
-          <li className="border-t border-line pt-2"><Link href="/wholesale/" className="block py-2 text-ink">Wholesale &amp; custom orders</Link></li>
-          <li><Link href="/about/" className="block py-2 text-ink">About us</Link></li>
-          <li><Link href="/account/" className="block py-2 text-ink">Account / sign in</Link></li>
-        </ul>
-      </div>
-    </details>
   );
 }
