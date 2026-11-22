@@ -14,6 +14,8 @@ Banu is learning AIDLC, the Claude Code agentic workflow, and web fundamentals.
 - Two audiences: **retail** (in-stock pieces, CAD) and **wholesale** (custom colours/sizes, bulk quote via WhatsApp quote builder).
 - Collections/categories are **owner-managed data** (Pages CMS), never hard-coded.
 - v1 is a **portfolio**: browse designs, then contact via Amazon link / Instagram DM / WhatsApp. No cart, no stock. Build data and ports so a full shop with an Amazon backend can be added later.
+- **Never crop product photos.** Show the whole piece: render product images inside arch frames only via
+  `src/components/ArchImage.tsx` (object-contain + safe padding); never `object-cover` on a product photo.
 - **Brand, UI design and colours are Banu's decisions.** Propose options; never pick them silently.
 
 ## Stack (decided — see aidlc/decisions/)

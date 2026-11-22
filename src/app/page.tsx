@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Ornament, SectionTitle } from '@/components/Ornament';
 import { ProductCard } from '@/components/ProductCard';
+import { ArchImage } from '@/components/ArchImage';
 import { productsInCollection } from '@/domain/catalog';
 import { loadCatalog } from '@/lib/catalog';
 import { asset } from '@/lib/paths';
@@ -39,9 +40,9 @@ export default function Home() {
               <li key={c.id} className="fade-up" style={{ ['--i' as string]: i }}>
                 <Link href={`/shop/${c.id}/`} className="group block text-center">
                   <div className="arch-frame transition duration-300 group-hover:-translate-y-1">
-                    <div className="arch shine relative aspect-[4/5] bg-cream">
+                    <div className="arch shine relative aspect-[4/5] bg-white">
                       {cover ? (
-                        <img src={asset(cover.src)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                        <ArchImage src={cover.src} alt="" zoom />
                       ) : (
                         <div className="heritage flex h-full items-center justify-center"><Ornament light className="w-32" /></div>
                       )}
