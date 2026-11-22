@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Ornament, SectionTitle } from '@/components/Ornament';
 import { ProductCard } from '@/components/ProductCard';
 import { ArchImage } from '@/components/ArchImage';
+import { Monogram } from '@/components/Monogram';
 import { productsInCollection } from '@/domain/catalog';
 import { loadCatalog } from '@/lib/catalog';
 import { asset } from '@/lib/paths';
@@ -44,7 +45,7 @@ export default function Home() {
                       {cover ? (
                         <ArchImage src={cover.src} alt="" zoom />
                       ) : (
-                        <div className="heritage flex h-full items-center justify-center"><Ornament light className="w-32" /></div>
+                        <div className="heritage flex h-full items-center justify-center"><Monogram variant="light" size={72} /></div>
                       )}
                     </div>
                   </div>
