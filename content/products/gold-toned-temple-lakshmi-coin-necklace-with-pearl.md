@@ -37,7 +37,7 @@ description: >-
   necklace is an ideal choice for weddings, religious ceremonies, and cultural
   celebrations. A truly divine accessory that beautifully blends devotion with
   artistry.
-categoryId: invisible-chains-and-anklets
+categoryId: invisible-chains
 availability: ships-from-canada
 customisable: true
 featured: true

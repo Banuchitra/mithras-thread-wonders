@@ -8,10 +8,11 @@ import type { Promotion } from '@/domain/promotions';
 import type { CatalogSource, Category, Collection, Product, SiteSettings } from '@/domain/types';
 
 // On disk (edited in Pages CMS): price: "35.00", currency: CAD. In the domain: Money in minor units.
-type ProductFile = Omit<Product, 'price'> & { price: string | number; currency?: string };
+type ProductFile = Omit<Product, 'price'> & { price?: string | number | null; currency?: string };
 
 function toProduct({ price, currency = 'CAD', ...rest }: ProductFile): Product {
-  return { ...rest, price: moneyFromDecimal(price, currency) };
+  const hasPrice = price !== '' && price !== null && price !== undefined;
+  return { ...rest, ...(hasPrice ? { price: moneyFromDecimal(price, currency) } : {}) };
 }
 
 const CONTENT = join(process.cwd(), 'content');

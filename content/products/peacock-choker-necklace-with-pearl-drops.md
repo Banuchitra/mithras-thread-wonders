@@ -33,21 +33,23 @@ description: >-
   such as sarees, lehengas, and salwar suits. It also makes a thoughtful and
   memorable gift for loved ones. The intricate detailing and rich colour palette
   make this piece a true statement of heritage and elegance.
-categoryId: korean-chains-and-anklets
+categoryId: korean-chains
 availability: ships-from-canada
 customisable: true
 featured: false
 images:
-  - src: /images/products/peacock-choker-necklace-with-pearl-drops/1.webp
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/studio.webp
     alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops
-  - src: /images/products/peacock-choker-necklace-with-pearl-drops/2.webp
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/1.webp
     alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 2
-  - src: /images/products/peacock-choker-necklace-with-pearl-drops/3.webp
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/2.webp
     alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 3
-  - src: /images/products/peacock-choker-necklace-with-pearl-drops/4.webp
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/3.webp
     alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 4
-  - src: /images/products/peacock-choker-necklace-with-pearl-drops/5.webp
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/4.webp
     alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 5
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/5.webp
+    alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 6
 specs:
   Chain Type: Korean Chain
   Gem Type: Crystal

@@ -28,7 +28,8 @@ export interface Product {
   subtitle?: string;
   bullets: string[];
   description: string;
-  price: Money;
+  /** Missing = "Price on request" (e.g. made-to-order designs not priced yet). */
+  price?: Money;
   categoryId: string;
   availability: Availability;
   customisable: boolean;

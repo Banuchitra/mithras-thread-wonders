@@ -34,23 +34,25 @@ description: >-
   choice. It pairs beautifully with both casual and dressy outfits, making it a
   wonderful addition to any wardrobe. A perfect gift for animal lovers and
   jewellery enthusiasts alike.
-categoryId: korean-chains-and-anklets
+categoryId: korean-chains
 availability: ships-from-canada
 customisable: true
 featured: false
 images:
-  - src: /images/products/rabbit-korean-chain-necklace/1.webp
+  - src: /images/products/rabbit-korean-chain-necklace/studio.webp
     alt: MITHRAS CANADA Rabbit Korean Chain Necklace
-  - src: /images/products/rabbit-korean-chain-necklace/2.webp
+  - src: /images/products/rabbit-korean-chain-necklace/1.webp
     alt: MITHRAS CANADA Rabbit Korean Chain Necklace — view 2
-  - src: /images/products/rabbit-korean-chain-necklace/3.webp
+  - src: /images/products/rabbit-korean-chain-necklace/2.webp
     alt: MITHRAS CANADA Rabbit Korean Chain Necklace — view 3
-  - src: /images/products/rabbit-korean-chain-necklace/4.webp
+  - src: /images/products/rabbit-korean-chain-necklace/3.webp
     alt: MITHRAS CANADA Rabbit Korean Chain Necklace — view 4
-  - src: /images/products/rabbit-korean-chain-necklace/5.webp
+  - src: /images/products/rabbit-korean-chain-necklace/4.webp
     alt: MITHRAS CANADA Rabbit Korean Chain Necklace — view 5
-  - src: /images/products/rabbit-korean-chain-necklace/6.webp
+  - src: /images/products/rabbit-korean-chain-necklace/5.webp
     alt: MITHRAS CANADA Rabbit Korean Chain Necklace — view 6
+  - src: /images/products/rabbit-korean-chain-necklace/6.webp
+    alt: MITHRAS CANADA Rabbit Korean Chain Necklace — view 7
 specs:
   Chain Type: Korean Chain
   Gem Type: Crystal

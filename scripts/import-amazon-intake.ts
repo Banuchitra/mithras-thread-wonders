@@ -13,17 +13,17 @@ const IMG_OUT = 'public/images/products';
 
 // From the owner's invoices: which category each design belongs to.
 const CATEGORY_BY_SKU: Record<string, string> = {
-  'LEAF-001A': 'invisible-chains-and-anklets',
-  'CHAKRA-001A': 'invisible-chains-and-anklets',
-  'Lakshmi-001A': 'invisible-chains-and-anklets',
-  'SNOWFLAKES-001A': 'invisible-chains-and-anklets',
-  'JADAU LOTUS-001': 'invisible-chains-and-anklets',
-  'KERALA-001A': 'invisible-chains-and-anklets',
-  'FLWR-BTRFLY-001A': 'invisible-chains-and-anklets',
-  'PERUMAL-001A': 'korean-chains-and-anklets',
-  'RABBIT-001A': 'korean-chains-and-anklets',
-  'PEACOCK-001A': 'korean-chains-and-anklets',
-  'LOTUS-SET-001A': 'korean-chains-and-anklets',
+  'LEAF-001A': 'invisible-chains',
+  'CHAKRA-001A': 'invisible-chains',
+  'Lakshmi-001A': 'invisible-chains',
+  'SNOWFLAKES-001A': 'invisible-chains',
+  'JADAU LOTUS-001': 'invisible-chains',
+  'KERALA-001A': 'invisible-chains',
+  'FLWR-BTRFLY-001A': 'invisible-chains',
+  'PERUMAL-001A': 'korean-chains',
+  'RABBIT-001A': 'korean-chains',
+  'PEACOCK-001A': 'korean-chains',
+  'LOTUS-SET-001A': 'korean-chains',
 };
 
 // Amazon-internal or seller-identifying fields that customers don't need (and that name the Canada reseller).
@@ -98,7 +98,7 @@ async function main() {
     if (!product.categoryId) throw new Error(`${sku}: no category mapping`);
 
     // Content files hold the owner-friendly decimal price; the adapter converts to minor units (ADR-002).
-    const { price, ...rest } = product;
+    const { price, ...rest } = product as Product & { price: NonNullable<Product["price"]> };
     const file = { ...rest, price: (price.amount / 100).toFixed(2), currency: price.currency };
     writeFileSync(join(OUT, `${slug}.md`), matter.stringify('', file));
     console.log(`${sku.padEnd(18)} → ${slug} (${images.length} images)`);

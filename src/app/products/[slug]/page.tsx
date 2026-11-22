@@ -5,7 +5,7 @@ import { ActionButtons } from '@/components/ActionButtons';
 import { Gallery } from '@/components/Gallery';
 import { SectionTitle } from '@/components/Ornament';
 import { ProductCard } from '@/components/ProductCard';
-import { formatMoney } from '@/domain/money';
+import { displayPrice } from '@/domain/money';
 import { loadCatalog } from '@/lib/catalog';
 import { pageUrl } from '@/lib/paths';
 
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!p) return {};
   return {
     title: p.title,
-    description: p.subtitle ?? p.description.slice(0, 155),
+    description: p.subtitle ?? (p.description.slice(0, 155) || `${p.title} — handmade by Mithra's Thread Wonders`),
     openGraph: { title: p.title, images: p.images.slice(0, 1).map((i) => pageUrl(i.src)) },
   };
 }
@@ -41,13 +41,15 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
     image: product.images.map((i) => pageUrl(i.src)),
     description: product.description,
     brand: { '@type': 'Brand', name: settings.brandName },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: product.price.currency,
-      price: (product.price.amount / 100).toFixed(2),
-      availability: 'https://schema.org/InStock',
-      url: pageUrl(`/products/${product.slug}/`),
-    },
+    ...(product.price ? {
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: product.price.currency,
+        price: (product.price.amount / 100).toFixed(2),
+        availability: product.availability === 'ships-from-canada' ? 'https://schema.org/InStock' : 'https://schema.org/MadeToOrder',
+        url: pageUrl(`/products/${product.slug}/`),
+      },
+    } : {}),
   };
 
   return (
@@ -68,22 +70,28 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
           </p>
           <h1 className="mt-2 text-3xl font-semibold leading-snug text-brand-plum sm:text-4xl">{product.title}</h1>
           {product.subtitle && <p className="mt-2 text-muted">{product.subtitle}</p>}
-          <p className="mt-4 text-2xl font-bold text-brand-violet">{formatMoney(product.price)}</p>
+          <p className="mt-4 text-2xl font-bold text-brand-violet">{displayPrice(product)}</p>
           <p className="mt-1 text-xs text-muted">SKU {product.sku}</p>
           <div className="mt-6"><ActionButtons product={product} settings={settings} /></div>
 
-          <h2 className="mt-8 text-2xl font-semibold text-brand-plum">About this item</h2>
-          <ul className="mt-2 list-disc space-y-2 pl-5 text-[15px] leading-relaxed">
-            {product.bullets.map((b) => <li key={b}>{b}</li>)}
-          </ul>
+          {product.bullets.length > 0 && (
+            <>
+              <h2 className="mt-8 text-2xl font-semibold text-brand-plum">About this item</h2>
+              <ul className="mt-2 list-disc space-y-2 pl-5 text-[15px] leading-relaxed">
+                {product.bullets.map((b) => <li key={b}>{b}</li>)}
+              </ul>
+            </>
+          )}
         </div>
       </div>
 
       <section className="mt-12 grid gap-8 md:grid-cols-2 md:gap-12">
-        <div>
-          <h2 className="text-2xl font-semibold text-brand-plum">Product description</h2>
-          <p className="mt-2 leading-relaxed">{product.description}</p>
-        </div>
+        {product.description && (
+          <div>
+            <h2 className="text-2xl font-semibold text-brand-plum">Product description</h2>
+            <p className="mt-2 leading-relaxed">{product.description}</p>
+          </div>
+        )}
         {Object.keys(product.specs).length > 0 && (
           <div>
             <h2 className="text-2xl font-semibold text-brand-plum">Details</h2>

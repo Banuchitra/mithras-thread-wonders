@@ -36,7 +36,7 @@ description: >-
   or any meaningful milestone. Whether paired with a saree, salwar kameez, or
   lehenga, this temple jewellery set is sure to make you the centre of
   attention.
-categoryId: korean-chains-and-anklets
+categoryId: korean-chains
 availability: ships-from-canada
 customisable: true
 featured: true

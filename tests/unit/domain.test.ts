@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatMoney, moneyFromDecimal } from '@/domain/money';
+import { displayPrice, formatMoney, moneyFromDecimal } from '@/domain/money';
 import { buildCollectionTree, productsInCategory, visibleProducts } from '@/domain/catalog';
 import { amazonUrl, instagramDmUrl, whatsappUrl, productOrderMessage } from '@/domain/channels';
 import { formatQuoteMessage } from '@/domain/quote';
@@ -81,6 +81,12 @@ describe('channels', () => {
   });
   it('builds a WhatsApp link with digits only and an encoded message', () => {
     expect(whatsappUrl('+91 80156 18956', 'Hi & hello')).toBe('https://wa.me/918015618956?text=Hi%20%26%20hello');
+  });
+  it('writes "price on request" when a product has no price', () => {
+    const msg = productOrderMessage(product({ price: undefined }), 'https://example.com/p/');
+    expect(msg).toContain('price on request');
+    expect(displayPrice(product({ price: undefined }))).toBe('Price on request');
+    expect(displayPrice(product())).toBe('CA$35.00');
   });
   it('writes an order message with name, SKU, price and link', () => {
     const msg = productOrderMessage(product(), 'https://example.com/products/perumal-set/');

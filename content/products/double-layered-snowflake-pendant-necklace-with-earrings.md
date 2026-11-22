@@ -33,7 +33,7 @@ description: >-
   outfits. Whether it's a wedding, festival, or celebration, this charming set
   is sure to make you the centre of attention. A wonderful gift choice for loved
   ones of all ages.
-categoryId: invisible-chains-and-anklets
+categoryId: invisible-chains
 availability: ships-from-canada
 customisable: true
 featured: false

@@ -33,19 +33,21 @@ description: >-
   festivals, and cultural celebrations, this piece pairs beautifully with
   sarees, salwar suits, and traditional ethnic wear. A timeless addition to any
   jewellery collection.
-categoryId: invisible-chains-and-anklets
+categoryId: invisible-chains
 availability: ships-from-canada
 customisable: true
 featured: false
 images:
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/1.webp
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/studio.webp
     alt: Mithras Canada Kerala Model Pendant with Invisible Chain
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/2.webp
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/1.webp
     alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 2
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/3.webp
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/2.webp
     alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 3
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/4.webp
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/3.webp
     alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 4
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/4.webp
+    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 5
 specs:
   Chain Type: Box
   Gem Type: Crystal

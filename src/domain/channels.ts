@@ -23,7 +23,8 @@ export function whatsappUrl(phone: string, message: string): string {
 }
 
 export function productOrderMessage(product: Product, pageUrl: string): string {
-  return `Hi! I'd like to order "${product.title}" (SKU ${product.sku}) — ${formatMoney(product.price)}.\n${pageUrl}`;
+  const price = product.price ? formatMoney(product.price) : 'price on request';
+  return `Hi! I'd like to order "${product.title}" (SKU ${product.sku}) — ${price}.\n${pageUrl}`;
 }
 
 export function productQuoteMessage(product: Product, pageUrl: string): string {

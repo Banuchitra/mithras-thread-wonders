@@ -37,23 +37,26 @@ description: >-
   makes a thoughtful and cherished gift for loved ones. The lightweight design
   ensures all-day comfort without compromising on style, making it a must-have
   addition to any jewellery collection.
-categoryId: invisible-chains-and-anklets
+categoryId: invisible-chains
 availability: ships-from-canada
 customisable: true
 featured: false
 images:
-  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/1.webp
+  - src: >-
+      /images/products/flower-butterfly-invisible-chain-necklace-gold/studio.webp
     alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold
-  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/2.webp
+  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/1.webp
     alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold — view 2
-  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/3.webp
+  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/2.webp
     alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold — view 3
-  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/4.webp
+  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/3.webp
     alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold — view 4
-  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/5.webp
+  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/4.webp
     alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold — view 5
-  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/6.webp
+  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/5.webp
     alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold — view 6
+  - src: /images/products/flower-butterfly-invisible-chain-necklace-gold/6.webp
+    alt: MITHRAS CANADA Flower Butterfly Invisible Chain Necklace Gold — view 7
 specs:
   Primary Stone Gem Type: Pearl
   Chain Type: Invisible Chain
