@@ -53,6 +53,11 @@ describe('API', () => {
     return { status: res.status, body: (await res.json().catch(() => ({}))) as Record<string, any> };
   };
   const login = async (email: string, password: string) => (await call('/api/auth/login', { body: { email, password } })).body.token as string;
+  /** Signs in a seeded admin and replaces the temporary password, as the UI forces. */
+  const adminToken = async (email = 'mithras.canada@gmail.com') => {
+    const t = await login(email, 'admin');
+    return (await call('/api/auth/change-password', { token: t, body: { currentPassword: 'admin', newPassword: 'a-strong-new-pass' } })).body.token as string;
+  };
 
   beforeEach(async () => {
     store = new MemoryStore();
@@ -73,6 +78,12 @@ describe('API', () => {
     expect(locked.status).toBe(429);
   });
 
+  it('until the temporary password is changed, only /me and change-password work', async () => {
+    const t = await login('mithras.canada@gmail.com', 'admin');
+    expect((await call('/api/me', { token: t })).status).toBe(200);
+    expect((await call('/api/users', { token: t })).status).toBe(403);
+  });
+
   it('change password requires the current one, clears the flag and invalidates old sessions', async () => {
     const t = await login(SUPER, 'admin');
     expect((await call('/api/auth/change-password', { token: t, body: { currentPassword: 'bad', newPassword: 'a-much-better-one' } })).status).toBe(400);
@@ -89,14 +100,14 @@ describe('API', () => {
     expect(s.status).toBe(201);
     expect(s.body.user).toMatchObject({ role: 'customer' });
     expect((await call('/api/auth/signup', { body: { name: 'X', email: SUPER, password: 'takeover-attempt' } })).status).toBe(409);
-    const admin = await login('mithras.canada@gmail.com', 'admin');
+    const admin = await adminToken();
     await call('/api/settings', { method: 'PATCH', token: admin, body: { allowSignups: false } });
     expect((await call('/api/settings/public')).body.allowSignups).toBe(false);
     expect((await call('/api/auth/signup', { body: { name: 'B', email: 'b@example.com', password: 'another-pass' } })).status).toBe(403);
   });
 
   it('admin adds, changes, disables and removes people; customers cannot', async () => {
-    const admin = await login('mithras.canada@gmail.com', 'admin');
+    const admin = await adminToken();
     const add = await call('/api/users', { token: admin, body: { email: 'helper@example.com', name: 'Helper', role: 'editor', password: 'temp-pass-123' } });
     expect(add.status).toBe(201);
     const helper = await login('helper@example.com', 'temp-pass-123');
@@ -115,7 +126,7 @@ describe('API', () => {
     expect((await call('/api/auth/forgot', { body: { email: 'asha@example.com' } })).status).toBe(200);
     expect((await call('/api/auth/forgot', { body: { email: 'nobody@example.com' } })).status).toBe(200); // no account enumeration
 
-    const admin = await login('mithras.canada@gmail.com', 'admin');
+    const admin = await adminToken();
     const pending = await call('/api/reset-requests', { token: admin });
     expect(pending.body.requests.map((r: { email: string }) => r.email)).toEqual(['asha@example.com']);
 

@@ -31,3 +31,14 @@ export interface Store {
   getSettings(): Promise<Settings>;
   saveSettings(s: Settings): Promise<void>;
 }
+
+/** Port: where site content lives (local files via the content bridge today; GitHub commits in production). */
+export interface ContentStore {
+  list(type: 'products' | 'categories' | 'collections' | 'promotions'): Promise<Record<string, unknown>[]>;
+  put(type: 'products' | 'categories' | 'collections' | 'promotions', id: string, data: Record<string, unknown>): Promise<void>;
+  remove(type: 'products' | 'categories' | 'collections' | 'promotions', id: string): Promise<void>;
+  getSettings(): Promise<Record<string, unknown>>;
+  putSettings(data: Record<string, unknown>): Promise<void>;
+  /** path like "images/products/<slug>/<name>.webp" (relative to the site's public folder). */
+  putFile(path: string, base64: string): Promise<void>;
+}

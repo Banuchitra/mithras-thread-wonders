@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "import:intake": "tsx scripts/import-amazon-intake.ts"
+    "import:intake": "tsx scripts/import-amazon-intake.ts",
+    "content:bridge": "node scripts/content-bridge.mjs",
+    "dev:all": "node scripts/dev-all.mjs"
   },
   "dependencies": {
     "gray-matter": "4.0.3",

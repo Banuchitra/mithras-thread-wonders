@@ -2,7 +2,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { signSession, verifySession } from './adapters/sessions';
-import type { Store } from './domain/ports';
+import type { ContentStore, Store } from './domain/ports';
+import { CONTENT_TYPES, idOf, validateCategory, validateCollection, validateProduct, validatePromotion, validateSettings, ID_RE, type ContentType, type Doc } from './domain/content';
 import { MIN_PASSWORD_LENGTH, hashPassword, randomToken, sha256, verifyPassword } from './domain/passwords';
 import {
   AccessError, ROLES, assertAdmin, assertCanChange, effectiveAccess, isValidEmail, normaliseEmail, publicUser,
@@ -11,6 +12,8 @@ import {
 
 export interface Deps {
   store: Store;
+  /** Site content (products, categories…). Optional so account-only tests can omit it. */
+  content?: ContentStore;
   sessionSecret: string;
   superAdminEmail: string;
   allowedOrigins: string[];
@@ -130,6 +133,10 @@ export function createApp(deps: Deps) {
     if (!user) throw new AccessError(401, 'Your session has expired — please sign in again');
     const access = effectiveAccess(user, deps.superAdminEmail); // a disabled account gets a clear 403 first
     if (user.tokenVersion !== s.tokenVersion) throw new AccessError(401, 'Your session has expired — please sign in again');
+    const path = new URL(c.req.url).pathname;
+    if (user.mustChangePassword && !['/api/me', '/api/auth/change-password'].includes(path)) {
+      throw new AccessError(403, 'Please choose a new password first');
+    }
     c.set('actor', { ...access, email: user.email });
     c.set('user', user);
     await next();
@@ -213,6 +220,75 @@ export function createApp(deps: Deps) {
   });
 
   authed.get('/roles', (c) => c.json({ roles: ROLES }));
+
+  // ---------- site content (editors + admins; settings admins only) ----------
+  const content = () => { if (!deps.content) throw new AccessError(400, 'Content editing is not configured'); return deps.content; };
+  const assertStaff = (a: Actor) => { if (a.role !== 'admin' && a.role !== 'editor') throw new AccessError(403, 'Editors and admins only'); };
+  const contentType = (t: string): ContentType => {
+    if (!(CONTENT_TYPES as readonly string[]).includes(t)) throw new AccessError(404, 'Unknown content type');
+    return t as ContentType;
+  };
+  const ids = async (t: ContentType) => (await content().list(t)).map((d) => idOf(t, d));
+
+  authed.get('/content/settings', async (c) => { assertStaff(c.get('actor')); return c.json(await content().getSettings()); });
+  authed.put('/content/settings', async (c) => {
+    assertAdmin(c.get('actor'));
+    const data = validateSettings(await c.req.json<Doc>());
+    await content().putSettings(data);
+    return c.json(data);
+  });
+
+  authed.get('/content/:type', async (c) => {
+    assertStaff(c.get('actor'));
+    return c.json({ items: await content().list(contentType(c.req.param('type'))) });
+  });
+
+  authed.put('/content/:type/:id', async (c) => {
+    assertStaff(c.get('actor'));
+    const type = contentType(c.req.param('type'));
+    const body = await c.req.json<Doc>();
+    const data = type === 'products' ? validateProduct(body, await ids('categories'))
+      : type === 'categories' ? validateCategory(body, await ids('collections'))
+      : type === 'collections' ? validateCollection(body)
+      : validatePromotion(body);
+    if (idOf(type, data) !== c.req.param('id')) throw new AccessError(400, 'The ID/web address cannot be changed after creating');
+    if (type === 'products') {
+      const clash = (await content().list('products')).find((p) => p.sku === data.sku && p.slug !== data.slug);
+      if (clash) throw new AccessError(409, `SKU ${String(data.sku)} is already used by another product`);
+    }
+    await content().put(type, idOf(type, data), data);
+    return c.json(data);
+  });
+
+  authed.delete('/content/:type/:id', async (c) => {
+    assertStaff(c.get('actor'));
+    const type = contentType(c.req.param('type'));
+    const id = c.req.param('id');
+    if (type === 'categories' && (await content().list('products')).some((p) => p.categoryId === id)) {
+      throw new AccessError(409, 'Move or delete the products in this category first');
+    }
+    if (type === 'collections' && (await content().list('categories')).some((cat) => cat.collectionId === id)) {
+      throw new AccessError(409, 'Move or delete the categories in this collection first');
+    }
+    await content().remove(type, id);
+    return c.json({ removed: id });
+  });
+
+  // Photos arrive already resized in the browser; the server only accepts images and chooses the path.
+  authed.post('/uploads', async (c) => {
+    assertStaff(c.get('actor'));
+    const body = await c.req.json<{ folder?: string; slug?: string; dataUrl?: string }>();
+    const folder = body.folder ?? '';
+    if (!['products', 'promotions', 'collections'].includes(folder) || !ID_RE.test(body.slug ?? '')) throw new AccessError(400, 'Invalid upload location');
+    const m = /^data:image\/(webp|jpeg|png);base64,([A-Za-z0-9+/=]+)$/.exec(body.dataUrl ?? '');
+    if (!m) throw new AccessError(400, 'Only WebP, JPEG or PNG images can be uploaded');
+    if (m[2].length > 2_000_000) throw new AccessError(400, 'Photo is too large (max about 1.5 MB after resizing)');
+    const ext = m[1] === 'jpeg' ? 'jpg' : m[1];
+    const name = `${Date.now().toString(36)}${randomToken(4).toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+    const path = `images/${folder}/${body.slug}/${name}.${ext}`;
+    await content().putFile(path, m[2]);
+    return c.json({ src: `/${path}` }, 201);
+  });
 
   app.route('/api', authed);
   return app;
