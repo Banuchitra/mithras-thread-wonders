@@ -45,7 +45,7 @@ export default function Home() {
                       {cover ? (
                         <ArchImage src={cover.src} alt="" zoom />
                       ) : (
-                        <div className="heritage flex h-full items-center justify-center"><Monogram variant="light" size={72} /></div>
+                        <div className="heritage flex h-full items-center justify-center"><Monogram variant="light" size={96} /></div>
                       )}
                     </div>
                   </div>
