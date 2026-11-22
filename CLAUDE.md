@@ -40,3 +40,7 @@ v2: in-browser chatbot (WebLLM), lazy-loaded.
 - `aidlc/` — intent, requirements, design, unit plans, ADRs.
 - `content/products/` — product markdown (edited via Pages CMS).
 - `src/domain` (pure TS) · `src/adapters` (content loading) · `src/app` (Next.js routes).
+
+## Local backend (api/)
+- In-house accounts API (Cloudflare Worker + local D1). First time: `cd api && npm run setup:local`; run: `cd api && npm run dev` (port 8787). Tests: `cd api && npm test`.
+- Super admin = `SUPER_ADMIN_EMAIL` in `api/wrangler.toml`; never make it editable data. `SESSION_SECRET` lives in `api/.dev.vars` (gitignored).

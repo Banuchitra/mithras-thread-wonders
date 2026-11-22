@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { CollectionNode } from '@/domain/catalog';
 import { asset } from '@/lib/paths';
+import { AccountMenu } from './AccountMenu';
 
 // Standard shop header: logo left; Shop menu built from the owner's collections/categories (grows automatically
 // as she adds them); account and cart icons top right. Desktop: hover/focus mega menu. Phone: menu drawer.
@@ -49,7 +50,7 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
         </nav>
 
         <div className="ml-auto flex items-center gap-1">
-          <IconLink href="/account/" label="Account / sign in"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v1.5h16V19c0-2.8-3.6-5-8-5Z" /></IconLink>
+          <AccountMenu />
           <IconLink href="/cart/" label="Cart"><path d="M2.5 3.5h2.3l2.6 11a1.6 1.6 0 0 0 1.6 1.2h8.4a1.6 1.6 0 0 0 1.5-1.1l2-6.6H6" /><circle cx="9.6" cy="19.6" r="1.5" /><circle cx="17.2" cy="19.6" r="1.5" /></IconLink>
         </div>
       </div>

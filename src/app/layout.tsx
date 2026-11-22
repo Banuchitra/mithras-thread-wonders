@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { ChatWidget } from '@/components/ChatWidget';
+import { AuthProvider } from '@/components/AuthProvider';
 import { loadCatalog } from '@/lib/catalog';
 import { SITE_URL, asset } from '@/lib/paths';
 
@@ -37,11 +38,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={fonts.className}>
       <body className="font-sans antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">Skip to content</a>
-        <AnnouncementBar text={settings.announcement} />
-        <Header brandName={settings.brandName} tagline={settings.tagline} tree={tree} />
-        <main id="main" className="pb-20 has-[.flush-footer]:pb-0">{children}</main>
-        <Footer settings={settings} />
-        <ChatWidget catalogue={assistantCatalogue} whatsapp={settings.whatsapp} />
+        <AuthProvider>
+          <AnnouncementBar text={settings.announcement} />
+          <Header brandName={settings.brandName} tagline={settings.tagline} tree={tree} />
+          <main id="main" className="pb-20 has-[.flush-footer]:pb-0">{children}</main>
+          <Footer settings={settings} />
+          <ChatWidget catalogue={assistantCatalogue} whatsapp={settings.whatsapp} />
+        </AuthProvider>
       </body>
     </html>
   );

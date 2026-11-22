@@ -1,0 +1,28 @@
+{
+  "name": "mithras-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply mithras --local",
+    "db:migrate:remote": "wrangler d1 migrations apply mithras --remote",
+    "seed:local": "node scripts/seed-local.mjs",
+    "setup:local": "npm run db:migrate:local && npm run seed:local"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.4",
+    "hono": "4.13.20",
+    "jose": "6.2.18"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261122.2",
+    "drizzle-kit": "0.31.11",
+    "typescript": "5.9.3",
+    "vitest": "5.1.1",
+    "wrangler": "4.166.0"
+  }
+}
