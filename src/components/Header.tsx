@@ -9,18 +9,18 @@ import { SideMenu } from './SideMenu';
 export function Header({ brandName, tagline, tree }: { brandName: string; tagline: string; tree: CollectionNode[] }) {
   return (
     <header className="sticky top-0 z-30 bg-white/90 backdrop-blur">
-      <div className="relative mx-auto flex max-w-[88rem] items-center gap-3 px-4 py-2.5">
+      <div className="relative mx-auto flex max-w-[88rem] items-center gap-3 px-4 py-3">
         <SideMenu tree={tree} brandName={brandName} />
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <img src={asset('/images/logo.webp')} alt="" width={52} height={52}
-            className="h-11 w-11 shrink-0 rounded-full object-cover ring-1 ring-brand-gold ring-offset-2 sm:h-13 sm:w-13" />
+            className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-brand-gold ring-offset-2 sm:h-16 sm:w-16" />
           <span className="min-w-0">
-            <span className="block truncate font-heading text-lg font-semibold leading-tight text-brand-plum sm:text-2xl">{brandName}</span>
-            <span className="eyebrow hidden text-[0.65rem] text-brand-gold-text sm:block">{tagline}</span>
+            <span className="block truncate font-heading text-xl font-semibold leading-tight text-brand-plum sm:text-[1.9rem]">{brandName}</span>
+            <span className="eyebrow hidden text-xs text-brand-gold-text sm:block">{tagline}</span>
           </span>
         </Link>
 
-        <nav aria-label="Main" className="eyebrow ml-8 hidden items-center gap-7 text-xs text-ink lg:flex">
+        <nav aria-label="Main" className="eyebrow ml-10 hidden items-center gap-9 text-[0.95rem] text-ink lg:flex">
           <div className="group/menu">
             <Link href="/shop/" className="flex items-center gap-1 py-4 hover:text-brand-violet" aria-haspopup="true">
               Shop <span aria-hidden="true">▾</span>
@@ -63,8 +63,8 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
 function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
   return (
     <Link href={href} aria-label={label} title={label}
-      className="flex h-11 w-11 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet">
-      <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
+      className="flex h-12 w-12 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet">
+      <svg viewBox="0 0 24 24" className="h-7 w-7 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
     </Link>
   );
 }
