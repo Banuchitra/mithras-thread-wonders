@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: p.title,
     description: p.subtitle ?? p.description.slice(0, 155),
-    openGraph: { title: p.title, images: p.images.slice(0, 1).map((i) => i.src) },
+    openGraph: { title: p.title, images: p.images.slice(0, 1).map((i) => pageUrl(i.src)) },
   };
 }
 

@@ -4,7 +4,7 @@ import { FONT_PAIRINGS } from './fonts';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { loadCatalog } from '@/lib/catalog';
-import { SITE_URL } from '@/lib/paths';
+import { SITE_URL, asset } from '@/lib/paths';
 
 const { settings } = loadCatalog();
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${settings.brandName} — ${settings.tagline}`, template: `%s · ${settings.brandName}` },
   description: 'Handmade jewellery and accessories from India — chains, bangles, kundan accessories and flower clips. Ships within Canada; custom wholesale orders worldwide.',
-  icons: { icon: '/images/logo.webp' },
+  icons: { icon: asset('/images/logo.webp') },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
