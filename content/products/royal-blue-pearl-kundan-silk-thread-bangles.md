@@ -3,8 +3,11 @@ sku: BANGLE-004A
 slug: royal-blue-pearl-kundan-silk-thread-bangles
 title: Royal Blue Pearl Kundan Silk Thread Bangles
 bullets: []
-description: ''
-price: ''
+description: >-
+  A pair of royal blue silk thread bangles with pearl-look kundan leaves and
+  teal stone squares. Handmade in India — every colour and size can be
+  customised.
+price: '24.99'
 currency: CAD
 categoryId: silk-thread-bangles
 availability: made-to-order

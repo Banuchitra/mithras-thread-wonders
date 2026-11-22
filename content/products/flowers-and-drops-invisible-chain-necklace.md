@@ -3,8 +3,11 @@ sku: DROPS-001A
 slug: flowers-and-drops-invisible-chain-necklace
 title: Flowers & Drops Invisible Chain Necklace
 bullets: []
-description: ''
-price: ''
+description: >-
+  An invisible chain necklace with crystal drops and gold beads on a fine
+  gold-tone wire — subtle sparkle for every day. Handmade in India — every
+  colour and size can be customised.
+price: '44.99'
 currency: CAD
 categoryId: invisible-chains
 availability: ships-from-canada

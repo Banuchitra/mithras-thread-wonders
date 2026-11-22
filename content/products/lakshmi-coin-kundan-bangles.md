@@ -3,8 +3,11 @@ sku: BANGLE-010A
 slug: lakshmi-coin-kundan-bangles
 title: Lakshmi Coin Kundan Bangles
 bullets: []
-description: ''
-price: ''
+description: >-
+  Temple-style bangles with stacked gold Lakshmi coins and ruby and emerald
+  lotus motifs — a festive favourite. Handmade in India — every colour and size
+  can be customised.
+price: '29.99'
 currency: CAD
 categoryId: silk-thread-bangles
 availability: made-to-order

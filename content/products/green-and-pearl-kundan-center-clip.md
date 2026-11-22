@@ -3,8 +3,10 @@ sku: CLIP-001A
 slug: green-and-pearl-kundan-center-clip
 title: Green & Pearl Kundan Center Clip
 bullets: []
-description: ''
-price: ''
+description: >-
+  A kundan center clip with pearl-look stones and emerald green accents, for
+  braids and buns. Handmade in India — every colour and size can be customised.
+price: '12.99'
 currency: CAD
 categoryId: center-clips
 availability: made-to-order
