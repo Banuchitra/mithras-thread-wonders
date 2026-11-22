@@ -4,8 +4,9 @@
 import { execFileSync } from 'node:child_process';
 import { webcrypto as crypto } from 'node:crypto';
 
-// [email, name, temporary password]
-const ADMINS = [['mithras.canada@gmail.com', 'Mithra', 'admin1234'], ['banu_c@yahoo.com', 'Banu', 'admin']];
+// [email, name, password, must change at first sign-in?]
+// The default admin keeps a fixed password for now (Banu's request); change it before going live.
+const ADMINS = [['mithras.canada@gmail.com', 'Mithra', 'admin1234', 0], ['banu_c@yahoo.com', 'Banu', 'admin', 1]];
 const b64url = (b) => Buffer.from(b).toString('base64url');
 async function hash(pw, iterations = 100000) {
   const salt = crypto.getRandomValues(new Uint8Array(16));
@@ -14,7 +15,7 @@ async function hash(pw, iterations = 100000) {
   return `pbkdf2-sha256$${iterations}$${b64url(salt)}$${b64url(new Uint8Array(bits))}`;
 }
 const now = new Date().toISOString();
-const rows = await Promise.all(ADMINS.map(async ([email, name, password]) =>
-  `INSERT INTO users (email, display_name, role, password_hash, must_change_password, created_at) VALUES ('${email}', '${name}', 'admin', '${await hash(password)}', 1, '${now}') ON CONFLICT(email) DO NOTHING;`));
+const rows = await Promise.all(ADMINS.map(async ([email, name, password, mustChange]) =>
+  `INSERT INTO users (email, display_name, role, password_hash, must_change_password, created_at) VALUES ('${email}', '${name}', 'admin', '${await hash(password)}', ${mustChange}, '${now}') ON CONFLICT(email) DO NOTHING;`));
 execFileSync('npx', ['wrangler', 'd1', 'execute', 'mithras', '--local', '--command', rows.join(' ')], { stdio: 'inherit' });
-console.log('Seeded:', ADMINS.map(([e, , pw]) => `${e} / ${pw}`).join(', '), '— temporary (must change at first sign-in)');
+console.log('Seeded:', ADMINS.map(([e, , pw, mc]) => `${e} / ${pw}${mc ? ' (must change at first sign-in)' : ''}`).join(', '));
