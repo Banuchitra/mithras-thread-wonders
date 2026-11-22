@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIDLC · Learning Hub</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2 9h20M9 3l3 18M15 3l-3 18" stroke="currentColor" stroke-width="1" opacity=".5"/></svg>
+      Learning Hub
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="aidlc.html" aria-current="page">AIDLC</a>
+      <a href="agentic-workflow.html">Agentic workflow</a>
+    </nav>
+    <button class="theme-btn" data-theme-toggle type="button">☾ Dark</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="pill now">Applies to every step</span>
+    <h1>AIDLC: <span class="shimmer">AI-Driven Development Lifecycle</span></h1>
+    <p class="sub">AWS's method for building software with AI as a central collaborator. The AI proposes and asks questions, the human decides and approves, and every decision is written down.</p>
+    <ul class="toc">
+      <li><a href="#concept">Concept</a></li>
+      <li><a href="#phases">Three phases</a></li>
+      <li><a href="#here">In this repo</a></li>
+      <li><a href="#try">Try it</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+
+  <section id="concept" class="reveal">
+    <h2>The core idea</h2>
+    <p>In a traditional SDLC, people do the work and tools help. In AIDLC, <strong>the AI does most of the planning and building, and humans steer and approve</strong>. The pattern repeats at every level:</p>
+    <figure class="diagram">
+      <svg viewBox="0 0 760 170" role="img" aria-label="AI proposes a plan, asks clarifying questions, human answers and approves, AI executes, loop repeats">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker>
+        </defs>
+        <g font-size="14" text-anchor="middle">
+          <rect x="10" y="50" width="150" height="64" rx="12" fill="var(--surface-2)" stroke="var(--accent)"/>
+          <text x="85" y="78">🤖 AI drafts</text><text x="85" y="98" font-size="12" class="muted-text">a plan</text>
+          <rect x="205" y="50" width="150" height="64" rx="12" fill="var(--surface-2)" stroke="var(--accent-2)"/>
+          <text x="280" y="78">🤖 AI asks</text><text x="280" y="98" font-size="12" class="muted-text">clarifying questions</text>
+          <rect x="400" y="50" width="150" height="64" rx="12" fill="var(--surface-2)" stroke="var(--accent-3)"/>
+          <text x="475" y="78">🧑 You decide</text><text x="475" y="98" font-size="12" class="muted-text">answer + approve</text>
+          <rect x="595" y="50" width="150" height="64" rx="12" fill="var(--surface-2)" stroke="var(--accent)"/>
+          <text x="670" y="78">🤖 AI executes</text><text x="670" y="98" font-size="12" class="muted-text">writes artifacts/code</text>
+        </g>
+        <g stroke="var(--accent)" stroke-width="2.5" fill="none" marker-end="url(#ar)">
+          <path class="flow" d="M160 82H200"/><path class="flow" d="M355 82H395"/><path class="flow" d="M550 82H590"/>
+          <path class="flow" d="M670 114V150H85V118"/>
+        </g>
+        <text x="380" y="166" text-anchor="middle" font-size="12" class="muted-text">repeat for each unit of work</text>
+      </svg>
+      <figcaption>The loop you've already been doing: in plan mode, Claude asked you questions before writing anything.</figcaption>
+    </figure>
+    <div class="grid" style="margin-top:16px">
+      <div class="card"><h3>Bolts, not sprints</h3><p>Work comes in short cycles of hours or days instead of 2-week sprints, because AI makes building fast. Here, each unit (U1, U2…) is a bolt.</p></div>
+      <div class="card"><h3>Mob elaboration</h3><p>The AI drafts requirements and stories, and the people involved refine them together. For us, that's you and Claude in Inception.</p></div>
+      <div class="card"><h3>Artifacts = memory</h3><p>Every decision lives in a file (<code>aidlc/*.md</code>). That gives the AI context in each new session and gives you an audit trail.</p></div>
+      <div class="card"><h3>Human gates</h3><p>Nothing moves to the next phase without your explicit approval.</p></div>
+    </div>
+  </section>
+
+  <section id="phases" class="reveal">
+    <h2>The three phases</h2>
+    <figure class="diagram">
+      <svg viewBox="0 0 760 230" role="img" aria-label="Inception to Construction to Operations with gates between them">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker>
+        </defs>
+        <g text-anchor="middle">
+          <circle cx="120" cy="100" r="78" fill="color-mix(in srgb, var(--accent) 15%, transparent)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="120" y="92" font-size="18" font-weight="700">Inception</text>
+          <text x="120" y="114" font-size="12" class="muted-text">WHAT &amp; WHY</text>
+          <circle cx="380" cy="100" r="78" fill="color-mix(in srgb, var(--accent-2) 15%, transparent)" stroke="var(--accent-2)" stroke-width="2"/>
+          <text x="380" y="92" font-size="18" font-weight="700">Construction</text>
+          <text x="380" y="114" font-size="12" class="muted-text">HOW</text>
+          <circle cx="640" cy="100" r="78" fill="color-mix(in srgb, var(--accent-3) 15%, transparent)" stroke="var(--accent-3)" stroke-width="2"/>
+          <text x="640" y="92" font-size="18" font-weight="700">Operations</text>
+          <text x="640" y="114" font-size="12" class="muted-text">RUN IT</text>
+          <g font-size="20"><text x="250" y="80">🚦</text><text x="510" y="80">🚦</text></g>
+          <g font-size="11" class="muted-text"><text x="250" y="130">you approve</text><text x="510" y="130">tests + review</text></g>
+        </g>
+        <g stroke="var(--muted)" stroke-width="2" fill="none" marker-end="url(#ar2)">
+          <path class="flow" d="M200 100H300"/><path class="flow" d="M460 100H560"/>
+          <path class="flow" d="M640 180C640 225 120 225 120 182" opacity=".6"/>
+        </g>
+        <text x="380" y="222" text-anchor="middle" font-size="12" class="muted-text">feedback from running the site feeds the next iteration</text>
+      </svg>
+    </figure>
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <tr><th>Phase</th><th>Key question</th><th>Artifacts (lightweight version)</th><th>Gate to leave</th></tr>
+        <tr><td><strong>Inception</strong></td><td>What are we building, for whom, and why?</td><td><code>00-intent.md</code>, <code>01-requirements.md</code> (user stories + acceptance criteria), brand &amp; design decisions, list of units</td><td>You approve the docs</td></tr>
+        <tr><td><strong>Construction</strong></td><td>How do we build each unit well?</td><td><code>02-design.md</code>, <code>units/Ux.md</code> plan per unit, ADRs, tests, code</td><td>Tests green, review passes, PR merged</td></tr>
+        <tr><td><strong>Operations</strong></td><td>How do we deploy, watch and hand over?</td><td>Deploy workflow, Lighthouse reports, cousin's how-to guide</td><td>Site live and your cousin can edit it</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="here" class="reveal">
+    <h2>How it's used in this repo</h2>
+<pre><code>aidlc/
+├── 00-intent.md          ← Inception: why, who, success criteria
+├── 01-requirements.md    ← Inception: stories + acceptance criteria
+├── 02-design.md          ← Construction: architecture, domain model
+├── units/U1.md … U6.md   ← one approved plan per bolt
+└── decisions/ADR-*.md    ← why we chose X over Y</code></pre>
+    <div class="callout tip"><strong>Lightweight on purpose.</strong> Full AIDLC produces many more documents. Here we keep the same phases and gates with fewer files, which fits a solo project.</div>
+  </section>
+
+  <section id="try" class="reveal">
+    <h2>Try it</h2>
+    <p>Step 1 starts with a custom command that runs Inception as a conversation:</p>
+<pre><code>cd ~/src/mithras-thread-wonders
+claude
+&gt; /aidlc-inception</code></pre>
+    <p>Claude will interview you (brand, audience, colours, pages, contact method), then write <code>00-intent.md</code> and <code>01-requirements.md</code> for you to approve.</p>
+  </section>
+
+  <section id="links" class="reveal">
+    <h2>Learn more</h2>
+    <ul class="links">
+      <li><a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/" target="_blank" rel="noopener">📰 AWS blog: AI-Driven Development Life Cycle <small>the original description</small></a></li>
+      <li><a href="https://github.com/awslabs/aidlc-workflows" target="_blank" rel="noopener">💻 awslabs/aidlc-workflows <small>official workflow rules for AI agents</small></a></li>
+      <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">🧠 Anthropic: Building effective agents <small>why plan → act → check works</small></a></li>
+    </ul>
+  </section>
+
+  <section id="quiz" class="reveal">
+    <h2>Quiz yourself</h2>
+    <details class="quiz"><summary>Why does AIDLC write everything to files instead of keeping it in chat?</summary><p>AI sessions forget. Files give each new session the same context, give humans something to review and approve, and leave a history of why decisions were made.</p></details>
+    <details class="quiz"><summary>What's a "bolt", and what is one in this project?</summary><p>A short build cycle (hours to days) that replaces a sprint. Each unit, U1 to U6, is one bolt: plan → approve → build → review → merge.</p></details>
+    <details class="quiz"><summary>Who owns the decision on brand colours, the AI or you?</summary><p>You. The AI can suggest palettes and check contrast, but decisions are the human's. That's what the Inception gate is for.</p></details>
+  </section>
+</main>
+
+<footer><div class="wrap"><a href="../index.html">← Back to hub</a> · Next: <a href="agentic-workflow.html">Agentic workflow →</a></div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>

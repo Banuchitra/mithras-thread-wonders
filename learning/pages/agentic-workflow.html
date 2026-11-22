@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Workflow · Learning Hub</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2 9h20M9 3l3 18M15 3l-3 18" stroke="currentColor" stroke-width="1" opacity=".5"/></svg>
+      Learning Hub
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="aidlc.html">AIDLC</a>
+      <a href="agentic-workflow.html" aria-current="page">Agentic workflow</a>
+    </nav>
+    <button class="theme-btn" data-theme-toggle type="button">☾ Dark</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="pill now">Applies to every unit</span>
+    <h1>The <span class="shimmer">agentic workflow</span> with Claude Code</h1>
+    <p class="sub">How the ideas from <em>Claude Code 101</em> and <em>Claude Code in Action</em> are wired into this project, so the agent works the same way every session.</p>
+    <ul class="toc">
+      <li><a href="#loop">The loop</a></li>
+      <li><a href="#features">Feature explorer</a></li>
+      <li><a href="#here">In this repo</a></li>
+      <li><a href="#try">Try it</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </div>
+
+  <section id="loop" class="reveal">
+    <h2>The per-unit loop</h2>
+    <p>Every unit (U1–U6) goes round this loop once. Watch the dot: one trip round is one PR.</p>
+    <figure class="diagram">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Loop: new-unit plan, approve, tests first, implement, hooks lint, subagent review, PR and merge, learn-note">
+        <path id="loopPath" d="M380 40 C600 40 720 90 720 150 C720 210 600 260 380 260 C160 260 40 210 40 150 C40 90 160 40 380 40Z" fill="none" stroke="var(--line)" stroke-width="3"/>
+        <circle r="9" fill="var(--accent)">
+          <animateMotion dur="12s" repeatCount="indefinite"><mpath href="#loopPath"/></animateMotion>
+        </circle>
+        <g font-size="13" text-anchor="middle">
+          <g><rect x="320" y="20" width="120" height="40" rx="20" fill="var(--surface)" stroke="var(--accent)"/><text x="380" y="45">1 · /new-unit</text></g>
+          <g><rect x="560" y="44" width="130" height="40" rx="20" fill="var(--surface)" stroke="var(--accent)"/><text x="625" y="69">2 · You approve</text></g>
+          <g><rect x="655" y="130" width="100" height="40" rx="20" fill="var(--surface)" stroke="var(--accent-3)"/><text x="705" y="155">3 · Tests first</text></g>
+          <g><rect x="560" y="216" width="130" height="40" rx="20" fill="var(--surface)" stroke="var(--accent-3)"/><text x="625" y="241">4 · Implement</text></g>
+          <g><rect x="315" y="240" width="130" height="40" rx="20" fill="var(--surface)" stroke="var(--accent-2)"/><text x="380" y="265">5 · Hooks lint</text></g>
+          <g><rect x="70" y="216" width="140" height="40" rx="20" fill="var(--surface)" stroke="var(--accent-2)"/><text x="140" y="241">6 · Subagent review</text></g>
+          <g><rect x="5" y="130" width="100" height="40" rx="20" fill="var(--surface)" stroke="var(--accent)"/><text x="55" y="155">7 · PR + merge</text></g>
+          <g><rect x="70" y="44" width="140" height="40" rx="20" fill="var(--surface)" stroke="var(--accent)"/><text x="140" y="69">8 · /learn-note</text></g>
+          <text x="380" y="145" font-size="20" font-weight="700">One unit = one bolt</text>
+          <text x="380" y="168" class="muted-text">plan → build → verify → record</text>
+        </g>
+      </svg>
+      <figcaption>Steps 1, 2 and 8 are you + Claude talking. Steps 3–6 are mostly Claude, checked automatically. Step 7 is you merging.</figcaption>
+    </figure>
+  </section>
+
+  <section id="features" class="reveal">
+    <h2>Feature explorer</h2>
+    <p class="sub">The five Claude Code building blocks this project uses. Click each one.</p>
+    <div data-tabs>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-controls="p-claudemd" type="button">CLAUDE.md + memory</button>
+        <button role="tab" aria-controls="p-plan" type="button">Plan mode</button>
+        <button role="tab" aria-controls="p-cmds" type="button">Commands / skills</button>
+        <button role="tab" aria-controls="p-hooks" type="button">Hooks</button>
+        <button role="tab" aria-controls="p-agents" type="button">Subagents</button>
+      </div>
+      <div id="p-claudemd" class="card tab-panel" role="tabpanel">
+        <h3>CLAUDE.md: the project's standing instructions</h3>
+        <p>Claude loads it automatically at the start of every session, so it's where the rules go: <em>$0 only, no AWS yet, INR prices, tests first, follow AIDLC gates</em>. Memory (<code>~/.claude/…/memory</code>) stores facts about you across projects.</p>
+        <p><strong>Rule of thumb:</strong> if you've corrected Claude twice about the same thing, add it to CLAUDE.md.</p>
+      </div>
+      <div id="p-plan" class="card tab-panel" role="tabpanel" hidden>
+        <h3>Plan mode: think before touching files</h3>
+        <p>Press <code>Shift+Tab</code> to cycle into plan mode. Claude can read and ask questions but can't edit. It writes a plan, and you approve or change it. That's how this project started.</p>
+        <p>Use it at the start of every unit. Skip it only for tiny edits.</p>
+      </div>
+      <div id="p-cmds" class="card tab-panel" role="tabpanel" hidden>
+        <h3>Custom commands and skills: reusable prompts</h3>
+        <p>Markdown files in <code>.claude/commands/</code> become slash commands. This repo has <code>/aidlc-inception</code>, <code>/new-unit</code>, <code>/unit-review</code> and <code>/learn-note</code>, so each AIDLC step is one consistent command instead of a prompt you retype.</p>
+        <p>Skills are the bigger version: a folder with instructions plus scripts, which Claude loads when relevant.</p>
+      </div>
+      <div id="p-hooks" class="card tab-panel" role="tabpanel" hidden>
+        <h3>Hooks: guarantees, not suggestions</h3>
+        <p>A hook is a shell command the <em>harness</em> runs on an event, e.g. <code>PostToolUse</code> after every file edit. CLAUDE.md asks Claude to lint; a hook <em>makes</em> it happen, every time.</p>
+        <p>Added in U1, once there's a linter: the hook runs ESLint + type-check on edited files and feeds errors back to Claude.</p>
+      </div>
+      <div id="p-agents" class="card tab-panel" role="tabpanel" hidden>
+        <h3>Subagents: focused helpers with their own context</h3>
+        <p>Defined in <code>.claude/agents/*.md</code>. Each one has its own instructions and starts with a clean context, so a reviewer isn't biased by the reasoning that wrote the code.</p>
+        <p>This repo has <code>reviewer</code> (correctness + conventions), <code>a11y-auditor</code> (accessibility) and <code>content-checker</code> (product data + INR prices).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="here" class="reveal">
+    <h2>How it's used in this repo</h2>
+<pre><code>CLAUDE.md                       ← standing rules
+.claude/
+├── settings.json               ← hooks (added in U1)
+├── commands/
+│   ├── aidlc-inception.md      ← /aidlc-inception
+│   ├── new-unit.md             ← /new-unit U3
+│   ├── unit-review.md          ← /unit-review
+│   └── learn-note.md           ← /learn-note
+└── agents/
+    ├── reviewer.md
+    ├── a11y-auditor.md
+    └── content-checker.md</code></pre>
+    <div class="callout warn"><strong>Context is the scarce resource.</strong> Long sessions get summarised. Start a fresh session per unit, and let the <code>aidlc/</code> files carry the context forward.</div>
+  </section>
+
+  <section id="try" class="reveal">
+    <h2>Try it</h2>
+<pre><code>cd ~/src/mithras-thread-wonders
+claude
+&gt; /memory            # see which CLAUDE.md files are loaded
+&gt; /agents            # list the subagents
+&gt; /new-unit U1       # start the first construction unit in plan mode</code></pre>
+  </section>
+
+  <section id="links" class="reveal">
+    <h2>Learn more</h2>
+    <ul class="links">
+      <li><a href="https://academy.claude.com/courses/claude-code-101" target="_blank" rel="noopener">🎓 Claude Code 101 <small>Anthropic Academy</small></a></li>
+      <li><a href="https://academy.claude.com/courses/claude-code-in-action" target="_blank" rel="noopener">🎓 Claude Code in Action <small>Anthropic Academy</small></a></li>
+      <li><a href="https://www.anthropic.com/engineering/claude-code-best-practices" target="_blank" rel="noopener">📰 Claude Code best practices <small>Anthropic engineering</small></a></li>
+      <li><a href="https://code.claude.com/docs/en/common-workflows" target="_blank" rel="noopener">📘 Common workflows (plan mode etc.) <small>docs</small></a></li>
+      <li><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">📘 Memory &amp; CLAUDE.md <small>docs</small></a></li>
+      <li><a href="https://code.claude.com/docs/en/slash-commands" target="_blank" rel="noopener">📘 Slash commands <small>docs</small></a></li>
+      <li><a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">📘 Skills <small>docs</small></a></li>
+      <li><a href="https://code.claude.com/docs/en/hooks-guide" target="_blank" rel="noopener">📘 Hooks guide <small>docs</small></a></li>
+      <li><a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">📘 Subagents <small>docs</small></a></li>
+    </ul>
+  </section>
+
+  <section id="quiz" class="reveal">
+    <h2>Quiz yourself</h2>
+    <details class="quiz"><summary>CLAUDE.md says "run lint after edits". Why also add a hook?</summary><p>CLAUDE.md is guidance the model usually follows. A hook is run by the harness every time, so it's deterministic. Use hooks for anything that must always happen.</p></details>
+    <details class="quiz"><summary>Why review with a subagent instead of asking the same session "is this good?"</summary><p>The writing session is anchored on its own reasoning. A subagent starts with fresh context and only the code, so it catches more.</p></details>
+    <details class="quiz"><summary>When should you NOT use plan mode?</summary><p>For small, obvious changes like a typo or a one-line tweak. Planning has a cost, so spend it where the decisions are.</p></details>
+  </section>
+</main>
+
+<footer><div class="wrap"><a href="aidlc.html">← AIDLC</a> · <a href="../index.html">Back to hub</a></div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Brand tokens — traditional Indian style using the logo's jewel colours + gold (aidlc/01-requirements.md). */
+@theme {
+  --color-brand-blue: #2D5BD3;
+  --color-brand-teal: #14A08C;      /* decoration only */
+  --color-brand-teal-text: #0E7C6B;
+  --color-brand-green: #3DBB5A;     /* decoration only */
+  --color-brand-violet: #6A2C91;
+  --color-brand-violet-dark: #521F72;
+  --color-brand-plum: #2E1245;      /* deep background */
+  --color-brand-magenta: #D81B78;
+  --color-brand-gold: #D4A73A;      /* on dark only, or decoration */
+  --color-brand-gold-light: #E8C872;
+  --color-brand-gold-text: #8A6A12; /* gold readable on light backgrounds */
+  --color-ink: #1F1A2E;
+  --color-muted: #5E576B;
+  --color-cream: #FBF6EE;
+  --color-soft: #F7F2EA;
+  --color-line: #EADFCB;
+
+  --font-sans: var(--nf-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--nf-heading), Georgia, "Times New Roman", serif;
+}
+
+:root {
+  --brand-gradient: linear-gradient(110deg, #2D5BD3, #14A08C 30%, #3DBB5A 48%, #6A2C91 72%, #D81B78);
+  /* Small gold lotus-and-dot motif, tiled at low opacity over deep backgrounds. */
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23D4A73A' stroke-width='1'%3E%3Cpath d='M32 18c4 5 4 10 0 14-4-4-4-9 0-14Z'/%3E%3Cpath d='M32 32c-5-1-9-4-10-9 5 0 9 3 10 9Zm0 0c5-1 9-4 10-9-5 0-9 3-10 9Z'/%3E%3C/g%3E%3Cg fill='%23D4A73A'%3E%3Ccircle cx='32' cy='38' r='1.4'/%3E%3Ccircle cx='0' cy='0' r='1.6'/%3E%3Ccircle cx='64' cy='0' r='1.6'/%3E%3Ccircle cx='0' cy='64' r='1.6'/%3E%3Ccircle cx='64' cy='64' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+html { color-scheme: light; }
+body { background: #fff; color: var(--color-ink); }
+h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .01em; }
+
+.text-brand-gradient {
+  background-image: linear-gradient(90deg, #2D5BD3, #6A2C91 55%, #D81B78);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.bg-brand-gradient { background-image: var(--brand-gradient); }
+
+/* Double gold rule used under the header and above the footer. */
+.gold-rule { height: 5px; border-top: 1px solid var(--color-brand-gold); border-bottom: 1px solid var(--color-brand-gold); }
+
+/* Deep plum band with the gold motif — hero, wholesale banner, footer. */
+.heritage {
+  position: relative; color: #fff; background-color: var(--color-brand-plum);
+  background-image: radial-gradient(ellipse at 85% 10%, rgb(216 27 120 / .35), transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgb(45 91 211 / .35), transparent 55%);
+}
+.heritage::before { content: ""; position: absolute; inset: 0; background-image: var(--motif); opacity: .14; pointer-events: none; }
+.heritage > * { position: relative; }
+
+/* Arch-shaped photo frame, like a temple doorway. */
+.arch { border-radius: 999px 999px 14px 14px; overflow: hidden; }
+.arch-frame { padding: 6px; border: 1px solid var(--color-brand-gold); border-radius: 999px 999px 18px 18px; background: #fff; }
+
+/* Buttons — softly rounded, traditional rather than pill-shaped. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .5rem; padding: .75rem 1.4rem;
+  font-weight: 700; letter-spacing: .02em; transition: transform .2s, background-color .2s, color .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--color-brand-violet); color: #fff; box-shadow: inset 0 0 0 1px var(--color-brand-gold-light); }
+.btn-primary:hover { background: var(--color-brand-violet-dark); }
+.btn-outline { border: 1.5px solid var(--color-brand-violet); color: var(--color-brand-violet); background: #fff; }
+.btn-outline:hover { background: var(--color-brand-violet); color: #fff; }
+.btn-magenta { border: 1.5px solid var(--color-brand-magenta); color: var(--color-brand-magenta); background: #fff; }
+.btn-magenta:hover { background: var(--color-brand-magenta); color: #fff; }
+.btn-gold { background: var(--color-brand-gold-light); color: var(--color-brand-plum); }
+.btn-gold:hover { background: #fff; }
+.btn-ghost-light { border: 1.5px solid var(--color-brand-gold-light); color: #fff; }
+.btn-ghost-light:hover { background: rgb(255 255 255 / .1); }
+
+/* Category chips. */
+.chip { display: inline-block; border: 1px solid var(--color-brand-gold); border-radius: .5rem; padding: .45rem 1rem;
+  font-weight: 600; background: #fff; transition: background .2s, color .2s; }
+.chip:hover { background: var(--color-cream); }
+.chip[aria-current="page"] { background: var(--color-brand-violet); border-color: var(--color-brand-violet); color: #fff; }
+
+.eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+
+.fade-up { animation: fadeUp .7s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.float { animation: float 6s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-8px); } }
+.shine { position: relative; overflow: hidden; }
+.shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 40%, rgb(255 255 255 / .35) 50%, transparent 60%);
+  transform: translateX(-100%); transition: transform .9s; }
+.group:hover .shine::after { transform: translateX(100%); }
+
+/* Swipeable gallery (CSS scroll-snap — works without JavaScript). */
+.gallery { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+.gallery::-webkit-scrollbar { display: none; }
+.gallery > * { flex: 0 0 100%; scroll-snap-align: center; }
+
+:focus-visible { outline: 3px solid var(--color-brand-blue); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

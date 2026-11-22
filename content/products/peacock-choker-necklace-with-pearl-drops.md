@@ -1,0 +1,94 @@
+---
+sku: PEACOCK-001A
+slug: peacock-choker-necklace-with-pearl-drops
+title: MITHRA CANADA Peacock Choker Necklace with Pearl Drops
+subtitle: 'Gold-Tone Finish, Ruby & Emerald Stones, Adjustable Chain, Korean chain'
+bullets:
+  - >-
+    TRADITIONAL PEACOCK DESIGN: Features an intricate peacock motif pendant
+    inspired by classic South Asian jewellery craftsmanship.
+  - >-
+    VIBRANT GEMSTONE ACCENTS: Adorned with a striking pear-shaped ruby
+    centrepiece, complemented by emerald and white stone detailing.
+  - >-
+    ELEGANT PEARL DROPS: Delicate faux pearl dangles hang gracefully from the
+    ornate pendant, adding a refined and feminine touch.
+  - >-
+    GOLD-TONE FINISH: Crafted with a rich antique gold-tone finish that
+    beautifully highlights the detailed filigree and scrollwork.
+  - >-
+    ADJUSTABLE CHAIN: Features a hook-and-eye clasp with an extender link,
+    allowing for a comfortable and customisable fit.
+description: >-
+  Elevate your traditional look with this stunning Peacock Choker from MITHRA
+  CANADA, inspired by the timeless artistry of Korean-influenced design. This
+  exquisite necklace features an intricately crafted gold-toned pendant
+  showcasing a majestic peacock motif, adorned with a vibrant teardrop-shaped
+  ruby-red centrepiece surrounded by sparkling white stones and vivid emerald
+  green accents. Lustrous cream-coloured pearl drops dangle gracefully from the
+  pendant, adding an elegant finishing touch. The delicate gold chain is
+  accented with small ball beads and features an adjustable hook-and-ring clasp
+  for a comfortable, customisable fit. Perfect for weddings, festivals, and
+  special occasions, this choker pairs beautifully with traditional ethnic wear
+  such as sarees, lehengas, and salwar suits. It also makes a thoughtful and
+  memorable gift for loved ones. The intricate detailing and rich colour palette
+  make this piece a true statement of heritage and elegance.
+categoryId: korean-chains-and-anklets
+availability: ships-from-canada
+customisable: true
+featured: false
+images:
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/1.webp
+    alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/2.webp
+    alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 2
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/3.webp
+    alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 3
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/4.webp
+    alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 4
+  - src: /images/products/peacock-choker-necklace-with-pearl-drops/5.webp
+    alt: MITHRA CANADA Peacock Choker Necklace with Pearl Drops — view 5
+specs:
+  Chain Type: Korean Chain
+  Gem Type: Crystal
+  Metal Stamp: Gold Plated
+  Clasp Type: Hook Clasp With Extension Chain
+  Finish Type: Polished
+  Number of Layers: '1'
+  Strands: '1'
+  Closure Type: Hook And Chain Extender
+  Colour: 'Gold, White, Red, Green'
+  Style Name: Temple Jewellery
+  Theme: 'Bird, Holiday, Modern, Temple'
+  Collection Name: Mithras Canada Temple Jewellery - Peacock choker
+  Occasion Type: Wedding
+  Accent Color: 'White, Red, Green'
+  Holiday Type: New Year
+  Life Event: Wedding
+  Item Weight: 12 g
+  Chain Length: 40 centimetres
+  Item Dimensions: 40 x 8 x 5 centimetres
+  Pearl Size: 5.0 Millimeters
+  Number Of Stones: '41'
+  Band Width: 1 millimeters
+  Chain Length Maximum: 45 centimetres
+  Chain Length Minimum: 38 centimetres
+  Item Thickness: 0.3 centimetres
+  Material: Gold-plated Alloy
+  Metal Type: gold plated
+  Band Material Type: Gold-plated Metal
+  Set Name: Mithra's Canada Peacock choker
+  Pendant Description: >-
+    Broad Peacock model with Ruby & Emerald stones with Pearl hangings in a
+    korean model ball chain
+  Team Name: Mithra's Canada
+  Country of Origin: India
+listings:
+  - channel: amazon
+    marketplace: ca
+    asin: B0HRJHM5GL
+status: active
+price: '29.49'
+currency: CAD
+---
+

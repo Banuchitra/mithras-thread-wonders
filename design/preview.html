@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design preview · Option 1 · Mithra's Thread Wonders</title>
+<style>
+  /* Option 1: logo gradient as accents, clean white page for products. */
+  :root {
+    --blue: #2D5BD3;
+    --teal: #14A08C;
+    --teal-text: #0E7C6B;   /* darker teal: readable on white */
+    --green: #3DBB5A;
+    --violet: #6A2C91;
+    --magenta: #D81B78;
+    --gold: #D4A73A;
+    --ink: #1F1A2E;
+    --muted: #5E576B;
+    --page: #FFFFFF;
+    --soft: #F7F5FB;
+    --line: #ECE7F3;
+    --brand-gradient: linear-gradient(110deg, var(--blue), var(--teal) 30%, var(--green) 48%, var(--violet) 72%, var(--magenta));
+    --text-gradient: linear-gradient(90deg, var(--blue), var(--violet) 55%, var(--magenta));
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+  .note { background: #FFF8E1; border-bottom: 1px solid #F2E2A8; font-size: .85rem; padding: 8px 0; color: #5B4A12; }
+
+  /* Header */
+  .bar { height: 5px; background: var(--brand-gradient); background-size: 200% 100%; animation: slide 10s linear infinite; }
+  @keyframes slide { to { background-position: 200% 0; } }
+  header.site { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 5; }
+  header.site .wrap { display: flex; align-items: center; gap: 14px; padding-block: 10px; }
+  header.site img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--gold); }
+  .name { font-family: "Snell Roundhand", "Apple Chancery", "Brush Script MT", cursive; font-size: 1.7rem; line-height: 1; background: var(--text-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tag { font-size: .78rem; color: var(--muted); letter-spacing: .04em; }
+  nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+  nav a { color: var(--ink); text-decoration: none; font-weight: 500; position: relative; }
+  nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--brand-gradient); transform: scaleX(0); transition: transform .25s; }
+  nav a:hover::after { transform: scaleX(1); }
+
+  /* Hero: gradient band; white text sits only on the blue→violet→magenta side (all ≥ 4.8:1). */
+  .hero { position: relative; overflow: hidden; color: #fff; background: linear-gradient(115deg, var(--blue), var(--violet) 55%, var(--magenta)); }
+  .hero::before { content: ""; position: absolute; inset: -40%; background:
+      radial-gradient(closest-side, rgb(20 160 140 / .55), transparent) 80% 20% / 45% 45% no-repeat,
+      radial-gradient(closest-side, rgb(61 187 90 / .45), transparent) 95% 75% / 35% 35% no-repeat;
+      animation: drift 14s ease-in-out infinite alternate; }
+  @keyframes drift { to { transform: translate(-6%, 4%) rotate(8deg); } }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: center; padding-block: 64px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin: 0 0 12px; }
+  .hero p { font-size: 1.15rem; margin: 0 0 24px; max-width: 34ch; }
+  .hero img { width: 100%; max-width: 340px; justify-self: center; border-radius: 50%; box-shadow: 0 20px 50px rgb(0 0 0 / .3); animation: float 6s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-10px); } }
+  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 40px; } .hero img { max-width: 220px; } }
+
+  .btn { display: inline-block; padding: 12px 22px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-light { background: #fff; color: var(--violet); box-shadow: 0 6px 18px rgb(0 0 0 / .18); }
+  .btn-primary { background: var(--violet); color: #fff; }
+  .btn-outline { border: 2px solid var(--violet); color: var(--violet); }
+
+  /* Categories */
+  section { padding-block: 40px; }
+  h2 { font-size: 1.7rem; margin: 0 0 6px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { padding: 2px; border-radius: 999px; background: var(--brand-gradient); }
+  .chip span { display: block; padding: 8px 18px; border-radius: 999px; background: #fff; font-weight: 600; color: var(--ink); cursor: pointer; transition: background .2s, color .2s; }
+  .chip:hover span, .chip.on span { background: transparent; color: #fff; }
+
+  /* Product grid */
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  .card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgb(106 44 145 / .14); }
+  .photo { aspect-ratio: 1; background: var(--soft); display: grid; place-items: center; color: var(--muted); font-size: .85rem; position: relative; }
+  .photo .badge { position: absolute; top: 10px; left: 10px; background: var(--magenta); color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .card .body { padding: 14px 16px 16px; border-top: 3px solid transparent; border-image: var(--brand-gradient) 1; }
+  .card h3 { font-size: 1rem; margin: 0 0 4px; }
+  .card .cat { color: var(--teal-text); font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .price { font-weight: 700; color: var(--violet); margin: 6px 0 12px; }
+  .card .btn { padding: 8px 16px; font-size: .9rem; }
+
+  /* Palette panel (for decision only — not part of the real site) */
+  .palette { background: var(--soft); border-radius: 16px; padding: 20px; }
+  .swatches { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .sw { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); font-size: .82rem; }
+  .sw div { height: 56px; }
+  .sw p { margin: 0; padding: 8px 10px; }
+  .ok { color: #1B7A3A; font-weight: 600; } .no { color: #B3261E; font-weight: 600; }
+
+  footer { margin-top: 30px; background: var(--ink); color: #E9E4F2; }
+  footer .bar { height: 4px; }
+  footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: .9rem; }
+  footer a { color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="note"><div class="wrap"><strong>Design preview, Option 1.</strong> Placeholder layout to judge colours only. Fonts, product photos and prices are not decided yet.</div></div>
+
+<div class="bar"></div>
+<header class="site">
+  <div class="wrap">
+    <img src="logo.jpeg" alt="Mithra's Thread Wonders logo">
+    <div><div class="name">Mithra's Thread Wonders</div><div class="tag">Where Thread Meets Fashion</div></div>
+    <nav><a href="#">Shop</a><a href="#">Collections</a><a href="#">About</a><a href="#">Contact</a></nav>
+  </div>
+</header>
+
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div>
+      <h1>Handcrafted jewellery,<br>woven with colour.</h1>
+      <p>Thread and temple jewellery made by hand for weddings, festivals and every day.</p>
+      <a class="btn btn-light" href="#shop">Explore the collection</a>
+    </div>
+    <img src="logo.jpeg" alt="">
+  </div>
+</section>
+
+<main class="wrap">
+  <section id="shop">
+    <h2>Shop by category</h2>
+    <p class="sub">Example categories. You'll confirm the real ones next.</p>
+    <div class="chips">
+      <span class="chip on"><span>All</span></span>
+      <span class="chip"><span>Silk thread</span></span>
+      <span class="chip"><span>Temple sets</span></span>
+      <span class="chip"><span>Earrings</span></span>
+      <span class="chip"><span>Custom orders</span></span>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="grid">
+      <article class="card">
+        <div class="photo"><span class="badge">New</span>product photo</div>
+        <div class="body">
+          <div class="cat">Temple sets</div>
+          <h3>Perumal Temple Pearl Bead Necklace Set</h3>
+          <div class="price">₹ price TBD</div>
+          <a class="btn btn-primary" href="#">View details</a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="photo">product photo</div>
+        <div class="body"><div class="cat">Silk thread</div><h3>Example product name</h3><div class="price">₹ price TBD</div><a class="btn btn-outline" href="#">View details</a></div>
+      </article>
+      <article class="card">
+        <div class="photo">product photo</div>
+        <div class="body"><div class="cat">Earrings</div><h3>Example product name</h3><div class="price">₹ price TBD</div><a class="btn btn-primary" href="#">View details</a></div>
+      </article>
+      <article class="card">
+        <div class="photo">product photo</div>
+        <div class="body"><div class="cat">Custom orders</div><h3>Example product name</h3><div class="price">₹ price TBD</div><a class="btn btn-outline" href="#">View details</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="palette">
+    <h2>Palette from the logo</h2>
+    <p class="sub">Contrast checked against white (WCAG AA needs 4.5:1 for normal text). Colours that fail are used for decoration only, never for text.</p>
+    <div class="swatches">
+      <div class="sw"><div style="background:#6A2C91"></div><p><b>Violet</b> #6A2C91<br>8.8:1 <span class="ok">text, buttons</span></p></div>
+      <div class="sw"><div style="background:#2D5BD3"></div><p><b>Blue</b> #2D5BD3<br>5.9:1 <span class="ok">text, links</span></p></div>
+      <div class="sw"><div style="background:#D81B78"></div><p><b>Magenta</b> #D81B78<br>4.8:1 <span class="ok">badges, links</span></p></div>
+      <div class="sw"><div style="background:#0E7C6B"></div><p><b>Teal (dark)</b> #0E7C6B<br>5.1:1 <span class="ok">labels</span></p></div>
+      <div class="sw"><div style="background:#14A08C"></div><p><b>Teal</b> #14A08C<br>3.3:1 <span class="no">decor only</span></p></div>
+      <div class="sw"><div style="background:#3DBB5A"></div><p><b>Green</b> #3DBB5A<br>2.5:1 <span class="no">decor only</span></p></div>
+      <div class="sw"><div style="background:#D4A73A"></div><p><b>Gold</b> #D4A73A<br>2.2:1 <span class="no">decor only</span></p></div>
+      <div class="sw"><div style="background:#1F1A2E"></div><p><b>Ink</b> #1F1A2E<br>17:1 <span class="ok">body text</span></p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="bar" style="background:var(--brand-gradient)"></div>
+  <div class="wrap"><span>© Mithra's Thread Wonders</span><span>Instagram: <a href="https://www.instagram.com/mithras_thread_wonders/">@mithras_thread_wonders</a></span></div>
+</footer>
+</body>
+</html>

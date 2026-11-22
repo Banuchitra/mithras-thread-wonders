@@ -1,0 +1,111 @@
+# Pages CMS admin panel (https://pagescms.org) — the owner edits content here; each save commits to the repo
+# and the site rebuilds. Field names must match src/domain/types.ts. Full setup + verification is unit U5.
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: settings
+    label: Site settings
+    type: file
+    path: content/settings/site.json
+    format: json
+    fields:
+      - { name: brandName, label: Brand name, type: string, required: true }
+      - { name: tagline, label: Tagline, type: string }
+      - name: fontPairing
+        label: Font style
+        type: select
+        required: true
+        options:
+          values:
+            - { value: heritage, label: "Heritage — Cormorant Garamond + Lato" }
+            - { value: temple, label: "Temple — Marcellus + Mulish" }
+            - { value: royal, label: "Royal — Playfair Display + Source Sans" }
+      - { name: whatsapp, label: WhatsApp number (with country code), type: string, required: true }
+      - { name: instagram, label: Instagram handle (without @), type: string }
+      - { name: aboutText, label: About us text, type: text }
+      - { name: currencyLocale, label: Number format locale, type: string, hidden: true }
+
+  - name: collections
+    label: Collections
+    type: collection
+    path: content/collections
+    format: yaml-frontmatter
+    view: { fields: [name, order, hidden], primary: name, sort: [order] }
+    fields:
+      - { name: id, label: ID (lowercase, hyphens; never change after creating), type: string, required: true }
+      - { name: name, label: Name, type: string, required: true }
+      - { name: description, label: Short description, type: string }
+      - { name: order, label: Display order, type: number }
+      - { name: image, label: Cover image (optional), type: image }
+      - { name: hidden, label: Hide from website, type: boolean }
+
+  - name: categories
+    label: Categories
+    type: collection
+    path: content/categories
+    format: yaml-frontmatter
+    view: { fields: [name, collectionId, order, hidden], primary: name, sort: [order] }
+    fields:
+      - { name: id, label: ID (lowercase, hyphens; never change after creating), type: string, required: true }
+      - { name: name, label: Name, type: string, required: true }
+      - name: collectionId
+        label: Collection
+        type: reference
+        required: true
+        options: { collection: collections, value: "{id}", label: "{name}" }
+      - { name: order, label: Display order, type: number }
+      - { name: hidden, label: Hide from website, type: boolean }
+
+  - name: products
+    label: Products
+    type: collection
+    path: content/products
+    format: yaml-frontmatter
+    view: { fields: [title, sku, price, status], primary: title }
+    fields:
+      - { name: sku, label: SKU (exactly as in Amazon Seller Central; never change), type: string, required: true }
+      - { name: slug, label: Web address (lowercase, hyphens; never change after publishing), type: string, required: true }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: subtitle, label: Subtitle, type: string }
+      - { name: price, label: Price (e.g. 35.00), type: string, required: true }
+      - name: currency
+        label: Currency
+        type: select
+        options: { values: [CAD] }
+      - name: categoryId
+        label: Category
+        type: reference
+        required: true
+        options: { collection: categories, value: "{id}", label: "{name}" }
+      - name: availability
+        label: Availability
+        type: select
+        options:
+          values:
+            - { value: ships-from-canada, label: Ships within Canada }
+            - { value: made-to-order, label: Made to order }
+      - { name: customisable, label: Offer custom colours / bulk quote, type: boolean }
+      - { name: featured, label: Show on home page, type: boolean }
+      - name: images
+        label: Photos (first one is the main photo)
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Photo, type: image }
+          - { name: alt, label: Photo description (for blind visitors and Google), type: string }
+      - { name: bullets, label: About this item (bullet points), type: string, list: true }
+      - { name: description, label: Product description, type: text }
+      - name: listings
+        label: Amazon listings
+        type: object
+        list: true
+        fields:
+          - { name: channel, type: select, options: { values: [amazon] } }
+          - { name: marketplace, label: Marketplace, type: select, options: { values: [ca, us, uk, in] } }
+          - { name: asin, label: ASIN, type: string }
+      - name: status
+        label: Status
+        type: select
+        options: { values: [active, hidden] }

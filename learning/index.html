@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning Hub · Mithra's Thread Wonders</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2 9h20M9 3l3 18M15 3l-3 18" stroke="currentColor" stroke-width="1" opacity=".5"/></svg>
+      Learning Hub
+    </a>
+    <nav>
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="pages/aidlc.html">AIDLC</a>
+      <a href="pages/agentic-workflow.html">Agentic workflow</a>
+    </nav>
+    <button class="theme-btn" data-theme-toggle type="button">☾ Dark</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="pill now">Step 0 · Setup in progress</span>
+      <h1>Build a jewellery shop.<br><span class="shimmer">Learn the craft of software.</span></h1>
+      <p class="lead">Learning notes for building your cousin's handmade-jewellery site with the AIDLC process and a Claude Code agentic workflow, for $0.</p>
+      <a class="theme-btn" href="#roadmap" style="text-decoration:none">See the roadmap ↓</a>
+    </div>
+    <figure class="diagram float" style="margin:0">
+      <!-- Animated gem: the three AIDLC phases orbiting the product -->
+      <svg viewBox="0 0 320 260" role="img" aria-label="A gem with three orbiting phases: Inception, Construction, Operations" style="min-width:0">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/>
+          </linearGradient>
+        </defs>
+        <g class="spin-slow">
+          <circle cx="160" cy="130" r="100" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 8"/>
+          <circle cx="160" cy="30" r="9" fill="var(--accent)"/>
+          <circle cx="247" cy="180" r="9" fill="var(--accent-2)"/>
+          <circle cx="73" cy="180" r="9" fill="var(--accent-3)"/>
+        </g>
+        <path d="M118 98h84l26 36-68 74-68-74z" fill="url(#g1)" opacity=".9"/>
+        <path d="M92 134h136M138 98l22 110M182 98l-22 110" stroke="var(--surface)" stroke-width="1.5" opacity=".7" fill="none"/>
+        <circle class="sparkle" cx="208" cy="92" r="4" fill="var(--accent)"/>
+        <circle class="sparkle" cx="110" cy="150" r="3" fill="var(--accent-3)" style="animation-delay:.8s"/>
+        <circle class="sparkle" cx="196" cy="176" r="3" fill="var(--accent-2)" style="animation-delay:1.6s"/>
+        <text x="160" y="250" text-anchor="middle" font-size="12" class="muted-text">Inception · Construction · Operations</text>
+      </svg>
+    </figure>
+  </section>
+
+  <section id="roadmap" class="reveal">
+    <h2>The roadmap</h2>
+    <p class="sub">Every step follows the same loop: <strong>learn page → plan mode → build → review → PR → journal note</strong>.</p>
+    <ol class="steps">
+      <li class="current"><span class="dot">0</span><h3>Setup</h3>Personal GitHub, repo, <code>CLAUDE.md</code>, hooks, subagents, custom commands. Learning hub (this site).</li>
+      <li><span class="dot">1</span><h3>Inception</h3>Intent, requirements and user stories. <strong>You decide the brand, UI design and colours here.</strong> The work is split into units. Gate: you approve the docs.</li>
+      <li><span class="dot">2</span><h3>Construction</h3>U1 scaffold + CI → U2 domain + content (TDD) → U3 catalog UI → U4 Pages CMS → U5 polish/SEO/a11y. One PR per unit.</li>
+      <li><span class="dot">3</span><h3>Operations</h3>Auto-deploy to GitHub Pages, Lighthouse checks, a "How to add a product" guide for your cousin.</li>
+      <li><span class="dot">v2</span><h3>In-browser AI chatbot</h3>WebLLM model running in the visitor's browser, grounded in product data. No server, no keys, $0.</li>
+      <li><span class="dot">☁</span><h3>Later: AWS phase</h3>Swap the content adapter for an AWS backend as you progress through DVA-C02.</li>
+    </ol>
+  </section>
+
+  <section class="reveal">
+    <h2>Topic pages</h2>
+    <p class="sub">New pages appear as each unit is built.</p>
+    <div class="grid">
+      <a class="card" href="pages/aidlc.html"><div class="icon">🧭</div><h3>AIDLC</h3><p>Phases, gates and artifacts. How AI and humans share the work.</p></a>
+      <a class="card" href="pages/agentic-workflow.html"><div class="icon">🤖</div><h3>Agentic workflow</h3><p>Plan mode, CLAUDE.md, hooks, subagents, commands and the review loop.</p></a>
+      <div class="card locked"><div class="icon">⚛️</div><h3>Next.js + React</h3><p>Coming in U1: App Router, static export, Server Actions demo.</p></div>
+      <div class="card locked"><div class="icon">🎨</div><h3>Tailwind</h3><p>Coming in U3: design tokens from your brand colours.</p></div>
+      <div class="card locked"><div class="icon">🧱</div><h3>Hexagonal + DDD</h3><p>Coming in U2: domain, ports and adapters.</p></div>
+      <div class="card locked"><div class="icon">🧪</div><h3>Testing + CI</h3><p>Coming in U1: Vitest, Playwright, GitHub Actions, Lighthouse.</p></div>
+      <div class="card locked"><div class="icon">🔑</div><h3>CMS + OAuth</h3><p>Coming in U4: how Pages CMS logs in with GitHub.</p></div>
+      <div class="card locked"><div class="icon">🚀</div><h3>GitHub Pages</h3><p>Coming in U1: static hosting and deploy workflow.</p></div>
+      <div class="card locked"><div class="icon">💬</div><h3>In-browser chatbot</h3><p>Coming in v2: WebLLM and WebGPU.</p></div>
+      <div class="card locked"><div class="icon">☁️</div><h3>AWS later</h3><p>Checklist ↔ DVA-C02 roadmap.</p></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>My learning checklist</h2>
+    <p class="sub">Ticks are saved in this browser only. <span class="pill now">Now</span> = covered in this project, <span class="pill later">Later</span> = AWS phase.</p>
+    <strong data-progress-count></strong>
+    <div class="progress-bar"><span data-progress-bar></span></div>
+    <div class="checklist" data-checklist>
+      <fieldset><legend>1. Login and access</legend>
+        <label><input type="checkbox" id="t-oauth" checked><span>OAuth</span><em class="pill done">Done · see U4</em></label>
+        <label><input type="checkbox" id="t-jwt" checked><span>JWT</span><em class="pill done">Done</em></label>
+        <label><input type="checkbox" id="t-cognito" checked><span>Cognito</span><em class="pill done">Done</em></label>
+      </fieldset>
+      <fieldset><legend>2. Secrets and network safety</legend>
+        <label><input type="checkbox" id="t-secrets"><span>Secrets Manager (runtime vs build)</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-vpc"><span>VPC</span><em class="pill later">Later</em></label>
+      </fieldset>
+      <fieldset><legend>3. Event-driven backend</legend>
+        <label><input type="checkbox" id="t-lambda"><span>Lambda</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-sqs"><span>SQS</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-eventbridge"><span>EventBridge</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-sfn"><span>Step Functions</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-serverless"><span>Serverless</span><em class="pill later">Later</em></label>
+      </fieldset>
+      <fieldset><legend>4. Data and infrastructure</legend>
+        <label><input type="checkbox" id="t-aurora"><span>Aurora PostgreSQL</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-dbprov"><span>DB provisioning</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-drizzle"><span>Drizzle migrations</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-footprint"><span>Infra footprint</span><em class="pill now">Now · Ops</em></label>
+      </fieldset>
+      <fieldset><legend>5. Frontend and web delivery</legend>
+        <label><input type="checkbox" id="t-react"><span>React 18</span><em class="pill now">Now · U1–U3</em></label>
+        <label><input type="checkbox" id="t-next"><span>Next.js</span><em class="pill now">Now · U1</em></label>
+        <label><input type="checkbox" id="t-actions"><span>Server Actions</span><em class="pill now">Now · local demo</em></label>
+        <label><input type="checkbox" id="t-vite"><span>Vite</span><em class="pill now">Now · Vitest</em></label>
+        <label><input type="checkbox" id="t-tailwind"><span>Tailwind</span><em class="pill now">Now · U3</em></label>
+        <label><input type="checkbox" id="t-cloudfront"><span>CloudFront</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-node"><span>Node</span><em class="pill now">Now · all</em></label>
+        <label><input type="checkbox" id="t-koa"><span>Koa</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-bff"><span>BFF</span><em class="pill later">Later</em></label>
+      </fieldset>
+      <fieldset><legend>6. Observability and architecture</legend>
+        <label><input type="checkbox" id="t-cloudwatch"><span>CloudWatch</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-pino"><span>Pino structured logs</span><em class="pill later">Later</em></label>
+        <label><input type="checkbox" id="t-hex"><span>Hexagonal architecture</span><em class="pill now">Now · U2</em></label>
+        <label><input type="checkbox" id="t-ddd"><span>Domain-Driven Design</span><em class="pill now">Now · U2</em></label>
+        <label><input type="checkbox" id="t-aidlc"><span>AIDLC governance</span><em class="pill now">Now · all</em></label>
+      </fieldset>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Local learning hub. Not deployed. Run with <code>npx serve learning</code>.</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
