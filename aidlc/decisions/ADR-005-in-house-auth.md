@@ -14,8 +14,8 @@ Status: Accepted · 2026-11-22 — Banu: "build an in-house login module without
   link (24 h, stored hashed) and sends it to the person (e.g. WhatsApp). Email delivery can be added later.
 - **Super admin** `banu_c@yahoo.com` from config; cannot be demoted, disabled or removed. With no email
   verification, both admin accounts are **pre-created** so nobody else can register those addresses.
-- **Seed admins** (`mithras.canada@gmail.com`, `banu_c@yahoo.com`) get the temporary password `admin` (Banu's
-  request) and **must change it at first sign-in**. Seeding is a deliberate script, not a migration, so a
+- **Seed admins** get temporary passwords — `mithras.canada@gmail.com` / `admin1234` (default admin, Banu's
+  request) and `banu_c@yahoo.com` / `admin` and **must change it at first sign-in**. Seeding is a deliberate script, not a migration, so a
   deployed database never silently starts with a known password.
 
 ## Consequences
