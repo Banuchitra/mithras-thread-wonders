@@ -1,7 +1,7 @@
 ---
 id: flower-strings
 title: Jasmine-look flower strings
-subtitle: "Everlasting mullai saram with hair clips — perfect for festivals. SAMPLE promotion."
+subtitle: "Everlasting mullai saram with hair clips — the look of fresh jasmine for every festival."
 ctaLabel: Shop artificial flowers
 ctaHref: /shop/artificial-flowers/
 image:

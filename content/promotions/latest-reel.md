@@ -1,7 +1,7 @@
 ---
 id: latest-reel
 title: Watch our latest designs
-subtitle: "SAMPLE: paste an Instagram reel or YouTube link here in the admin to show it in the video panel."
+subtitle: "See our newest pieces being made and styled — follow us on Instagram for new reels every week."
 video: ""
 image:
   src: /images/promotions/red-gold-bridal-set.webp

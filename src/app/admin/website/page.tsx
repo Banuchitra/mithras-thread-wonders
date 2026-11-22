@@ -144,7 +144,7 @@ function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => voi
         <Field label="Button text" value={p.ctaLabel} onChange={(e) => set('ctaLabel', e.target.value)} placeholder="Shop now" />
         <Field label="Button link" value={p.ctaHref} onChange={(e) => set('ctaHref', e.target.value)} placeholder="/shop/bangles/" />
       </div>
-      {p.placement === 'video' && <Field label="Video link" value={p.video} onChange={(e) => set('video', e.target.value)} placeholder="Instagram reel or YouTube link" />}
+      {p.placement === 'video' && <Field label="Video link" value={p.video} onChange={(e) => set('video', e.target.value)} placeholder="https://www.instagram.com/reel/…" hint="Paste the link of an Instagram reel or YouTube video. Visitors tap ▶ to play it on the home page." />}
       <div className="flex flex-wrap items-center gap-3">
         {p.image && <img src={asset(p.image.src)} alt="" className="h-16 w-16 rounded bg-white object-contain" />}
         <label className="btn btn-outline cursor-pointer !py-2 text-sm">

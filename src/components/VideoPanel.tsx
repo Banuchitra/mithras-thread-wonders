@@ -17,7 +17,7 @@ export function VideoPanel({ promotions }: { promotions: Promotion[] }) {
     <section aria-label="Video" className="flex h-full flex-col overflow-hidden rounded-2xl border border-brand-gold bg-white">
       <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
         <h2 className="font-heading text-xl font-semibold text-brand-plum">{promo.title}</h2>
-        <span className="eyebrow text-[0.62rem] text-brand-gold-text">{video ? 'Video' : 'Coming soon'}</span>
+        <span className="eyebrow text-[0.62rem] text-brand-gold-text">{video ? 'Video' : 'Latest'}</span>
       </div>
       <div className="relative flex-1 bg-cream" style={{ minHeight: '16rem' }}>
         {playing && video?.kind === 'youtube' && (

@@ -1,7 +1,7 @@
 ---
 id: bridal-bangles
 title: Bridal silk thread bangle sets
-subtitle: "Made to order in your wedding colours — any size. SAMPLE promotion: edit or replace in the admin."
+subtitle: "Made to order in your wedding colours and size — send us a photo of your outfit."
 ctaLabel: Request your set
 ctaHref: /wholesale/
 image:
