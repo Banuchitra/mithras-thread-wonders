@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "import:intake": "tsx scripts/import-amazon-intake.ts"
+    "import:intake": "tsx scripts/import-amazon-intake.ts",
+    "content:bridge": "node scripts/content-bridge.mjs",
+    "dev:all": "node scripts/dev-all.mjs"
   },
   "dependencies": {
     "gray-matter": "4.0.3",
@@ -22,6 +24,7 @@
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "26.6.6",
     "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "sharp": "0.35.5",
     "tailwindcss": "4.3.5",
     "tsx": "4.23.15",

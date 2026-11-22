@@ -36,21 +36,23 @@ description: >-
   sarees, lehengas, and other traditional Indian attire, making it an ideal
   choice for weddings, festivals, and celebratory occasions. A truly captivating
   accessory that is sure to draw admiring glances wherever you go.
-categoryId: invisible-chains-and-anklets
+categoryId: invisible-chains
 availability: ships-from-canada
 customisable: true
 featured: false
 images:
-  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/1.webp
+  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/studio.webp
     alt: MITHRAS CANADA Jadau Lotus Pendant Invisible Chain Necklace
-  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/2.webp
+  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/1.webp
     alt: MITHRAS CANADA Jadau Lotus Pendant Invisible Chain Necklace — view 2
-  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/3.webp
+  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/2.webp
     alt: MITHRAS CANADA Jadau Lotus Pendant Invisible Chain Necklace — view 3
-  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/4.webp
+  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/3.webp
     alt: MITHRAS CANADA Jadau Lotus Pendant Invisible Chain Necklace — view 4
-  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/5.webp
+  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/4.webp
     alt: MITHRAS CANADA Jadau Lotus Pendant Invisible Chain Necklace — view 5
+  - src: /images/products/jadau-lotus-pendant-invisible-chain-necklace/5.webp
+    alt: MITHRAS CANADA Jadau Lotus Pendant Invisible Chain Necklace — view 6
 specs:
   Chain Type: Invisible Wire Chain
   Gem Type: Crystal

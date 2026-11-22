@@ -37,21 +37,24 @@ description: >-
   contemporary outfits, from sarees and lehengas to fusion wear. Whether you're
   dressing up for a celebration or looking to add a touch of heritage-inspired
   glamour to your ensemble, this Lotus model set is a truly captivating choice.
-categoryId: korean-chains-and-anklets
+categoryId: necklace-earring-sets
 availability: ships-from-canada
 customisable: true
 featured: false
 images:
-  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/1.webp
+  - src: >-
+      /images/products/lotus-pendant-korean-chain-necklace-with-earrings/studio.webp
     alt: MITHRAS CANADA Lotus Pendant Korean Chain Necklace with Earrings
-  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/2.webp
+  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/1.webp
     alt: MITHRAS CANADA Lotus Pendant Korean Chain Necklace with Earrings — view 2
-  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/3.webp
+  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/2.webp
     alt: MITHRAS CANADA Lotus Pendant Korean Chain Necklace with Earrings — view 3
-  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/4.webp
+  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/3.webp
     alt: MITHRAS CANADA Lotus Pendant Korean Chain Necklace with Earrings — view 4
-  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/5.webp
+  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/4.webp
     alt: MITHRAS CANADA Lotus Pendant Korean Chain Necklace with Earrings — view 5
+  - src: /images/products/lotus-pendant-korean-chain-necklace-with-earrings/5.webp
+    alt: MITHRAS CANADA Lotus Pendant Korean Chain Necklace with Earrings — view 6
 specs:
   Material Type: Gold-tone Alloy
   Gem Type: Crystal

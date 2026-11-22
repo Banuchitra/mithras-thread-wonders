@@ -37,7 +37,7 @@ description: >-
   weddings, and everyday wear. The warm gold finish combined with the brilliant
   crystal detailing gives this set a timeless, elegant appeal that is sure to
   draw admiring glances.
-categoryId: invisible-chains-and-anklets
+categoryId: necklace-earring-sets
 availability: ships-from-canada
 customisable: true
 featured: true

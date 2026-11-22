@@ -1,4 +1,4 @@
-import type { Money } from './types';
+import type { Money, Product } from './types';
 
 const MINOR_UNITS: Record<string, number> = { JPY: 0 };
 const digits = (currency: string) => MINOR_UNITS[currency] ?? 2;
@@ -19,4 +19,8 @@ export function moneyFromDecimal(value: string | number, currency: string): Mone
   const n = typeof value === 'number' ? value : Number(String(value).trim());
   if (!Number.isFinite(n) || n < 0) throw new Error(`Invalid price: ${value}`);
   return { amount: Math.round(n * 10 ** digits(currency)), currency };
+}
+
+export function displayPrice(product: Pick<Product, 'price'>, locale = 'en'): string {
+  return product.price ? formatMoney(product.price, locale) : 'Price on request';
 }

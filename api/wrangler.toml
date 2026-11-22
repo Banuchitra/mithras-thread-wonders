@@ -1,0 +1,25 @@
+# Cloudflare Worker — the site's backend (BFF). Free plan.
+name = "mithras-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+[vars]
+# The permanent super admin (ADR-004). Change only here; never stored as editable data.
+SUPER_ADMIN_EMAIL = "banu_c@yahoo.com"
+# Website address used in password-reset links.
+SITE_URL = "http://localhost:3000"
+# Local content bridge (scripts/content-bridge.mjs). CONTENT_BRIDGE_SECRET lives in api/.dev.vars.
+CONTENT_BRIDGE_URL = "http://127.0.0.1:8788"
+# SESSION_SECRET is a secret: locally in api/.dev.vars (gitignored); in production `wrangler secret put SESSION_SECRET`.
+ALLOWED_ORIGINS = "https://banuchitra.github.io,http://localhost:3000"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mithras"
+database_id = "REPLACE_AFTER_wrangler_d1_create"
+migrations_dir = "migrations"
+
+# Private storage for customers' reference photos (custom-order requests). Simulated locally by wrangler dev.
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "mithras-uploads"

@@ -1,3 +1,5 @@
+import type { Promotion } from './promotions';
+
 // Core domain types. Pure TypeScript — no framework or vendor imports (see ADR-003).
 
 /** Exact Amazon Seller SKU — the permanent product ID (ADR-001). */
@@ -26,7 +28,8 @@ export interface Product {
   subtitle?: string;
   bullets: string[];
   description: string;
-  price: Money;
+  /** Missing = "Price on request" (e.g. made-to-order designs not priced yet). */
+  price?: Money;
   categoryId: string;
   availability: Availability;
   customisable: boolean;
@@ -34,6 +37,8 @@ export interface Product {
   images: ProductImage[];
   specs: Record<string, string>;
   listings: ChannelListing[];
+  /** Optional Instagram reel, YouTube link or uploaded video file. */
+  video?: string;
   status: 'active' | 'hidden';
 }
 
@@ -64,11 +69,14 @@ export interface SiteSettings {
   currencyLocale: string;
   fontPairing: FontPairing;
   aboutText: string;
+  /** Short line in the bar above the header (offers, shipping notes). Empty = hidden. */
+  announcement?: string;
 }
 
 /** Port: where the catalogue comes from (Markdown today, Amazon SP-API later). */
 export interface CatalogSource {
   listProducts(): Product[];
+  listPromotions(): Promotion[];
   listCollections(): Collection[];
   listCategories(): Category[];
   getSettings(): SiteSettings;

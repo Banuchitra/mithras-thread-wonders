@@ -7,7 +7,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   return (
     <footer className="heritage">
       <div className="gold-rule opacity-70" />
-      <div className="mx-auto max-w-6xl px-4 pt-10 text-center">
+      <div className="mx-auto max-w-[88rem] px-4 pt-10 text-center">
         <p className="font-heading text-3xl font-semibold text-white">{settings.brandName}</p>
         <p className="eyebrow mt-1 text-[0.7rem] text-brand-gold-light">{settings.tagline}</p>
         <Ornament className="mt-3" light />

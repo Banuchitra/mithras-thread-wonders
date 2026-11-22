@@ -8,5 +8,5 @@ export function loadCatalog() {
   const products = visibleProducts(catalog.listProducts());
   const tree = buildCollectionTree(catalog.listCollections(), catalog.listCategories());
   const categoryById = new Map(tree.flatMap((c) => c.categories.map((cat) => [cat.id, { ...cat, collection: c }] as const)));
-  return { products, tree, categoryById, settings: catalog.getSettings() };
+  return { products, tree, categoryById, settings: catalog.getSettings(), promotions: catalog.listPromotions() };
 }

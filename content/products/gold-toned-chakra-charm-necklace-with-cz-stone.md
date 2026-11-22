@@ -37,7 +37,7 @@ description: >-
   eye-catching neckline that is sure to draw compliments. Whether you are
   dressing up for a festival, a family gathering, or a special ceremony, this
   necklace adds a touch of timeless charm and sophistication to any ensemble.
-categoryId: invisible-chains-and-anklets
+categoryId: invisible-chains
 availability: ships-from-canada
 customisable: true
 featured: true

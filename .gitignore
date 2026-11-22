@@ -11,3 +11,11 @@ test-results/
 # Private business documents (invoices, customs) — never publish
 pdf/
 *.tsbuildinfo
+
+# Local backend state and packages (also ignored inside api/, but that file only exists on some branches)
+api/.wrangler/
+api/node_modules/
+api/.dev.vars
+
+# Raw image downloads awaiting intake (large; only the resized copies in public/ are committed)
+products-intake/_*/

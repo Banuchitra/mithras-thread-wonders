@@ -32,6 +32,8 @@ v2: in-browser chatbot (WebLLM), lazy-loaded.
 - Write tests first for domain logic and adapters.
 - Before opening a PR: run the `reviewer` and `a11y-auditor` subagents, fix findings, then `/code-review`.
 - After merging a unit: `/learn-note` updates the matching page in `learning/`.
+- After adding/removing an npm package, regenerate the lock from scratch (`rm -rf node_modules package-lock.json && npm install`):
+  npm on macOS drops Linux-only optional entries (sharp/@emnapi), which makes `npm ci` fail in GitHub Actions.
 - Never commit secrets. Never push to `main` directly once CI exists.
 - Keep the owner's editing path (Pages CMS) working. If `content/` schema changes, update `.pages.yml` too.
 
@@ -40,3 +42,7 @@ v2: in-browser chatbot (WebLLM), lazy-loaded.
 - `aidlc/` — intent, requirements, design, unit plans, ADRs.
 - `content/products/` — product markdown (edited via Pages CMS).
 - `src/domain` (pure TS) · `src/adapters` (content loading) · `src/app` (Next.js routes).
+
+## Local backend (api/)
+- In-house accounts API (Cloudflare Worker + local D1). First time: `cd api && npm run setup:local`; run: `cd api && npm run dev` (port 8787). Tests: `cd api && npm test`.
+- Super admin = `SUPER_ADMIN_EMAIL` in `api/wrangler.toml`; never make it editable data. `SESSION_SECRET` lives in `api/.dev.vars` (gitignored).

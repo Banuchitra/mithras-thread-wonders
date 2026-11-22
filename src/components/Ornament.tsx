@@ -1,16 +1,14 @@
-// Gold divider: line · dot · lotus · dot · line. Decorative only.
+import { Monogram } from './Monogram';
+
+// Gold divider: line · dot · monogram · dot · line. Decorative only.
 export function Ornament({ className = '', light = false }: { className?: string; light?: boolean }) {
-  const c = light ? '#E8C872' : '#D4A73A';
+  const line = light ? 'bg-brand-gold-light' : 'bg-brand-gold';
   return (
-    <svg aria-hidden="true" viewBox="0 0 240 24" className={`mx-auto h-6 w-60 ${className}`}>
-      <path d="M0 12h88M152 12h88" stroke={c} strokeWidth="1" />
-      <circle cx="96" cy="12" r="2" fill={c} /><circle cx="144" cy="12" r="2" fill={c} />
-      <g fill="none" stroke={c} strokeWidth="1.2">
-        <path d="M120 2c5 5 5 11 0 16-5-5-5-11 0-16Z" />
-        <path d="M120 18c-6-1-11-5-12-11 6 0 11 4 12 11Zm0 0c6-1 11-5 12-11-6 0-11 4-12 11Z" />
-        <path d="M108 20h24" />
-      </g>
-    </svg>
+    <div aria-hidden="true" className={`mx-auto flex w-64 items-center gap-2 ${className}`}>
+      <span className={`h-px flex-1 ${line}`} /><span className={`h-1 w-1 rounded-full ${line}`} />
+      <Monogram size={38} variant={light ? 'light' : 'color'} />
+      <span className={`h-1 w-1 rounded-full ${line}`} /><span className={`h-px flex-1 ${line}`} />
+    </div>
   );
 }
 

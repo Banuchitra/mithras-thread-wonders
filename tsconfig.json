@@ -36,9 +36,10 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "out",
+    "api",
+    "design",
     "learning",
-    "design"
+    "node_modules",
+    "out"
   ]
 }

@@ -18,11 +18,11 @@ export default function WholesalePage() {
           <p className="mt-4 text-lg text-[#F3E3C3]">Any design, any colour, any size — handmade in India and shipped to you, wherever you are.</p>
         </div>
       </section>
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[1fr_2fr]">
+      <div className="mx-auto grid max-w-[88rem] gap-10 px-4 py-10 lg:grid-cols-[1fr_2fr]">
         <div className="space-y-5">
           {[
             ['1. Choose', 'Pick items from our collections or describe your own design. Add colours, sizes and quantities.'],
-            ['2. Send', 'Your list opens in WhatsApp, ready to send. We reply with photos, pricing and delivery time.'],
+            ['2. Send', 'Attach reference photos or reels and send your request. We reply with photos, pricing and delivery time.'],
             ['3. We make it', 'Every piece is handmade to order and shipped internationally.'],
           ].map(([h, t], i) => (
             <div key={h} className="fade-up rounded-lg border border-brand-gold bg-cream p-5" style={{ ['--i' as string]: i }}>
