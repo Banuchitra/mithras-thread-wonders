@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { whatsappUrl } from '@/domain/channels';
 import { formatQuoteMessage, type QuoteLine } from '@/domain/quote';
-import { api } from '@/lib/api';
+import { API_CONFIGURED, api } from '@/lib/api';
 import { resizeToWebp } from '@/lib/image';
 
 const emptyLine = (): QuoteLine => ({ item: '', quantity: 12, notes: '' });
@@ -56,6 +56,7 @@ export function QuoteBuilder({ whatsapp, categories }: { whatsapp: string; categ
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
+    if (!API_CONFIGURED) { window.open(whatsappUrl(whatsapp, whatsappMessage()), '_blank', 'noopener'); return; }
     setError(''); setBusy('Sending your request…');
     try {
       const r = await api<{ id: string }>('/api/inquiries', {
@@ -112,10 +113,14 @@ export function QuoteBuilder({ whatsapp, categories }: { whatsapp: string; categ
       <fieldset className="space-y-3">
         <legend className="font-heading text-2xl font-semibold text-brand-plum">Reference photos &amp; reels</legend>
         <p className="text-sm text-muted">Have a picture of what you’d like? Attach up to {MAX_PHOTOS} photos or screenshots, or paste Instagram / Pinterest / YouTube links.</p>
+        {!API_CONFIGURED ? (
+          <p className="rounded-xl border-2 border-dashed border-brand-gold bg-cream p-4 text-center text-sm">📷 Tap <strong>Send request</strong> — WhatsApp opens with your list, and you can attach your photos there.</p>
+        ) : (
         <label className="block cursor-pointer rounded-xl border-2 border-dashed border-brand-gold bg-cream p-5 text-center text-sm hover:bg-white">
           <input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => { addPhotos(e.target.files); e.target.value = ''; }} />
           <span className="font-semibold text-brand-violet">Attach photos</span> <span className="text-muted">({photos.length}/{MAX_PHOTOS})</span>
         </label>
+        )}
         {photos.length > 0 && (
           <ul className="flex flex-wrap gap-2">
             {photos.map((src, i) => (
@@ -151,9 +156,9 @@ export function QuoteBuilder({ whatsapp, categories }: { whatsapp: string; categ
       {error && <p role="alert" className="rounded-lg bg-[#FCE8F1] px-3 py-2 text-sm text-[#9C1458]">{error}</p>}
       <div className="flex flex-wrap items-center gap-3">
         <button type="submit" disabled={!!busy} className="btn btn-primary disabled:opacity-60">{busy || 'Send request'}</button>
-        <a className="btn btn-outline" target="_blank" rel="noopener" href={whatsappUrl(whatsapp, whatsappMessage())}>Send on WhatsApp instead</a>
+        {API_CONFIGURED && <a className="btn btn-outline" target="_blank" rel="noopener" href={whatsappUrl(whatsapp, whatsappMessage())}>Send on WhatsApp instead</a>}
       </div>
-      <p className="text-xs text-muted">Your photos are only visible to the shop owner.</p>
+      {API_CONFIGURED && <p className="text-xs text-muted">Your photos are only visible to the shop owner.</p>}
     </form>
   );
 }

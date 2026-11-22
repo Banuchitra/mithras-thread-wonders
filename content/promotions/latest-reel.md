@@ -9,6 +9,7 @@ image:
 ctaLabel: Follow us on Instagram
 ctaHref: https://www.instagram.com/mithras_thread_wonders/
 placement: video
+productSlug: red-and-gold-bridal-silk-thread-bangle-set
 order: 1
 hidden: false
 ---

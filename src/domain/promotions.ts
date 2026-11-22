@@ -10,6 +10,8 @@ export interface Promotion {
   image?: ProductImage;
   /** YouTube / Instagram link or an uploaded video file path. */
   video?: string;
+  /** Optional product this promotion shows — its picture links to the product page. */
+  productSlug?: string;
   placement: 'banner' | 'video';
   /** Inclusive ISO dates (YYYY-MM-DD). Missing = no limit. */
   startDate?: string;

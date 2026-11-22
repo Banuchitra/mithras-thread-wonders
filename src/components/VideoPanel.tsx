@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { activePromotions, parseVideo, todayIso, type Promotion } from '@/domain/promotions';
 import { asset } from '@/lib/paths';
@@ -32,7 +33,12 @@ export function VideoPanel({ promotions }: { promotions: Promotion[] }) {
         )}
         {!playing && (
           <>
-            {poster && <img src={poster} alt={promo.image?.alt ?? ''} className="absolute inset-0 h-full w-full object-contain p-3" />}
+            {poster && (promo.productSlug && !video ? (
+              <Link href={`/products/${promo.productSlug}/`} className="group absolute inset-0 block" aria-label={`Shop: ${promo.image?.alt ?? promo.title}`}>
+                <img src={poster} alt={promo.image?.alt ?? ''} className="h-full w-full object-contain p-3 transition duration-500 group-hover:scale-105" />
+                <span className="eyebrow absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white/95 px-3 py-1 text-[0.62rem] text-brand-plum shadow">Tap to shop</span>
+              </Link>
+            ) : <img src={poster} alt={promo.image?.alt ?? ''} className="absolute inset-0 h-full w-full object-contain p-3" />)}
             {video && (
               <button type="button" onClick={() => setPlaying(true)} aria-label={`Play video: ${promo.title}`}
                 className="absolute inset-0 m-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-violet/90 text-white shadow-xl ring-2 ring-brand-gold-light transition hover:scale-105">
@@ -42,9 +48,12 @@ export function VideoPanel({ promotions }: { promotions: Promotion[] }) {
           </>
         )}
       </div>
-      {(promo.subtitle || promo.ctaHref) && (
+      {(promo.subtitle || promo.ctaHref || promo.productSlug) && (
         <div className="space-y-3 px-4 py-4 text-sm">
           {promo.subtitle && <p className="text-muted">{promo.subtitle}</p>}
+          {promo.productSlug && (
+            <Link href={`/products/${promo.productSlug}/`} className="btn btn-primary w-full">Shop this design</Link>
+          )}
           {promo.ctaHref && promo.ctaLabel && (
             <a href={promo.ctaHref} target={/^https?:/.test(promo.ctaHref) ? '_blank' : undefined} rel="noopener"
               className="btn mt-1 w-full text-white shadow-md"

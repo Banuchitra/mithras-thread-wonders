@@ -49,7 +49,7 @@ function Users() {
   };
 
   return (
-    <div className="mx-auto max-w-[88rem] px-4 py-10">
+    <div className="px-4 py-6 lg:px-0 lg:py-2">
       <p className="eyebrow text-brand-gold-text"><Link href="/admin/" className="hover:underline">Admin</Link> / Users</p>
       <h1 className="mt-1 text-4xl font-semibold text-brand-plum">User management</h1>
       <div className="mt-4 space-y-2"><FormMessage error={error} success={notice} /></div>

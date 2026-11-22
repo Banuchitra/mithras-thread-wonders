@@ -4,10 +4,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/components/AuthProvider';
-import { AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
-import { api } from '@/lib/api';
+import { AccountsComingSoon, AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
+import { API_CONFIGURED, api } from '@/lib/api';
 
 export default function SignUpPage() {
+  return API_CONFIGURED ? <SignUpPageInner /> : <AccountsComingSoon />;
+}
+
+function SignUpPageInner() {
   const { signUp } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState<boolean | null>(null);

@@ -20,7 +20,7 @@ export function useContent(type: 'products' | 'categories' | 'collections' | 'pr
 
 export function AdminPage({ title, crumb, actions, children }: { title: string; crumb?: string; actions?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-[88rem] px-4 py-10">
+    <div className="px-4 py-6 lg:px-0 lg:py-2">
       <p className="eyebrow text-brand-gold-text"><Link href="/admin/" className="hover:underline">Admin</Link>{crumb ? ` / ${crumb}` : ''}</p>
       <div className="mt-1 flex flex-wrap items-end justify-between gap-3">
         <h1 className="text-4xl font-semibold text-brand-plum">{title}</h1>

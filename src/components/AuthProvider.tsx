@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { ApiError, api, getToken, setToken, type Session, type User } from '@/lib/api';
+import { API_CONFIGURED, ApiError, api, getToken, setToken, type Session, type User } from '@/lib/api';
 
 interface Auth {
   user: User | null;
@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!getToken()) { setLoading(false); return; }
+    if (!API_CONFIGURED || !getToken()) { setLoading(false); return; }
     api<User>('/api/me')
       .then(setUser)
       .catch((e) => { if (e instanceof ApiError && (e.status === 401 || e.status === 403)) setToken(null); })

@@ -1,11 +1,16 @@
 'use client';
 
+import { API_CONFIGURED } from '@/lib/api';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/components/AuthProvider';
-import { AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
+import { AccountsComingSoon, AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
 
 export default function AccountPage() {
+  return API_CONFIGURED ? <AccountPageInner /> : <AccountsComingSoon />;
+}
+
+function AccountPageInner() {
   const { user, loading } = useAuth();
   if (loading) return <AuthCard title="Account"><p className="text-center text-muted">Loading…</p></AuthCard>;
   if (!user) return <SignIn />;

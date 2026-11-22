@@ -2,10 +2,14 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { AuthCard, Field, FormMessage } from '@/components/forms';
-import { api } from '@/lib/api';
+import { AccountsComingSoon, AuthCard, Field, FormMessage } from '@/components/forms';
+import { API_CONFIGURED, api } from '@/lib/api';
 
 export default function ForgotPage() {
+  return API_CONFIGURED ? <ForgotPageInner /> : <AccountsComingSoon />;
+}
+
+function ForgotPageInner() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [done, setDone] = useState('');

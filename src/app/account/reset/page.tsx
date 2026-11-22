@@ -2,10 +2,14 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { AuthCard, FormMessage, PasswordField, strength } from '@/components/forms';
-import { api } from '@/lib/api';
+import { AccountsComingSoon, AuthCard, FormMessage, PasswordField, strength } from '@/components/forms';
+import { API_CONFIGURED, api } from '@/lib/api';
 
 export default function ResetPage() {
+  return API_CONFIGURED ? <ResetPageInner /> : <AccountsComingSoon />;
+}
+
+function ResetPageInner() {
   const [token, setToken] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

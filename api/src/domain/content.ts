@@ -69,6 +69,7 @@ export function validatePromotion(d: Doc): Doc {
   return {
     id: id(d.id, 'ID'), title: str(d.title, 120) || bad('Headline is required'), subtitle: str(d.subtitle, 300), placement,
     ctaLabel: str(d.ctaLabel, 60), ctaHref: href, video: str(d.video, 300), ...(imgs[0] ? { image: imgs[0] } : {}),
+    ...(str(d.productSlug, 120) ? { productSlug: id(d.productSlug, 'Linked product') } : {}),
     startDate: date(d.startDate, 'Start date'), endDate: date(d.endDate, 'End date'), order: num(d.order, 99), hidden: bool(d.hidden),
   };
 }

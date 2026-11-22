@@ -109,6 +109,7 @@ function Promotions() {
 
 function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => void }) {
   const [p, setP] = useState<Doc>(promo);
+  const products = useContent('products');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState('');
   const isNew = !promo.id;
@@ -144,6 +145,13 @@ function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => voi
         <Field label="Button text" value={p.ctaLabel} onChange={(e) => set('ctaLabel', e.target.value)} placeholder="Shop now" />
         <Field label="Button link" value={p.ctaHref} onChange={(e) => set('ctaHref', e.target.value)} placeholder="/shop/bangles/" />
       </div>
+      <label className="block text-sm"><span className="mb-1 block font-semibold">Linked product (optional)</span>
+        <select value={p.productSlug ?? ''} onChange={(e) => set('productSlug', e.target.value)} className={inputClass}>
+          <option value="">None</option>
+          {[...(products.items ?? [])].sort((a, b) => String(a.title).localeCompare(String(b.title))).map((x) => <option key={x.slug} value={x.slug}>{x.title}</option>)}
+        </select>
+        <span className="mt-1 block text-xs text-muted">The picture and a “Shop this design” button take visitors to this product.</span>
+      </label>
       {p.placement === 'video' && <Field label="Video link" value={p.video} onChange={(e) => set('video', e.target.value)} placeholder="https://www.instagram.com/reel/…" hint="Paste the link of an Instagram reel or YouTube video. Visitors tap ▶ to play it on the home page." />}
       <div className="flex flex-wrap items-center gap-3">
         {p.image && <img src={asset(p.image.src)} alt="" className="h-16 w-16 rounded bg-white object-contain" />}

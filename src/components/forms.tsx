@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 export const inputClass = 'w-full rounded-lg border border-line bg-white px-3 py-2.5 focus:border-brand-violet';
@@ -35,6 +36,16 @@ export function FormMessage({ error, success }: { error?: string; success?: stri
   if (error) return <p role="alert" className="rounded-lg bg-[#FCE8F1] px-3 py-2 text-sm text-[#9C1458]">{error}</p>;
   if (success) return <p role="status" className="rounded-lg bg-[#E4F4F0] px-3 py-2 text-sm text-brand-teal-text">{success}</p>;
   return null;
+}
+
+/** Shown on the public site while accounts aren't online yet. */
+export function AccountsComingSoon() {
+  return (
+    <AuthCard title="Accounts coming soon" subtitle="Sign-in for customers and the shop owner is being set up.">
+      <p className="text-center text-sm text-muted">You don’t need an account to order — use <strong>Order on WhatsApp</strong> on any design, or send a custom / bulk request.</p>
+      <div className="mt-5 flex flex-wrap justify-center gap-3"><Link href="/shop/" className="btn btn-primary">Browse designs</Link></div>
+    </AuthCard>
+  );
 }
 
 export function AuthCard({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {

@@ -1,5 +1,7 @@
 // Browser client for the in-house API (api/). Session token kept in localStorage (per browser).
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8787';
+/** False on the public site until the API is deployed — account/admin/upload features then show a fallback. */
+export const API_CONFIGURED = Boolean(process.env.NEXT_PUBLIC_API_URL) || process.env.NODE_ENV !== 'production';
 const KEY = 'mtw-session';
 
 export class ApiError extends Error {
