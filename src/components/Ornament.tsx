@@ -4,11 +4,11 @@ import { MonogramArt } from './Monogram';
 export function Ornament({ className = '', light = false }: { className?: string; light?: boolean }) {
   const c = light ? '#E8C872' : '#D4A73A';
   return (
-    <svg aria-hidden="true" viewBox="0 0 240 32" className={`mx-auto h-8 w-60 ${className}`}>
-      <path d="M0 16h86M154 16h86" stroke={c} strokeWidth="1" />
-      <circle cx="94" cy="16" r="2" fill={c} /><circle cx="146" cy="16" r="2" fill={c} />
-      <svg x="104" y="0" width="32" height="32" viewBox="0 0 64 64">
-        <MonogramArt variant={light ? 'light' : 'color'} />
+    <svg aria-hidden="true" viewBox="0 0 240 40" className={`mx-auto h-10 w-60 ${className}`}>
+      <path d="M0 20h84M156 20h84" stroke={c} strokeWidth="1" />
+      <circle cx="92" cy="20" r="2" fill={c} /><circle cx="148" cy="20" r="2" fill={c} />
+      <svg x="100" y="0" width="40" height="40" viewBox="0 0 100 100">
+        <MonogramArt variant={light ? 'light' : 'color'} detail={false} />
       </svg>
     </svg>
   );
