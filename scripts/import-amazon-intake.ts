@@ -13,17 +13,17 @@ const IMG_OUT = 'public/images/products';
 
 // From the owner's invoices: which category each design belongs to.
 const CATEGORY_BY_SKU: Record<string, string> = {
-  'LEAF-001A': 'invisible-chains',
+  'LEAF-001A': 'necklace-earring-sets',
   'CHAKRA-001A': 'invisible-chains',
   'Lakshmi-001A': 'invisible-chains',
-  'SNOWFLAKES-001A': 'invisible-chains',
+  'SNOWFLAKES-001A': 'necklace-earring-sets',
   'JADAU LOTUS-001': 'invisible-chains',
   'KERALA-001A': 'invisible-chains',
   'FLWR-BTRFLY-001A': 'invisible-chains',
-  'PERUMAL-001A': 'korean-chains',
+  'PERUMAL-001A': 'necklace-earring-sets',
   'RABBIT-001A': 'korean-chains',
   'PEACOCK-001A': 'korean-chains',
-  'LOTUS-SET-001A': 'korean-chains',
+  'LOTUS-SET-001A': 'necklace-earring-sets',
 };
 
 // Amazon-internal or seller-identifying fields that customers don't need (and that name the Canada reseller).

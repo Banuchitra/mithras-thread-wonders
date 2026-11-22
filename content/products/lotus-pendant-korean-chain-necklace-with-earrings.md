@@ -37,7 +37,7 @@ description: >-
   contemporary outfits, from sarees and lehengas to fusion wear. Whether you're
   dressing up for a celebration or looking to add a touch of heritage-inspired
   glamour to your ensemble, this Lotus model set is a truly captivating choice.
-categoryId: korean-chains
+categoryId: necklace-earring-sets
 availability: ships-from-canada
 customisable: true
 featured: false

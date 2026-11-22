@@ -50,7 +50,7 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
 
         <div className="ml-auto flex items-center gap-1">
           <IconLink href="/account/" label="Account / sign in"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v1.5h16V19c0-2.8-3.6-5-8-5Z" /></IconLink>
-          <IconLink href="/cart/" label="Cart"><path d="M7 7V6a5 5 0 0 1 10 0v1h3l-1.2 13.2A2 2 0 0 1 16.8 22H7.2a2 2 0 0 1-2-1.8L4 7h3Zm2 0h6V6a3 3 0 0 0-6 0v1Z" /></IconLink>
+          <IconLink href="/cart/" label="Cart"><path d="M2.5 3.5h2.3l2.6 11a1.6 1.6 0 0 0 1.6 1.2h8.4a1.6 1.6 0 0 0 1.5-1.1l2-6.6H6" /><circle cx="9.6" cy="19.6" r="1.5" /><circle cx="17.2" cy="19.6" r="1.5" /></IconLink>
         </div>
       </div>
       <div className="gold-rule" />
@@ -62,7 +62,7 @@ function IconLink({ href, label, children }: { href: string; label: string; chil
   return (
     <Link href={href} aria-label={label} title={label}
       className="flex h-11 w-11 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet">
-      <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current" strokeWidth="1.6" aria-hidden="true">{children}</svg>
+      <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
     </Link>
   );
 }
