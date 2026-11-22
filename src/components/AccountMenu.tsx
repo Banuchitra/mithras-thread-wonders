@@ -43,6 +43,7 @@ export function AccountMenu() {
           {staff && (
             <>
               <Link role="menuitem" href="/admin/" className={item} onClick={() => setOpen(false)}>Admin dashboard</Link>
+              <Link role="menuitem" href="/admin/inquiries/" className={item} onClick={() => setOpen(false)}>Custom-order requests</Link>
               <Link role="menuitem" href="/admin/products/edit/" className={item} onClick={() => setOpen(false)}>Add product</Link>
               <Link role="menuitem" href="/admin/products/" className={item} onClick={() => setOpen(false)}>Edit products</Link>
               <Link role="menuitem" href="/admin/categories/" className={item} onClick={() => setOpen(false)}>Categories</Link>

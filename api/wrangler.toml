@@ -18,3 +18,8 @@ binding = "DB"
 database_name = "mithras"
 database_id = "REPLACE_AFTER_wrangler_d1_create"
 migrations_dir = "migrations"
+
+# Private storage for customers' reference photos (custom-order requests). Simulated locally by wrangler dev.
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "mithras-uploads"

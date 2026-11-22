@@ -17,6 +17,7 @@ function Dashboard() {
     if (user?.role === 'admin') api<{ requests: unknown[] }>('/api/reset-requests').then((r) => setPending(r.requests.length)).catch(() => setPending(null));
   }, [user]);
   const cards = [
+    { title: 'Custom-order requests', text: 'Customers’ requests with reference photos and reels — reply on WhatsApp, track status.', href: '/admin/inquiries/', soon: '' },
     { title: 'Add a product', text: 'Upload photos and fill in the product form.', href: '/admin/products/edit/', soon: '' },
     { title: 'Products', text: 'Search, edit prices, photos, descriptions and videos; hide or delete products.', href: '/admin/products/', soon: '' },
     { title: 'Collections & categories', text: 'Add, rename, reorder or hide — the shop menus update automatically.', href: '/admin/categories/', soon: '' },

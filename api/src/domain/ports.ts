@@ -42,3 +42,33 @@ export interface ContentStore {
   /** path like "images/products/<slug>/<name>.webp" (relative to the site's public folder). */
   putFile(path: string, base64: string): Promise<void>;
 }
+
+export interface InquiryItem { item: string; quantity: number; notes: string; likeSku: string }
+export interface Inquiry {
+  id: string;
+  createdAt: string;
+  name: string;
+  contact: string;
+  country: string;
+  business: string;
+  message: string;
+  items: InquiryItem[];
+  links: string[];
+  photoCount: number;
+  status: 'new' | 'replied' | 'closed';
+  notes: string;
+}
+
+/** Port: custom-order / wholesale requests (D1). */
+export interface InquiryStore {
+  add(i: Inquiry): Promise<void>;
+  list(): Promise<Inquiry[]>;
+  get(id: string): Promise<Inquiry | null>;
+  update(id: string, patch: Partial<Pick<Inquiry, 'status' | 'notes'>>): Promise<Inquiry | null>;
+}
+
+/** Port: private photo storage (R2). Keys like "inquiries/<id>/<n>.webp". */
+export interface PhotoStore {
+  put(key: string, bytes: Uint8Array, contentType: string): Promise<void>;
+  get(key: string): Promise<{ bytes: Uint8Array; contentType: string } | null>;
+}

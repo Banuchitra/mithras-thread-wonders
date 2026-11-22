@@ -2,7 +2,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { signSession, verifySession } from './adapters/sessions';
-import type { ContentStore, Store } from './domain/ports';
+import type { ContentStore, InquiryStore, PhotoStore, Store } from './domain/ports';
+import { inquiryId, validateInquiry } from './domain/inquiries';
 import { CONTENT_TYPES, idOf, validateCategory, validateCollection, validateProduct, validatePromotion, validateSettings, ID_RE, type ContentType, type Doc } from './domain/content';
 import { MIN_PASSWORD_LENGTH, hashPassword, randomToken, sha256, verifyPassword } from './domain/passwords';
 import {
@@ -14,6 +15,8 @@ export interface Deps {
   store: Store;
   /** Site content (products, categories…). Optional so account-only tests can omit it. */
   content?: ContentStore;
+  inquiries?: InquiryStore;
+  photos?: PhotoStore;
   sessionSecret: string;
   superAdminEmail: string;
   allowedOrigins: string[];
@@ -63,6 +66,21 @@ export function createApp(deps: Deps) {
   // ---------- public ----------
   app.get('/', (c) => c.text("Mithra's Thread Wonders API"));
   app.get('/api/settings/public', async (c) => c.json({ allowSignups: (await store.getSettings()).allowSignups }));
+
+  // Custom-order / wholesale request from any visitor (no account needed).
+  app.post('/api/inquiries', async (c) => {
+    if (!deps.inquiries || !deps.photos) throw new AccessError(400, 'Requests are not configured');
+    const body = await c.req.json<Record<string, unknown>>();
+    if (body.website) return c.json({ id: inquiryId() }, 201); // hidden field filled → a bot; pretend success
+    const v = validateInquiry(body);
+    const id = inquiryId();
+    for (const [n, p] of v.photos.entries()) await deps.photos.put(`inquiries/${id}/${n}.${p.ext}`, p.bytes, p.contentType);
+    await deps.inquiries.add({
+      id, createdAt: iso(), name: v.name, contact: v.contact, country: v.country, business: v.business, message: v.message,
+      items: v.items, links: v.links, photoCount: v.photos.length, status: 'new', notes: '',
+    });
+    return c.json({ id }, 201);
+  });
 
   app.post('/api/auth/signup', async (c) => {
     if (!(await store.getSettings()).allowSignups) throw new AccessError(403, 'Sign-ups are currently closed');
@@ -220,6 +238,34 @@ export function createApp(deps: Deps) {
   });
 
   authed.get('/roles', (c) => c.json({ roles: ROLES }));
+
+  // ---------- custom-order requests (editors + admins) ----------
+  const inq = () => { if (!deps.inquiries || !deps.photos) throw new AccessError(400, 'Requests are not configured'); return { store: deps.inquiries, photos: deps.photos }; };
+  authed.get('/inquiries', async (c) => {
+    const a = c.get('actor'); if (a.role !== 'admin' && a.role !== 'editor') throw new AccessError(403, 'Editors and admins only');
+    return c.json({ inquiries: await inq().store.list() });
+  });
+  authed.get('/inquiries/:id/photos/:n', async (c) => {
+    const a = c.get('actor'); if (a.role !== 'admin' && a.role !== 'editor') throw new AccessError(403, 'Editors and admins only');
+    const i = await inq().store.get(c.req.param('id'));
+    const n = Number(c.req.param('n'));
+    if (!i || !Number.isInteger(n) || n < 0 || n >= i.photoCount) throw new AccessError(404, 'No such photo');
+    for (const ext of ['webp', 'jpg', 'png']) {
+      const f = await inq().photos.get(`inquiries/${i.id}/${n}.${ext}`);
+      if (f) return new Response(f.bytes, { headers: { 'content-type': f.contentType, 'cache-control': 'private, max-age=3600' } });
+    }
+    throw new AccessError(404, 'No such photo');
+  });
+  authed.patch('/inquiries/:id', async (c) => {
+    const a = c.get('actor'); if (a.role !== 'admin' && a.role !== 'editor') throw new AccessError(403, 'Editors and admins only');
+    const body = await c.req.json<{ status?: string; notes?: string }>();
+    const patch: { status?: 'new' | 'replied' | 'closed'; notes?: string } = {};
+    if (body.status !== undefined) { if (!['new', 'replied', 'closed'].includes(body.status)) throw new AccessError(400, 'Unknown status'); patch.status = body.status as 'new'; }
+    if (body.notes !== undefined) patch.notes = String(body.notes).slice(0, 2000);
+    const updated = await inq().store.update(c.req.param('id'), patch);
+    if (!updated) throw new AccessError(404, 'No such request');
+    return c.json({ inquiry: updated });
+  });
 
   // ---------- site content (editors + admins; settings admins only) ----------
   const content = () => { if (!deps.content) throw new AccessError(400, 'Content editing is not configured'); return deps.content; };

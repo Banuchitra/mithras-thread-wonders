@@ -28,3 +28,18 @@ export const settings = sqliteTable('settings', {
   key: text('key').primaryKey(),
   value: text('value').notNull(),
 });
+
+export const inquiries = sqliteTable('inquiries', {
+  id: text('id').primaryKey(),
+  createdAt: text('created_at').notNull(),
+  name: text('name').notNull(),
+  contact: text('contact').notNull(),
+  country: text('country').notNull().default(''),
+  business: text('business').notNull().default(''),
+  message: text('message').notNull().default(''),
+  items: text('items', { mode: 'json' }).notNull().default('[]'),
+  links: text('links', { mode: 'json' }).notNull().default('[]'),
+  photoCount: integer('photo_count').notNull().default(0),
+  status: text('status', { enum: ['new', 'replied', 'closed'] }).notNull().default('new'),
+  notes: text('notes').notNull().default(''),
+});
