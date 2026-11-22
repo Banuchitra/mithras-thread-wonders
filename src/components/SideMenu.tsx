@@ -14,8 +14,8 @@ export function SideMenu({ tree, brandName }: { tree: CollectionNode[]; brandNam
   const [expanded, setExpanded] = useState<string | null>(null);
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };

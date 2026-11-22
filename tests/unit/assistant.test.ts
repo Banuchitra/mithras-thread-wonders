@@ -23,6 +23,10 @@ describe('shopping assistant', () => {
     expect(answer('something for my wedding', catalogue).products[0].slug).toBe('bridal');
     expect(answer('hair clip', catalogue).products[0].slug).toBe('clip');
   });
+  it('ranks products named for the request above ones that only mention it', () => {
+    const list = [p({ slug: 'necklace', title: 'Temple Necklace', category: 'Necklaces', text: 'perfect for weddings', price: 3000 }), ...catalogue];
+    expect(answer('bridal', list).products[0].slug).toBe('bridal');
+  });
   it('applies price limits like "under $40"', () => {
     const r = answer('necklace under $40', catalogue);
     expect(r.products.map((x) => x.slug)).toEqual(['perumal']);

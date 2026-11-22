@@ -22,7 +22,7 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
     { from: 'bot', text: 'Hi! I can help you find designs. What are you looking for? Try a colour, an occasion or a price.' },
   ]);
   const end = useRef<HTMLDivElement>(null);
-  useEffect(() => end.current?.scrollIntoView({ block: 'end' }), [msgs, open]);
+  useEffect(() => { end.current?.scrollIntoView({ block: 'end' }); }, [msgs, open]);
   const pathname = usePathname();
   // Customers' assistant: not needed in the admin console (and it would cover the Save bar).
   if (pathname?.startsWith('/admin')) return null;

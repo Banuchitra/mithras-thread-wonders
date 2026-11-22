@@ -32,7 +32,7 @@ function Editor() {
   const [msg, setMsg] = useState({ error: '', success: '' });
   const [busy, setBusy] = useState('');
 
-  useEffect(() => setId(new URLSearchParams(window.location.search).get('id')), []);
+  useEffect(() => { setId(new URLSearchParams(window.location.search).get('id')); }, []);
   useEffect(() => {
     if (!id || !products.items) return;
     const found = products.items.find((x) => x.slug === id);

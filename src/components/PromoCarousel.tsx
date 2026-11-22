@@ -12,7 +12,7 @@ export interface BrandSlide { tagline: string; logo: string }
 // themselves in the visitor's browser too, so an offer disappears on its end date even without a rebuild).
 export function PromoCarousel({ promotions, brand }: { promotions: Promotion[]; brand: BrandSlide }) {
   const [today, setToday] = useState<string | null>(null);
-  useEffect(() => setToday(todayIso()), []);
+  useEffect(() => { setToday(todayIso()); }, []);
   const slides = useMemo(
     () => (today ? activePromotions(promotions, today, 'banner') : promotions.filter((p) => p.placement === 'banner' && !p.hidden)),
     [promotions, today],

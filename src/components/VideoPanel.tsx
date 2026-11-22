@@ -43,11 +43,19 @@ export function VideoPanel({ promotions }: { promotions: Promotion[] }) {
         )}
       </div>
       {(promo.subtitle || promo.ctaHref) && (
-        <div className="space-y-2 px-4 py-3 text-sm">
+        <div className="space-y-3 px-4 py-4 text-sm">
           {promo.subtitle && <p className="text-muted">{promo.subtitle}</p>}
           {promo.ctaHref && promo.ctaLabel && (
             <a href={promo.ctaHref} target={/^https?:/.test(promo.ctaHref) ? '_blank' : undefined} rel="noopener"
-              className="font-semibold text-brand-violet underline">{promo.ctaLabel}</a>
+              className="btn mt-1 w-full text-white shadow-md"
+              style={{ backgroundImage: /instagram\.com/.test(promo.ctaHref) ? 'linear-gradient(45deg,#F58529,#DD2A7B 45%,#8134AF 75%,#515BD4)' : undefined, backgroundColor: '#6A2C91' }}>
+              {/instagram\.com/.test(promo.ctaHref) && (
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" className="fill-current" />
+                </svg>
+              )}
+              {promo.ctaLabel}
+            </a>
           )}
         </div>
       )}

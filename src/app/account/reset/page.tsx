@@ -10,7 +10,7 @@ export default function ResetPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [done, setDone] = useState('');
-  useEffect(() => setToken(new URLSearchParams(window.location.search).get('token') ?? ''), []);
+  useEffect(() => { setToken(new URLSearchParams(window.location.search).get('token') ?? ''); }, []);
   const s = strength(password);
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setError('');

@@ -55,12 +55,14 @@ export function answer(question: string, catalogue: AssistantProduct[]): Assista
   if (terms.length === 0 && maxPrice === undefined) return { intent: 'unknown', products: [] };
 
   const scored = catalogue.map((prod) => {
-    const hay = ` ${[prod.title, prod.category, prod.collection, prod.text].join(' ').toLowerCase().split(/[^a-z]+/).map(canonical).join(' ')} `;
+    const words = (s: string) => ` ${s.toLowerCase().split(/[^a-z]+/).map(canonical).join(' ')} `;
+    const named = words(`${prod.title} ${prod.category}`); // what the product *is*
+    const hay = words([prod.title, prod.category, prod.collection, prod.text].join(' '));
     let score = 0;
     let colourMiss = false;
     for (const t of terms) {
       const hit = hay.includes(` ${t} `);
-      if (hit) score += COLOURS.includes(t) ? 3 : 2;
+      if (hit) score += (COLOURS.includes(t) ? 3 : 2) + (named.includes(` ${t} `) ? 4 : 0);
       else if (COLOURS.includes(t)) colourMiss = true;
     }
     const allTypedMatch = terms.every((t) => COLOURS.includes(t) || hay.includes(` ${t} `));
