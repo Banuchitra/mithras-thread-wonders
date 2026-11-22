@@ -4,10 +4,25 @@ import { FONT_PAIRINGS } from './fonts';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
+import { ChatWidget } from '@/components/ChatWidget';
 import { loadCatalog } from '@/lib/catalog';
 import { SITE_URL, asset } from '@/lib/paths';
 
-const { settings, tree } = loadCatalog();
+const { settings, tree, products, categoryById } = loadCatalog();
+
+// Slim catalogue for the in-browser shopping assistant.
+const assistantCatalogue = products.map((p) => {
+  const cat = categoryById.get(p.categoryId);
+  return {
+    slug: p.slug,
+    title: p.title,
+    category: cat?.name ?? '',
+    collection: cat?.collection.name ?? '',
+    text: [p.subtitle, p.description, ...p.bullets, ...Object.values(p.specs)].join(' ').toLowerCase(),
+    price: p.price?.amount,
+    image: p.images[0]?.src,
+  };
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header brandName={settings.brandName} tagline={settings.tagline} tree={tree} />
         <main id="main" className="pb-20 has-[.flush-footer]:pb-0">{children}</main>
         <Footer settings={settings} />
+        <ChatWidget catalogue={assistantCatalogue} whatsapp={settings.whatsapp} />
       </body>
     </html>
   );
