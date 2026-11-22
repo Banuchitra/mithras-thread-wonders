@@ -4,20 +4,20 @@
 @theme {
   --color-brand-blue: #2D5BD3;
   --color-brand-teal: #14A08C;      /* decoration only */
-  --color-brand-teal-text: #0E7C6B;
+  --color-brand-teal-text: #0A6656;
   --color-brand-green: #3DBB5A;     /* decoration only */
   --color-brand-violet: #6A2C91;
   --color-brand-violet-dark: #521F72;
-  --color-brand-plum: #2E1245;      /* deep background */
+  --color-brand-plum: #370A5E;      /* the monogram's purple — dark bands, headings */
   --color-brand-magenta: #D81B78;
   --color-brand-gold: #D4A73A;      /* on dark only, or decoration */
   --color-brand-gold-light: #E8C872;
-  --color-brand-gold-text: #8A6A12; /* gold readable on light backgrounds */
+  --color-brand-gold-text: #735609; /* gold readable on the lavender page (≥ 5.6:1) */
   --color-ink: #1F1A2E;
   --color-muted: #5E576B;
-  --color-cream: #FBF6EE;
-  --color-soft: #F7F2EA;
-  --color-line: #EADFCB;
+  --color-cream: #F6EFFA;           /* lavender tint from the monogram */
+  --color-soft: #F1E8F7;
+  --color-line: #E4D5EE;
 
   --font-sans: var(--nf-body), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--nf-heading), Georgia, "Times New Roman", serif;
@@ -30,7 +30,15 @@
 }
 
 html { color-scheme: light; }
-body { background: #fff; color: var(--color-ink); }
+/* Page background: soft lavender gradient from the monogram's purple, with the monogram as a faint pattern. */
+body {
+  color: var(--color-ink);
+  background-color: #F4ECF8;
+  background-image:
+    url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB5CAYAAADyOOV3AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAFFklEQVR42u2cC26jShBF3YABAzH4E29ldjP7X8azpaqnq1LjTwYndnSOhJIYDxnlUNXV1Y1XKwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4Lf50f9/ygJ8R/HE+DuejQvDvE7w+H0cTvEXw7xCczkdh329M7EX0LnMewW8m+CJ0tGOw9Hz5Wp6PKZzf2usIfhPBrQn1KL1E7V4Ef56PTqK3Xjptw3MFdxKxo/z8ISnaU/blfG/fJwS/puBLxDahWh6tWi7s69aOxgqtxqK5tBtgL9V1ChGO4B8W7GNpKREZ3+OSe4vs3PnJbpaL3NO/jMuwrOBSCqlm5j2FpebJBM69p5dIJ0W/WaNjb5HZMA9+fcFJxtB7i6OdCa7vfH/x4PURvIDg0lLxziLyaMc2tCALq5RVzmSC1/JaE4QnS9MHu+7ejo9Hii74mmCfz3qF652ozmR8WpG0koIqFmOncCP4NZO9frD3DPZzkqp6ujea4XHByaK2mekzNyEFjyJ7JdJjdezFVy1R24Yo92O4UqAh+B8FtyZtJd2ntUgaTfJRUmqfWU06hVRbS7vyJF2wWm6sJP+HAcHPEazz18IE6LTIx+XWRE2Z9mNOcC9j82A/72W8r0MGaBD8PRHs0TdIseQR6NEY136HIDiZXF9GrEW0Flw+Nx4osp4/BrdB2EbG4ZPJqKzgOoU0PdjrSf6Nv28j19iE31s/ukkAvlZFezvRjz5Mn1SoR/FehPYWrSmk7H24Sdo71pm9c5YQvHyjY23pugjVsArWKG5klekokg5BaB3en660Riv7XR2ClxWs0VhfEaxj7jYj2MfsnVyzlDXjezcV9AheTrAv7ZWZXRg5wb6472m5tajVpkcjWWGQpcatjOdzWWQ3dzPA1yN4E+apc4JTiOLaZO5F/E6iebCvlaRg3RTgTY7OXptEfm1HgeDnrSbNCS4lTTeyH8ulezbYSPRO9n0rCw6NCF5L+3InTZXBbzxYXnCZSdHa4DjaOY/GvZxz6bV0yBp5n8v28y52sBvAb4L/V58w972CKxO8k4ZFI1GYwjSpCYXawa7r+7o6SeOewj90zIblBVdXBOs+rdGiMDcFqjONjpWMuxuJbh+H61yVD18T7GmzzQjy6OuuVL3Tje2x6xnBfgN1mQxAJ2sBwd4z9u2ug+x7XmV60XMCp0w/+5EsQKvySYIHmdLodGkdVoVubce5tcG9DI0RFe8pfoPg5QUfJDKT/NHLEJ2fM9tqClkw8E7VeqZLdpQKW1eyCmmQ1AheTnCSjeqPRp5Gexdakdsre6zjro8UrjUgeNkIHm+k1txeK5Uzyhx1kKp6faXQmpN417YdeExwJY2KmHrHG3uddZtNKddoMoVaHM/7zLV29+yuhMenSZVslR1lJ8Z0YzF+lPNliL5xJoo9FR/l9/lTESVF1nMbHZVFX3PHH7sKUVgEwc2NqjhJY2PNNOm1Hl2pZeUoCosRPvDoynsJLi0yY0rdZJ4D9v5yheD3EFxZVB4zhdeYmSuX8nhKg+DXFtzJ8t8hszuylflwfHRlL9FcIPg1Bfs05jPTcdJHU/rMw2xHOYfgF07RvUxtmswTDAcTWoa5tC9EJFL06xdZST6fQxcZPLo/wtaeaunPy4LvfcJ/K4KP8hxTyRP+v0NwKZsFfH9VteTHJiGYT5sFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgJ/kP+4eX14MiPoQAAAAAElFTkSuQmCC"),
+    linear-gradient(180deg, #F8F3FB 0%, #F1E6F7 55%, #EFE5F6 100%);
+  background-size: 120px auto, 100% 100%;
+}
 h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .01em; }
 
 .text-brand-gradient {
@@ -45,8 +53,8 @@ h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .0
 /* Deep plum band with the gold motif — hero, wholesale banner, footer. */
 .heritage {
   position: relative; color: #fff; background-color: var(--color-brand-plum);
-  background-image: radial-gradient(ellipse at 85% 10%, rgb(216 27 120 / .35), transparent 55%),
-    radial-gradient(ellipse at 10% 90%, rgb(45 91 211 / .35), transparent 55%);
+  background-image: radial-gradient(ellipse at 85% 10%, rgb(216 27 120 / .28), transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgb(45 91 211 / .28), transparent 55%);
 }
 .heritage::before { content: ""; position: absolute; inset: 0; background-image: var(--motif); background-size: 84px; opacity: .08; pointer-events: none; }
 .heritage > :not(.absolute) { position: relative; }
@@ -55,6 +63,7 @@ h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .0
 .arch { border-radius: 999px 999px 14px 14px; overflow: hidden; }
 /* Safe area inside an arch: top padding clears the curve. Photos are contained, never cropped. */
 .arch-media { position: relative; width: 100%; height: 100%; padding: 16% 9% 5%; background: #fff; }
+.surface { background: rgb(255 255 255 / .92); }
 .arch-frame { padding: 6px; border: 1px solid var(--color-brand-gold); border-radius: 999px 999px 18px 18px; background: #fff; }
 
 /* Buttons — softly rounded, traditional rather than pill-shaped. */
@@ -101,5 +110,5 @@ h1, h2, h3, .font-heading { font-family: var(--font-heading); letter-spacing: .0
 }
 
 .carousel-arrow { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; font-size: 1.25rem; line-height: 1;
-  color: #fff; border: 1px solid rgb(232 200 114 / .6); background: rgb(46 18 69 / .4); }
-.carousel-arrow:hover { background: rgb(46 18 69 / .8); }
+  color: #fff; border: 1px solid rgb(232 200 114 / .6); background: rgb(55 10 94 / .4); }
+.carousel-arrow:hover { background: rgb(55 10 94 / .8); }

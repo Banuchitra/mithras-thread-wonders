@@ -7,7 +7,7 @@ import { AccountMenu } from './AccountMenu';
 // as she adds them); account and cart icons top right. Desktop: hover/focus mega menu. Phone: menu drawer.
 export function Header({ brandName, tagline, tree }: { brandName: string; tagline: string; tree: CollectionNode[] }) {
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur">
       <div className="relative mx-auto flex max-w-[88rem] items-center gap-3 px-4 py-2.5">
         <MobileMenu tree={tree} />
         <Link href="/" className="flex min-w-0 items-center gap-3">
@@ -24,7 +24,7 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
             <Link href="/shop/" className="flex items-center gap-1 py-4 hover:text-brand-violet" aria-haspopup="true">
               Shop <span aria-hidden="true">▾</span>
             </Link>
-            <div className="invisible absolute inset-x-0 top-full border-t border-line bg-white opacity-0 shadow-[0_18px_30px_rgb(46_18_69/0.12)] transition group-hover/menu:visible group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100">
+            <div className="invisible absolute inset-x-0 top-full border-t border-line bg-white opacity-0 shadow-[0_18px_30px_rgb(55_10_94/0.12)] transition group-hover/menu:visible group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100">
               <div className="mx-auto grid max-w-[88rem] gap-8 px-8 py-8 normal-case tracking-normal" style={{ gridTemplateColumns: `repeat(${Math.min(tree.length + 1, 6)}, minmax(0, 1fr))` }}>
                 {tree.map((c) => (
                   <div key={c.id}>
