@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
+import { ADMIN_BACKEND } from '@/lib/content-client';
 import { useAuth } from './AuthProvider';
 import { Icon } from './icons';
 import { Monogram } from './Monogram';
@@ -15,19 +16,19 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [newRequests, setNewRequests] = useState(0);
   const staff = !!user && !user.mustChangePassword && (user.role === 'admin' || user.role === 'editor');
   useEffect(() => {
-    if (!staff) return;
+    if (!staff || ADMIN_BACKEND !== 'api') return;
     api<{ inquiries: { status: string }[] }>('/api/inquiries').then((r) => setNewRequests(r.inquiries.filter((i) => i.status === 'new').length)).catch(() => {});
   }, [staff, pathname]);
   if (!staff) return <>{children}</>;
 
   const nav = [
     { href: '/admin/', label: 'Dashboard', icon: 'dashboard', exact: true },
-    { href: '/admin/inquiries/', label: 'Requests', icon: 'requests', badge: newRequests },
+    ...(ADMIN_BACKEND === 'api' ? [{ href: '/admin/inquiries/', label: 'Requests', icon: 'requests', badge: newRequests }] : []),
     { href: '/admin/products/', label: 'Products', icon: 'products', exact: true },
     { href: '/admin/products/edit/', label: 'Add product', icon: 'add' },
     { href: '/admin/categories/', label: 'Categories', icon: 'categories' },
     { href: '/admin/website/', label: 'Website', icon: 'website' },
-    ...(user.role === 'admin' ? [{ href: '/admin/users/', label: 'Users', icon: 'users' }] : []),
+    ...(user.role === 'admin' && ADMIN_BACKEND === 'api' ? [{ href: '/admin/users/', label: 'Users', icon: 'users' }] : []),
   ];
   const active = (href: string, exact?: boolean) => (exact ? pathname === href || pathname === href.slice(0, -1) : pathname.startsWith(href.slice(0, -1)));
 

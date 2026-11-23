@@ -19,3 +19,6 @@ api/.dev.vars
 
 # Raw image downloads awaiting intake (large; only the resized copies in public/ are committed)
 products-intake/_*/
+
+# Locally generated admin key blob (the real one is created in the deploy workflow from secrets)
+public/admin-key.json

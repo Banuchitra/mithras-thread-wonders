@@ -33,7 +33,15 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
           NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io
+          NEXT_PUBLIC_GITHUB_REPO: ${{ github.repository }}
           NEXT_TELEMETRY_DISABLED: 1
+      # Lock the admin's GitHub key with the admin password (both repo secrets); only the locked blob is published.
+      - name: Seal admin key
+        if: github.event_name != 'pull_request'
+        run: npx tsx scripts/seal-admin-key.ts out/admin-key.json
+        env:
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ADMIN_GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

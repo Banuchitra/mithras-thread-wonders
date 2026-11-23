@@ -1,12 +1,14 @@
 'use client';
 
 import { API_CONFIGURED } from '@/lib/api';
+import { ADMIN_BACKEND } from '@/lib/content-client';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { AccountsComingSoon, AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
 
 export default function AccountPage() {
+  if (ADMIN_BACKEND === 'github') return <AdminPasswordGate />;
   return API_CONFIGURED ? <AccountPageInner /> : <AccountsComingSoon />;
 }
 
@@ -92,5 +94,38 @@ function MyAccount() {
         <div className="mt-4"><ChangePassword /></div>
       </section>
     </div>
+  );
+}
+
+/** Live site: the shop owner signs in with the admin password only. */
+function AdminPasswordGate() {
+  const { user, loading, signInWithPassword, signOut } = useAuth();
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  if (loading) return <AuthCard title="Admin"><p className="text-center text-muted">Loading…</p></AuthCard>;
+  if (user) {
+    return (
+      <AuthCard title="You’re signed in" subtitle="Edit products, offers, categories and the website.">
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link href="/admin/" className="btn btn-primary">Open admin</Link>
+          <button type="button" onClick={signOut} className="btn btn-outline">Sign out</button>
+        </div>
+      </AuthCard>
+    );
+  }
+  async function submit(e: React.FormEvent) {
+    e.preventDefault(); setBusy(true); setError('');
+    try { await signInWithPassword(password); setPassword(''); } catch (err) { setError((err as Error).message); } finally { setBusy(false); }
+  }
+  return (
+    <AuthCard title="Admin sign in" subtitle="For the shop owner">
+      <form onSubmit={submit} className="space-y-4">
+        <FormMessage error={error} />
+        <PasswordField label="Admin password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button type="submit" disabled={busy} className="btn btn-primary w-full disabled:opacity-60">{busy ? 'Unlocking…' : 'Sign in'}</button>
+      </form>
+      <p className="mt-6 text-center text-xs text-muted">Customers don’t need an account — order on WhatsApp from any design.</p>
+    </AuthCard>
   );
 }

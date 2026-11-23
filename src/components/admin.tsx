@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { api } from '@/lib/api';
+import { content } from '@/lib/content-client';
 
 export type Doc = Record<string, any>;
 
@@ -11,7 +11,7 @@ export function useContent(type: 'products' | 'categories' | 'collections' | 'pr
   const [items, setItems] = useState<Doc[] | null>(null);
   const [error, setError] = useState('');
   const reload = useCallback(async () => {
-    try { setItems((await api<{ items: Doc[] }>(`/api/content/${type}`)).items); setError(''); }
+    try { setItems(await content.list(type)); setError(''); }
     catch (e) { setError((e as Error).message); }
   }, [type]);
   useEffect(() => { reload(); }, [reload]);
