@@ -3,7 +3,8 @@
 import { API_CONFIGURED } from '@/lib/api';
 import { ADMIN_BACKEND } from '@/lib/content-client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 import { AccountsComingSoon, AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
 
@@ -22,13 +23,17 @@ function AccountPageInner() {
 
 function SignIn() {
   const { signIn } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setBusy(true); setError('');
-    try { await signIn(email, password); } catch (err) { setError((err as Error).message); } finally { setBusy(false); }
+    try {
+      const u = await signIn(email, password);
+      if (!u.mustChangePassword && (u.role === 'admin' || u.role === 'editor')) router.push('/admin/'); // staff go straight to the dashboard
+    } catch (err) { setError((err as Error).message); } finally { setBusy(false); }
   }
   return (
     <AuthCard title="Sign in" subtitle="Welcome back to Mithra's Thread Wonders">
@@ -99,21 +104,14 @@ function MyAccount() {
 
 /** Live site: the shop owner signs in with the admin password only. */
 function AdminPasswordGate() {
-  const { user, loading, signInWithPassword, signOut } = useAuth();
+  const { user, loading, signInWithPassword } = useAuth();
+  const router = useRouter();
+  useEffect(() => { if (user) router.replace('/admin/'); }, [user, router]);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   if (loading) return <AuthCard title="Admin"><p className="text-center text-muted">Loading…</p></AuthCard>;
-  if (user) {
-    return (
-      <AuthCard title="You’re signed in" subtitle="Edit products, offers, categories and the website.">
-        <div className="flex flex-wrap justify-center gap-3">
-          <Link href="/admin/" className="btn btn-primary">Open admin</Link>
-          <button type="button" onClick={signOut} className="btn btn-outline">Sign out</button>
-        </div>
-      </AuthCard>
-    );
-  }
+  if (user) return <AuthCard title="Opening admin…"><p className="text-center text-muted">One moment…</p></AuthCard>;
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setBusy(true); setError('');
     try { await signInWithPassword(password); setPassword(''); } catch (err) { setError((err as Error).message); } finally { setBusy(false); }
