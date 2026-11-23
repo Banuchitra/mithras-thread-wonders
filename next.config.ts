@@ -8,6 +8,8 @@ const config: NextConfig = {
   basePath,
   trailingSlash: true,
   images: { unoptimized: true },
+  // Lets a phone on the same Wi-Fi open the dev site (scripts/dev-all.mjs sets this to the computer's LAN address).
+  allowedDevOrigins: process.env.DEV_ORIGINS ? process.env.DEV_ORIGINS.split(',') : [],
 };
 
 export default config;
