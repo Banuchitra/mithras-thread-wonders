@@ -14,7 +14,7 @@ const run = (name, cmd, args, cwd = '.') => {
 };
 const procs = [
   run('bridge', 'node', ['scripts/content-bridge.mjs']),
-  run('api', 'npx', ['wrangler', 'dev', '--port', '8787'], 'api'),
+  run('api', 'npx', ['wrangler', 'dev', '--port', '8787'], 'api'), // reached through the site's /api proxy
   run('site', 'npx', ['next', 'dev']),
 ];
 if (lan[0]) console.log(`\nOn your phone (same Wi-Fi): http://${lan[0]}:3000\n`);
