@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { instagramDmUrl, whatsappUrl } from '@/domain/channels';
 import type { SiteSettings } from '@/domain/types';
 import { Ornament } from './Ornament';
+import { CanadaFlag } from './CanadaFlag';
 
 export function Footer({ settings }: { settings: SiteSettings }) {
   return (
@@ -13,7 +14,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         <Ornament className="mt-3" light />
       </div>
       <div className="mx-auto grid max-w-4xl gap-8 px-4 py-8 text-center text-sm text-[#F3E3C3] sm:grid-cols-3">
-        <p>Handmade in India<br />Ships within Canada<br />Wholesale worldwide</p>
+        <p>Handmade in India<br />Ships within Canada <CanadaFlag /><br />Wholesale worldwide</p>
         <ul className="space-y-1">
           <li><Link className="hover:text-white" href="/shop/">All designs</Link></li>
           <li><Link className="hover:text-white" href="/wholesale/">Wholesale &amp; custom orders</Link></li>

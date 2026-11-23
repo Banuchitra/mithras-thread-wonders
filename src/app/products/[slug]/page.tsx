@@ -9,6 +9,7 @@ import { ProductCard } from '@/components/ProductCard';
 import { displayPrice } from '@/domain/money';
 import { loadCatalog } from '@/lib/catalog';
 import { pageUrl } from '@/lib/paths';
+import { CanadaFlag } from '@/components/CanadaFlag';
 
 type Params = { slug: string };
 export const generateStaticParams = () => loadCatalog().products.map((p) => ({ slug: p.slug }));
@@ -69,7 +70,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
         </div>
         <div>
           <p className="eyebrow text-[0.7rem] text-brand-teal-text">
-            {product.availability === 'ships-from-canada' ? 'In stock · Ships within Canada' : 'Made to order'}
+            {product.availability === 'ships-from-canada' ? <>In stock · Ships within Canada <CanadaFlag /></> : 'Made to order'}
           </p>
           <h1 className="mt-2 text-3xl font-semibold leading-snug text-brand-plum sm:text-4xl">{product.title}</h1>
           {product.subtitle && <p className="mt-2 text-muted">{product.subtitle}</p>}

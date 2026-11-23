@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SectionTitle } from '@/components/Ornament';
+import { CanadaFlag } from '@/components/CanadaFlag';
 import { ProductCard } from '@/components/ProductCard';
 import { PromoCarousel } from '@/components/PromoCarousel';
 import { VideoPanel } from '@/components/VideoPanel';
@@ -20,7 +21,7 @@ export default function Home() {
       </div>
 
       <section className="mx-auto max-w-[88rem] px-4 pt-16">
-        <SectionTitle title="Featured Designs" subtitle="In stock in Canada" />
+        <SectionTitle title="Featured Designs" subtitle={<>In stock in Canada <CanadaFlag /></>} />
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4">
           {featured.map((p, i) => <ProductCard key={p.sku} product={p} index={i} categoryName={categoryById.get(p.categoryId)?.name} />)}
         </div>

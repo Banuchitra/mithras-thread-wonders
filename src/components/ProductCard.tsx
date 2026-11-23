@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { displayPrice } from '@/domain/money';
 import type { Product } from '@/domain/types';
 import { ArchImage } from './ArchImage';
+import { CanadaFlag } from './CanadaFlag';
 
 export function ProductCard({ product, categoryName, index = 0 }: { product: Product; categoryName?: string; index?: number }) {
   const img = product.images[0];
@@ -16,7 +17,7 @@ export function ProductCard({ product, categoryName, index = 0 }: { product: Pro
         {categoryName && <p className="eyebrow text-[0.65rem] text-brand-gold-text">{categoryName}</p>}
         <h3 className="mt-1 line-clamp-2 text-base font-semibold leading-snug text-ink sm:text-lg">{product.title}</h3>
         <p className="mt-1 font-bold text-brand-violet">{displayPrice(product)}</p>
-        <p className="mt-0.5 text-xs text-brand-teal-text">{product.availability === 'ships-from-canada' ? 'Ships within Canada' : 'Made to order'}</p>
+        <p className="mt-0.5 text-xs text-brand-teal-text">{product.availability === 'ships-from-canada' ? <>Ships within Canada <CanadaFlag /></> : 'Made to order'}</p>
       </div>
     </Link>
   );
