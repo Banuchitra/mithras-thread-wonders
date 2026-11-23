@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { AdminGuard } from '@/components/AdminGuard';
 import { AdminPage, Toggle, panel, smallBtn, useContent, type Doc } from '@/components/admin';
 import { FormMessage, inputClass } from '@/components/forms';
-import { api } from '@/lib/api';
 import { slugify } from '@/lib/image';
+import { content } from '@/lib/content-client';
 
 export default function CategoriesAdmin() {
   return <AdminGuard><Categories /></AdminGuard>;
@@ -19,11 +19,11 @@ function Categories() {
   const count = (catId: string) => (products.items ?? []).filter((p) => p.categoryId === catId).length;
 
   const save = async (type: 'collections' | 'categories', d: Doc, success: string) => {
-    try { await api(`/api/content/${type}/${d.id}`, { method: 'PUT', body: d }); setMsg({ error: '', success }); await Promise.all([collections.reload(), categories.reload()]); }
+    try { await content.put(type, d.id, d); setMsg({ error: '', success }); await Promise.all([collections.reload(), categories.reload()]); }
     catch (e) { setMsg({ error: (e as Error).message, success: '' }); }
   };
   const remove = async (type: 'collections' | 'categories', id: string) => {
-    try { await api(`/api/content/${type}/${id}`, { method: 'DELETE' }); setMsg({ error: '', success: 'Deleted.' }); await Promise.all([collections.reload(), categories.reload()]); }
+    try { await content.remove(type, id); setMsg({ error: '', success: 'Deleted.' }); await Promise.all([collections.reload(), categories.reload()]); }
     catch (e) { setMsg({ error: (e as Error).message, success: '' }); }
   };
 

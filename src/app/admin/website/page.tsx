@@ -5,9 +5,9 @@ import { AdminGuard } from '@/components/AdminGuard';
 import { AdminPage, Toggle, panel, smallBtn, useContent, type Doc } from '@/components/admin';
 import { Field, FormMessage, inputClass } from '@/components/forms';
 import { useAuth } from '@/components/AuthProvider';
-import { api } from '@/lib/api';
 import { resizeToWebp, slugify } from '@/lib/image';
 import { asset } from '@/lib/paths';
+import { content } from '@/lib/content-client';
 
 export default function WebsiteAdmin() {
   return <AdminGuard><Website /></AdminGuard>;
@@ -34,12 +34,12 @@ const FONTS = [
 function Settings() {
   const [s, setS] = useState<Doc | null>(null);
   const [msg, setMsg] = useState({ error: '', success: '' });
-  useEffect(() => { api<Doc>('/api/content/settings').then(setS).catch((e) => setMsg({ error: e.message, success: '' })); }, []);
+  useEffect(() => { content.getSettings().then(setS).catch((e) => setMsg({ error: e.message, success: '' })); }, []);
   if (!s) return <section className={`${panel} p-6`}><FormMessage error={msg.error} />{!msg.error && <p className="text-muted">Loading…</p>}</section>;
   const set = (k: string, v: string) => setS({ ...s, [k]: v });
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    try { setS(await api<Doc>('/api/content/settings', { method: 'PUT', body: s })); setMsg({ error: '', success: 'Saved — refresh the site to see it.' }); }
+    try { setS(await content.putSettings(s!)); setMsg({ error: '', success: 'Saved — refresh the site to see it.' }); }
     catch (err) { setMsg({ error: (err as Error).message, success: '' }); }
   }
   return (
@@ -76,7 +76,7 @@ function Promotions() {
   const list = [...(items ?? [])].sort((a, b) => (a.placement === b.placement ? a.order - b.order : a.placement === 'banner' ? -1 : 1));
 
   async function remove(id: string) {
-    try { await api(`/api/content/promotions/${id}`, { method: 'DELETE' }); setMsg({ error: '', success: 'Deleted.' }); reload(); }
+    try { await content.remove('promotions', id); setMsg({ error: '', success: 'Deleted.' }); reload(); }
     catch (e) { setMsg({ error: (e as Error).message, success: '' }); }
   }
 
@@ -120,13 +120,13 @@ function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => voi
     if (!file) return;
     if (!id) { setError('Enter the headline first.'); return; }
     setBusy('Uploading…');
-    try { const { src } = await api<{ src: string }>('/api/uploads', { body: { folder: 'promotions', slug: id, dataUrl: await resizeToWebp(file, 1600) } }); set('image', { src, alt: p.title }); }
+    try { const src = await content.upload('promotions', id, await resizeToWebp(file, 1600)); set('image', { src, alt: p.title }); }
     catch (e) { setError((e as Error).message); }
     setBusy('');
   }
   async function save(e: React.FormEvent) {
     e.preventDefault(); setError('');
-    try { await api(`/api/content/promotions/${id}`, { method: 'PUT', body: { ...p, id } }); onDone(isNew ? 'Promotion added.' : 'Promotion saved.'); }
+    try { await content.put('promotions', id, { ...p, id }); onDone(isNew ? 'Promotion added.' : 'Promotion saved.'); }
     catch (err) { setError((err as Error).message); }
   }
 

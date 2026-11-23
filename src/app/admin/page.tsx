@@ -10,7 +10,9 @@ import { Monogram } from '@/components/Monogram';
 import { activePromotions, todayIso } from '@/domain/promotions';
 import type { Promotion } from '@/domain/promotions';
 import { api } from '@/lib/api';
+import { ADMIN_BACKEND } from '@/lib/content-client';
 import { asset } from '@/lib/paths';
+import { content } from '@/lib/content-client';
 
 export default function AdminHome() {
   return <AdminGuard><Dashboard /></AdminGuard>;
@@ -26,10 +28,11 @@ function Dashboard() {
   const [userCount, setUserCount] = useState<number | null>(null);
 
   useEffect(() => {
-    api<{ items: Doc[] }>('/api/content/products').then((r) => setProducts(r.items)).catch(() => setProducts([]));
-    api<{ inquiries: Inquiry[] }>('/api/inquiries').then((r) => setInquiries(r.inquiries)).catch(() => setInquiries([]));
-    api<{ items: Promotion[] }>('/api/content/promotions').then((r) => setPromos(r.items)).catch(() => setPromos([]));
-    if (user?.role === 'admin') api<{ users: unknown[] }>('/api/users').then((r) => setUserCount(r.users.length)).catch(() => {});
+    content.list('products').then(setProducts).catch(() => setProducts([]));
+    if (ADMIN_BACKEND === 'api') api<{ inquiries: Inquiry[] }>('/api/inquiries').then((r) => setInquiries(r.inquiries)).catch(() => setInquiries([]));
+    else setInquiries([]);
+    content.list('promotions').then((r) => setPromos(r as Promotion[])).catch(() => setPromos([]));
+    if (user?.role === 'admin' && ADMIN_BACKEND === 'api') api<{ users: unknown[] }>('/api/users').then((r) => setUserCount(r.users.length)).catch(() => {});
   }, [user]);
 
   const live = (products ?? []).filter((p) => p.status !== 'hidden');
@@ -47,7 +50,9 @@ function Dashboard() {
 
   const stats = [
     { label: 'Live products', value: live.length, icon: 'products', tone: 'from-brand-violet to-brand-magenta', href: '/admin/products/' },
-    { label: 'New requests', value: newReq.length, icon: 'requests', tone: 'from-brand-magenta to-[#F58529]', href: '/admin/inquiries/' },
+    ADMIN_BACKEND === 'api'
+      ? { label: 'New requests', value: newReq.length, icon: 'requests', tone: 'from-brand-magenta to-[#F58529]', href: '/admin/inquiries/' }
+      : { label: 'Hidden products', value: hidden, icon: 'eyeoff', tone: 'from-brand-magenta to-[#F58529]', href: '/admin/products/' },
     { label: 'Featured on home', value: featured, icon: 'star', tone: 'from-brand-gold to-[#B8860B]', href: '/admin/products/' },
     userCount !== null
       ? { label: 'People with accounts', value: userCount, icon: 'users', tone: 'from-brand-blue to-brand-teal', href: '/admin/users/' }
@@ -55,7 +60,7 @@ function Dashboard() {
   ];
   const actions = [
     { title: 'Add a product', text: 'Photos, price, description — from your phone.', href: '/admin/products/edit/', icon: 'add' },
-    { title: 'Reply to requests', text: 'Customers’ photos and reels, one tap to WhatsApp.', href: '/admin/inquiries/', icon: 'requests' },
+    ...(ADMIN_BACKEND === 'api' ? [{ title: 'Reply to requests', text: 'Customers’ photos and reels, one tap to WhatsApp.', href: '/admin/inquiries/', icon: 'requests' }] : []),
     { title: 'Update offers', text: 'Banner, video panel and the announcement bar.', href: '/admin/website/', icon: 'megaphone' },
     { title: 'Organise categories', text: 'Add, rename or reorder — menus update themselves.', href: '/admin/categories/', icon: 'categories' },
   ];
@@ -70,7 +75,7 @@ function Dashboard() {
             <p className="eyebrow text-brand-gold-light">{new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
             <h1 className="mt-2 text-4xl font-semibold text-white sm:text-5xl">{greeting}, {user?.displayName || 'there'}</h1>
             <p className="mt-2 text-[#F3E3C3]">
-              {newReq.length ? `You have ${newReq.length} new custom-order request${newReq.length > 1 ? 's' : ''} waiting.` : 'No new requests right now — a good moment to add new designs.'}
+              {ADMIN_BACKEND !== 'api' ? 'Changes you save go live on the website in about a minute.' : newReq.length ? `You have ${newReq.length} new custom-order request${newReq.length > 1 ? 's' : ''} waiting.` : 'No new requests right now — a good moment to add new designs.'}
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -105,9 +110,9 @@ function Dashboard() {
         ))}
       </section>
 
-      <div className="grid gap-6 xl:grid-cols-[3fr_2fr]">
-        {/* Latest requests */}
-        <section className="overflow-hidden rounded-2xl border border-brand-gold bg-white">
+      <div className={`grid gap-6 ${ADMIN_BACKEND === 'api' ? 'xl:grid-cols-[3fr_2fr]' : 'xl:grid-cols-2'}`}>
+        {/* Latest requests (server-backed; on the live site requests arrive on WhatsApp) */}
+        {ADMIN_BACKEND === 'api' && <section className="overflow-hidden rounded-2xl border border-brand-gold bg-white">
           <div className="flex items-center justify-between border-b border-line px-5 py-4">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-brand-plum"><Icon name="requests" className="h-6 w-6 text-brand-violet" />Latest requests</h2>
             <Link href="/admin/inquiries/" className="text-sm font-semibold text-brand-blue hover:underline">See all →</Link>
@@ -130,9 +135,9 @@ function Dashboard() {
               ))}
             </ul>
           )}
-        </section>
+        </section>}
 
-        <div className="space-y-6">
+        <div className={ADMIN_BACKEND === 'api' ? 'space-y-6' : 'contents'}>
           {/* Needs attention */}
           <section className="overflow-hidden rounded-2xl border border-brand-gold bg-white">
             <div className="border-b border-line px-5 py-4">

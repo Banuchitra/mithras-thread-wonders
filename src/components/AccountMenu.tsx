@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from './AuthProvider';
+import { ADMIN_BACKEND } from '@/lib/content-client';
 
 // Top-right account icon: sign-in link when signed out; menu with admin options when signed in.
 export function AccountMenu() {
@@ -37,18 +38,18 @@ export function AccountMenu() {
         <div role="menu" className="absolute right-0 top-12 z-50 w-64 rounded-xl border border-brand-gold bg-white p-2 shadow-xl">
           <div className="border-b border-line px-3 py-2">
             <p className="font-semibold">{user.displayName || 'My account'}</p>
-            <p className="truncate text-xs text-muted">{user.email}</p>
+            {user.email !== 'admin' && <p className="truncate text-xs text-muted">{user.email}</p>}
             {staff && <p className="eyebrow mt-1 text-[0.6rem] text-brand-gold-text">{user.isSuperAdmin ? 'Super admin' : user.role}</p>}
           </div>
           {staff && (
             <>
               <Link role="menuitem" href="/admin/" className={item} onClick={() => setOpen(false)}>Admin dashboard</Link>
-              <Link role="menuitem" href="/admin/inquiries/" className={item} onClick={() => setOpen(false)}>Custom-order requests</Link>
+              {ADMIN_BACKEND === 'api' && <Link role="menuitem" href="/admin/inquiries/" className={item} onClick={() => setOpen(false)}>Custom-order requests</Link>}
               <Link role="menuitem" href="/admin/products/edit/" className={item} onClick={() => setOpen(false)}>Add product</Link>
               <Link role="menuitem" href="/admin/products/" className={item} onClick={() => setOpen(false)}>Edit products</Link>
               <Link role="menuitem" href="/admin/categories/" className={item} onClick={() => setOpen(false)}>Categories</Link>
               <Link role="menuitem" href="/admin/website/" className={item} onClick={() => setOpen(false)}>Customise website</Link>
-              {user.role === 'admin' && <Link role="menuitem" href="/admin/users/" className={item} onClick={() => setOpen(false)}>Users</Link>}
+              {user.role === 'admin' && ADMIN_BACKEND === 'api' && <Link role="menuitem" href="/admin/users/" className={item} onClick={() => setOpen(false)}>Users</Link>}
             </>
           )}
           <Link role="menuitem" href="/account/" className={item} onClick={() => setOpen(false)}>My account</Link>

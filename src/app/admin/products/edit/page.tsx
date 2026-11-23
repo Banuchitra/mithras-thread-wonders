@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { AdminGuard } from '@/components/AdminGuard';
 import { AdminPage, Toggle, panel, smallBtn, useContent, type Doc } from '@/components/admin';
 import { Field, FormMessage, inputClass } from '@/components/forms';
-import { api } from '@/lib/api';
 import { resizeToWebp, slugify } from '@/lib/image';
 import { asset } from '@/lib/paths';
+import { content } from '@/lib/content-client';
 
 export default function EditProductPage() {
   return <AdminGuard><Editor /></AdminGuard>;
@@ -54,7 +54,7 @@ function Editor() {
     try {
       const added: Doc[] = [];
       for (const f of Array.from(files)) {
-        const { src } = await api<{ src: string }>('/api/uploads', { body: { folder: 'products', slug, dataUrl: await resizeToWebp(f) } });
+        const src = await content.upload('products', slug, await resizeToWebp(f));
         added.push({ src, alt: p.title || f.name });
       }
       setP((x) => ({ ...x, images: [...(x.images ?? []), ...added] }));
@@ -78,7 +78,7 @@ function Editor() {
       listings: asin.trim() ? [{ channel: 'amazon', marketplace: 'ca', asin: asin.trim().toUpperCase() }] : [],
     };
     try {
-      await api(`/api/content/products/${slug}`, { method: 'PUT', body: data });
+      await content.put('products', slug, data);
       setMsg({ error: '', success: 'Saved.' });
       if (isNew) {
         await products.reload(); // refresh the list first, so the editor finds the new product

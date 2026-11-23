@@ -5,8 +5,8 @@ import { useMemo, useState } from 'react';
 import { AdminGuard } from '@/components/AdminGuard';
 import { AdminPage, panel, smallBtn, useContent } from '@/components/admin';
 import { FormMessage, inputClass } from '@/components/forms';
-import { api } from '@/lib/api';
 import { asset } from '@/lib/paths';
+import { content } from '@/lib/content-client';
 
 export default function ProductsAdmin() {
   return <AdminGuard><Products /></AdminGuard>;
@@ -54,9 +54,9 @@ function Products() {
                     <td className="px-4 py-2">
                       <div className="flex flex-wrap gap-2">
                         <Link href={`/admin/products/edit/?id=${p.slug}`} className={smallBtn}>Edit</Link>
-                        <button type="button" className={smallBtn} onClick={() => act(() => api(`/api/content/products/${p.slug}`, { method: 'PUT', body: { ...p, status: p.status === 'hidden' ? 'active' : 'hidden' } }), p.status === 'hidden' ? 'Product is live.' : 'Product hidden.')}>{p.status === 'hidden' ? 'Show' : 'Hide'}</button>
+                        <button type="button" className={smallBtn} onClick={() => act(() => content.put('products', p.slug, { ...p, status: p.status === 'hidden' ? 'active' : 'hidden' }), p.status === 'hidden' ? 'Product is live.' : 'Product hidden.')}>{p.status === 'hidden' ? 'Show' : 'Hide'}</button>
                         {confirm === p.slug
-                          ? <><button type="button" className="rounded bg-brand-magenta px-2.5 py-1 text-sm font-semibold text-white" onClick={() => { setConfirm(null); act(() => api(`/api/content/products/${p.slug}`, { method: 'DELETE' }), 'Product deleted.'); }}>Confirm delete</button>
+                          ? <><button type="button" className="rounded bg-brand-magenta px-2.5 py-1 text-sm font-semibold text-white" onClick={() => { setConfirm(null); act(() => content.remove('products', p.slug), 'Product deleted.'); }}>Confirm delete</button>
                               <button type="button" className="px-2 text-sm" onClick={() => setConfirm(null)}>Cancel</button></>
                           : <button type="button" className={`${smallBtn} text-brand-magenta`} onClick={() => setConfirm(p.slug)}>Delete</button>}
                       </div>
