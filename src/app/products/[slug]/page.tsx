@@ -10,6 +10,7 @@ import { displayPrice } from '@/domain/money';
 import { loadCatalog } from '@/lib/catalog';
 import { pageUrl } from '@/lib/paths';
 import { CanadaFlag } from '@/components/CanadaFlag';
+import { EditableText } from '@/components/edit/Editable';
 
 type Params = { slug: string };
 export const generateStaticParams = () => loadCatalog().products.map((p) => ({ slug: p.slug }));
@@ -80,7 +81,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
 
           {product.bullets.length > 0 && (
             <>
-              <h2 className="mt-8 text-2xl font-semibold text-brand-plum">About this item</h2>
+              <EditableText as="h2" k="product.about" label="Heading on every product page" className="mt-8 block text-2xl font-semibold text-brand-plum">About this item</EditableText>
               <ul className="mt-2 list-disc space-y-2 pl-5 text-[15px] leading-relaxed">
                 {product.bullets.map((b) => <li key={b}>{b}</li>)}
               </ul>
@@ -92,13 +93,13 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
       <section className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
         {product.description && (
           <div>
-            <h2 className="text-2xl font-semibold text-brand-plum">Product description</h2>
+            <EditableText as="h2" k="product.description" label="Heading on every product page" className="block text-2xl font-semibold text-brand-plum">Product description</EditableText>
             <p className="mt-2 leading-relaxed">{product.description}</p>
           </div>
         )}
         {Object.keys(product.specs).length > 0 && (
           <div>
-            <h2 className="text-2xl font-semibold text-brand-plum">Details</h2>
+            <EditableText as="h2" k="product.details" label="Heading on every product page" className="block text-2xl font-semibold text-brand-plum">Details</EditableText>
             <dl className="mt-3 divide-y divide-line overflow-hidden rounded-lg border border-line text-sm">
               {Object.entries(product.specs).map(([k, v]) => (
                 <div key={k} className="grid grid-cols-[2fr_3fr] gap-3 px-4 py-2 odd:bg-cream">

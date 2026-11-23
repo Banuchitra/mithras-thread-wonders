@@ -8,6 +8,8 @@ import { ChatWidget } from '@/components/ChatWidget';
 import { AuthProvider } from '@/components/AuthProvider';
 import { loadCatalog } from '@/lib/catalog';
 import { SITE_URL, asset } from '@/lib/paths';
+import { EditProvider } from '@/components/edit/EditProvider';
+import { EditBar } from '@/components/edit/EditBar';
 
 // Read on every render (not at module load) so admin edits show up on refresh during development.
 function assistantCatalogue(products: ReturnType<typeof loadCatalog>['products'], categoryById: ReturnType<typeof loadCatalog>['categoryById']) {
@@ -43,11 +45,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">Skip to content</a>
         <AuthProvider>
+          <EditProvider saved={{ texts: settings.texts ?? {}, images: settings.images ?? {}, links: settings.links ?? {}, fields: { brandName: settings.brandName, tagline: settings.tagline, announcement: settings.announcement ?? '', aboutText: settings.aboutText } }}>
           <AnnouncementBar text={settings.announcement} />
           <Header brandName={settings.brandName} tagline={settings.tagline} tree={tree} />
           <main id="main" className="pb-20 has-[.flush-footer]:pb-0">{children}</main>
           <Footer settings={settings} />
           <ChatWidget catalogue={assistantCatalogue(products, categoryById)} whatsapp={settings.whatsapp} />
+          <EditBar />
+          </EditProvider>
         </AuthProvider>
       </body>
     </html>

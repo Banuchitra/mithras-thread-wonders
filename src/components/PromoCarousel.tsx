@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { activePromotions, todayIso, type Promotion } from '@/domain/promotions';
 import { asset } from '@/lib/paths';
 import { Monogram } from './Monogram';
+import { EditableImage, EditableLink, EditableText } from './edit/Editable';
+import { useEdit } from './edit/EditProvider';
 
 export interface BrandSlide { tagline: string; logo: string }
 
@@ -20,12 +22,13 @@ export function PromoCarousel({ promotions, brand }: { promotions: Promotion[]; 
   const count = slides.length + 1;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const { editing } = useEdit();
 
   useEffect(() => {
-    if (paused || count < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (paused || editing || count < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const t = setInterval(() => setIndex((i) => (i + 1) % count), 6000);
     return () => clearInterval(t);
-  }, [paused, count]);
+  }, [paused, editing, count]);
   useEffect(() => { if (index >= count) setIndex(0); }, [count, index]);
 
   const go = (i: number) => setIndex((i + count) % count);
@@ -36,12 +39,16 @@ export function PromoCarousel({ promotions, brand }: { promotions: Promotion[]; 
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
       <div className="flex h-full transition-transform duration-700 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
-        <Slide active={index === 0} eyebrow="Handmade in India" title={'Handcrafted jewellery,\nwoven with tradition'}
-          text="Chains, bangles, kundan accessories and flower clips — handmade for weddings, festivals and every day."
-          cta={{ label: 'Explore the collection', href: '/shop/' }}
-          secondary={{ label: 'Wholesale & custom', href: '/wholesale/' }}
+        <Slide active={index === 0}
+          eyebrow={<EditableText k="home.hero.eyebrow" label="Banner — small heading">Handmade in India</EditableText>}
+          title={<EditableText k="home.hero.title" label="Banner — headline" multiline>{'Handcrafted jewellery,\nwoven with tradition'}</EditableText>}
+          text={<EditableText k="home.hero.text" label="Banner — text" multiline>Chains, bangles, kundan accessories and flower clips — handmade for weddings, festivals and every day.</EditableText>}
+          buttons={<>
+            <EditableLink k="home.hero.cta" href="/shop/" className="btn btn-gold">Explore the collection</EditableLink>
+            <EditableLink k="home.hero.cta2" href="/wholesale/" className="btn btn-ghost-light">Wholesale & custom</EditableLink>
+          </>}
           art={<div className="mx-auto w-48 rounded-full p-1.5 ring-1 ring-brand-gold-light sm:w-60 lg:w-64">
-            <img src={asset(brand.logo)} alt="" className="rounded-full shadow-2xl" /></div>} />
+            <EditableImage k="home.hero.image" src={brand.logo} alt="" label="banner picture" className="rounded-full shadow-2xl" /></div>} />
         {slides.map((p, i) => (
           <Slide key={p.id} active={index === i + 1} eyebrow="What's new" title={p.title} text={p.subtitle}
             cta={p.ctaLabel && p.ctaHref ? { label: p.ctaLabel, href: p.ctaHref } : undefined}
@@ -67,9 +74,9 @@ export function PromoCarousel({ promotions, brand }: { promotions: Promotion[]; 
   );
 }
 
-function Slide({ active, eyebrow, title, text, cta, secondary, art }: {
-  active: boolean; eyebrow: string; title: string; text?: string;
-  cta?: { label: string; href: string }; secondary?: { label: string; href: string }; art: React.ReactNode;
+function Slide({ active, eyebrow, title, text, cta, secondary, buttons, art }: {
+  active: boolean; eyebrow: React.ReactNode; title: React.ReactNode; text?: React.ReactNode;
+  cta?: { label: string; href: string }; secondary?: { label: string; href: string }; buttons?: React.ReactNode; art: React.ReactNode;
 }) {
   const external = (href: string) => /^https?:/.test(href);
   const btn = (c: { label: string; href: string }, cls: string) =>
@@ -84,6 +91,7 @@ function Slide({ active, eyebrow, title, text, cta, secondary, art }: {
         <h2 className="mt-3 whitespace-pre-line text-3xl font-semibold leading-tight text-white sm:text-5xl">{title}</h2>
         {text && <p className="mx-auto mt-4 max-w-md text-lg text-[#F3E3C3] md:mx-0">{text}</p>}
         <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
+          {buttons}
           {cta && btn(cta, 'btn btn-gold')}
           {secondary && btn(secondary, 'btn btn-ghost-light')}
         </div>

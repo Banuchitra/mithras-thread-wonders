@@ -13,7 +13,7 @@ const PUBLIC = join(ROOT, 'public');
 const PORT = 8788;
 const TYPES = ['products', 'categories', 'collections', 'promotions'];
 const ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const FILE_RE = /^images\/(products|promotions|collections)\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/;
+const FILE_RE = /^images\/(products|promotions|collections|site)\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpg|png)$/;
 
 const devVars = readFileSync(join(ROOT, 'api/.dev.vars'), 'utf8');
 const SECRET = /^CONTENT_BRIDGE_SECRET=(.+)$/m.exec(devVars)?.[1]?.trim();

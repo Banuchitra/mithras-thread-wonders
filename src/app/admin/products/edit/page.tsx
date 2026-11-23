@@ -178,7 +178,7 @@ function Editor() {
             <Field label="Product video (optional)" value={p.video ?? ''} onChange={(e) => set('video', e.target.value)} placeholder="Instagram reel or YouTube link" />
           </section>
 
-          <div className="sticky bottom-4 space-y-2 rounded-2xl border border-brand-gold bg-white/95 p-4 shadow-lg backdrop-blur">
+          <div className="sticky bottom-24 space-y-2 rounded-2xl border border-brand-gold bg-white/95 p-4 shadow-lg backdrop-blur">
             <FormMessage error={msg.error} success={busy || msg.success} />
             <button type="submit" disabled={!!busy} className="btn btn-primary w-full disabled:opacity-60">{isNew ? 'Create product' : 'Save changes'}</button>
           </div>

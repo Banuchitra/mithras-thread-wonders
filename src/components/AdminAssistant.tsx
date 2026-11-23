@@ -93,12 +93,12 @@ export function AdminAssistant() {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 flex flex-col items-start gap-3 sm:bottom-6 sm:left-6">
+    <div className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {open && (
-        <section aria-label="Admin assistant" className="flex h-[min(32rem,calc(100vh-7rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-brand-gold bg-white shadow-2xl">
+        <section aria-label="Admin Assistant" className="flex h-[min(32rem,calc(100vh-7rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-brand-gold bg-white shadow-2xl">
           <header className="heritage flex items-center gap-3 px-4 py-3">
             <Monogram variant="light" size={34} />
-            <div className="min-w-0 flex-1"><p className="font-heading text-lg font-semibold text-white">Admin assistant</p><p className="text-xs text-[#F3E3C3]">Tell me what to change</p></div>
+            <div className="min-w-0 flex-1"><p className="font-heading text-lg font-semibold text-white">Admin Assistant</p><p className="text-xs text-[#F3E3C3]">Tell me what to change</p></div>
             <button type="button" onClick={() => setOpen(false)} aria-label="Close assistant" className="carousel-arrow">×</button>
           </header>
           <div className="flex-1 space-y-3 overflow-y-auto bg-cream px-3 py-3" aria-live="polite">
@@ -132,11 +132,11 @@ export function AdminAssistant() {
         </section>
       )}
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? 'Close admin assistant' : 'Open admin assistant'}
-        className="heritage flex items-center gap-3 rounded-full p-1.5 text-white shadow-2xl ring-2 ring-brand-gold-light transition hover:-translate-y-0.5 sm:py-2 sm:pl-2 sm:pr-5">
-        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-1 ring-brand-gold-light"><Monogram variant="light" size={40} /></span>
+        className="flex items-center gap-3 rounded-full bg-brand-gold-light p-1.5 text-brand-plum shadow-2xl ring-2 ring-brand-plum transition hover:-translate-y-0.5 sm:py-2 sm:pl-2 sm:pr-5">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-plum ring-1 ring-white"><Monogram variant="light" size={40} /></span>
         <span className="hidden text-left leading-tight sm:block">
-          <span className="block font-heading text-lg font-semibold">{open ? 'Close' : 'Assistant'}</span>
-          {!open && <span className="text-xs text-[#F3E3C3]">Tell me what to change</span>}
+          <span className="block font-heading text-lg font-semibold">{open ? 'Close' : 'Admin Assistant'}</span>
+          {!open && <span className="text-xs text-brand-plum/80">Tell me what to change</span>}
         </span>
       </button>
     </div>

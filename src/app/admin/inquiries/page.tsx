@@ -90,7 +90,7 @@ function Photos({ id, count }: { id: string; count: number }) {
   useEffect(() => {
     let alive = true; const made: string[] = [];
     Promise.all(Array.from({ length: count }, (_, n) =>
-      fetch(`${API_URL}/api/inquiries/${id}/photos/${n}`, { headers: { authorization: `Bearer ${getToken()}` } })
+      fetch(`${API_URL}/api/inquiries/${id}/photos/${n}/`, { headers: { authorization: `Bearer ${getToken()}` } })
         .then((res) => (res.ok ? res.blob() : null)).then((b) => (b ? URL.createObjectURL(b) : '')),
     )).then((list) => { made.push(...list); if (alive) setUrls(list); });
     return () => { alive = false; made.forEach((u) => u && URL.revokeObjectURL(u)); };

@@ -7,7 +7,9 @@ export type ContentType = (typeof CONTENT_TYPES)[number];
 export type Doc = Record<string, unknown>;
 
 export const ID_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const IMAGE_SRC_RE = /^\/images\/(products|promotions|collections)\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpe?g|png)$/;
+const IMAGE_SRC_RE = /^\/images\/(products|promotions|collections|site)\/[a-z0-9-]+\/[a-z0-9-]+\.(webp|jpe?g|png)$/;
+const EDIT_KEY_RE = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
+const SAFE_HREF_RE = /^(\/[^\s]*|https:\/\/[^\s]+|mailto:[^\s]+|tel:[^\s]+)$/;
 const FONT_PAIRINGS = ['heritage', 'temple', 'royal'];
 
 const bad = (msg: string): never => { throw new AccessError(400, msg); };
@@ -83,6 +85,21 @@ export function validateSettings(d: Doc): Doc {
     brandName: str(d.brandName, 80) || bad('Brand name is required'), tagline: str(d.tagline, 120), whatsapp,
     instagram: str(d.instagram, 60).replace(/^@/, ''), currencyLocale: str(d.currencyLocale, 10) || 'en', fontPairing,
     aboutText: str(d.aboutText, 3000), announcement: str(d.announcement, 160),
+    ...editMaps(d),
+  };
+}
+
+/** Text / photo / link overrides made with "Edit page" (keys like "home.hero.title"). */
+function editMaps(d: Doc): Doc {
+  const map = (v: unknown, check: (s: string, k: string) => string) => {
+    const out: Record<string, string> = {};
+    if (v && typeof v === 'object') for (const [k, raw] of Object.entries(v as Doc)) if (EDIT_KEY_RE.test(k) && k.length <= 80) out[k] = check(str(raw, 4000), k);
+    return out;
+  };
+  return {
+    texts: map(d.texts, (s) => s),
+    images: map(d.images, (s) => { if (!IMAGE_SRC_RE.test(s)) bad('Each photo must be uploaded through the admin'); return s; }),
+    links: map(d.links, (s) => { if (s && !SAFE_HREF_RE.test(s)) bad('Links must start with /, https://, mailto: or tel:'); return s; }),
   };
 }
 

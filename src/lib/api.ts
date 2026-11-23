@@ -13,11 +13,14 @@ export class ApiError extends Error {
 export const getToken = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
 export const setToken = (t: string | null) => { try { if (t) localStorage.setItem(KEY, t); else localStorage.removeItem(KEY); } catch { /* storage blocked */ } };
 
+/** The site uses trailing slashes; calling /x/ directly avoids a redirect, which Safari won't follow for signed-in requests. */
+export const withSlash = (path: string) => path.replace(/^([^?]*?)\/?(\?.*)?$/, (_, p: string, q = '') => `${p}/${q}`);
+
 export async function api<T>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
   const token = getToken();
   let res: Response;
   try {
-    res = await fetch(`${API_URL}${path}`, {
+    res = await fetch(`${API_URL}${withSlash(path)}`, {
       method: init.method ?? (init.body !== undefined ? 'POST' : 'GET'),
       headers: { 'content-type': 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}) },
       body: init.body !== undefined ? JSON.stringify(init.body) : undefined,

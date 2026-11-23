@@ -3,6 +3,7 @@ import type { CollectionNode } from '@/domain/catalog';
 import { asset } from '@/lib/paths';
 import { AccountMenu } from './AccountMenu';
 import { SideMenu } from './SideMenu';
+import { EditableText } from './edit/Editable';
 
 // Standard shop header: logo left; Shop menu built from the owner's collections/categories (grows automatically
 // as she adds them); account and cart icons top right. Desktop: hover/focus mega menu. Phone: menu drawer.
@@ -15,8 +16,8 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
           <img src={asset('/images/logo.webp')} alt="" width={52} height={52}
             className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-brand-gold ring-offset-2 sm:h-16 sm:w-16" />
           <span className="min-w-0">
-            <span className="block truncate font-heading text-xl font-semibold leading-tight text-brand-plum sm:text-[1.9rem]">{brandName}</span>
-            <span className="eyebrow hidden text-xs text-brand-gold-text sm:block">{tagline}</span>
+            <EditableText field="brandName" label="Brand name" className="block truncate font-heading text-xl font-semibold leading-tight text-brand-plum sm:text-[1.9rem]">{brandName}</EditableText>
+            <EditableText field="tagline" label="Tagline" className="eyebrow hidden text-xs text-brand-gold-text sm:block">{tagline}</EditableText>
           </span>
         </Link>
 

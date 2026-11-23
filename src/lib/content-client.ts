@@ -59,7 +59,7 @@ export const content = {
     try { const data = validateSettings(body); await gh().putSettings(data); return data; } catch (e) { return friendly(e); }
   },
 
-  async upload(folder: 'products' | 'promotions' | 'collections', slug: string, dataUrl: string): Promise<string> {
+  async upload(folder: 'products' | 'promotions' | 'collections' | 'site', slug: string, dataUrl: string): Promise<string> {
     if (ADMIN_BACKEND === 'api') return (await api<{ src: string }>('/api/uploads', { body: { folder, slug, dataUrl } })).src;
     const m = /^data:image\/(webp|jpeg|png);base64,([A-Za-z0-9+/=]+)$/.exec(dataUrl);
     if (!m || !ID_RE.test(slug)) throw new Error('Only WebP, JPEG or PNG images can be uploaded');

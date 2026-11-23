@@ -3,6 +3,7 @@ import { SectionTitle } from '@/components/Ornament';
 import { CategoryChips } from '@/components/CategoryChips';
 import { ProductCard } from '@/components/ProductCard';
 import { loadCatalog } from '@/lib/catalog';
+import { EditableText } from '@/components/edit/Editable';
 
 export const metadata: Metadata = { title: 'Shop all designs' };
 
@@ -11,7 +12,7 @@ export default function ShopPage() {
   return (
     <div className="mx-auto max-w-[88rem] px-4 py-10">
       <h1 className="sr-only">All designs</h1>
-      <SectionTitle title="All Designs" subtitle={`${products.length} designs · prices in Canadian dollars`} />
+      <SectionTitle title={<EditableText k="shop.title" label="Shop page — title">All Designs</EditableText>} subtitle={`${products.length} designs · prices in Canadian dollars`} />
       <div className="mt-8">
         <CategoryChips center label="Collections" chips={[{ href: '/shop/', label: 'All', current: true }, ...tree.map((c) => ({ href: `/shop/${c.id}/`, label: c.name }))]} />
       </div>

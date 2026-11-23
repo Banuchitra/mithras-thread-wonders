@@ -31,6 +31,15 @@ describe('content validation', () => {
   it('allows "price on request" (empty price)', () => {
     expect(validateProduct({ ...goodProduct, price: '' }, ['silk-thread-bangles']).price).toBe('');
   });
+  it('keeps in-place edits (page text, photos, links) and rejects unsafe ones', () => {
+    const base = { brandName: 'M', tagline: '', whatsapp: '+91 80156 18956', instagram: 'm', fontPairing: 'heritage', aboutText: '', currencyLocale: 'en' };
+    const s = validateSettings({ ...base, texts: { 'home.hero.title': 'Bangles for every bride', 'bad key!': 'x' }, images: { 'home.hero.image': '/images/site/home-hero-image/a1.webp' }, links: { 'home.hero.cta': '/shop/bangles/' } });
+    expect(s.texts).toEqual({ 'home.hero.title': 'Bangles for every bride' });
+    expect(s.images).toEqual({ 'home.hero.image': '/images/site/home-hero-image/a1.webp' });
+    expect(s.links).toEqual({ 'home.hero.cta': '/shop/bangles/' });
+    expect(() => validateSettings({ ...base, links: { 'home.hero.cta': 'javascript:alert(1)' } })).toThrow(/link/i);
+    expect(() => validateSettings({ ...base, images: { 'home.hero.image': 'https://evil.example/x.png' } })).toThrow(/photo/i);
+  });
   it('validates categories and settings', () => {
     expect(() => validateCategory({ id: 'x y', name: 'X', collectionId: 'bangles', order: 1 }, ['bangles'])).toThrow(/ID/);
     expect(() => validateSettings({ brandName: 'M', tagline: '', whatsapp: '+91 1', instagram: 'm', fontPairing: 'comic', aboutText: '', currencyLocale: 'en' })).toThrow(/font/i);

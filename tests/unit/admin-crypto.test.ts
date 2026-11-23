@@ -23,3 +23,13 @@ describe('frontmatter', () => {
     expect(parseFrontmatter(stringifyFrontmatter(data))).toEqual(data);
   });
 });
+
+import { withSlash } from '@/lib/api';
+describe('API paths', () => {
+  it('always end with a slash (no redirect for Safari), keeping query strings', () => {
+    expect(withSlash('/api/content/products')).toBe('/api/content/products/');
+    expect(withSlash('/api/users/a%40b.com')).toBe('/api/users/a%40b.com/');
+    expect(withSlash('/api/me/')).toBe('/api/me/');
+    expect(withSlash('/api/x?y=1')).toBe('/api/x/?y=1');
+  });
+});

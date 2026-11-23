@@ -71,6 +71,10 @@ export interface SiteSettings {
   aboutText: string;
   /** Short line in the bar above the header (offers, shipping notes). Empty = hidden. */
   announcement?: string;
+  /** In-place edits from "Edit page": page text, photos and button links, keyed like "home.hero.title". */
+  texts?: Record<string, string>;
+  images?: Record<string, string>;
+  links?: Record<string, string>;
 }
 
 /** Port: where the catalogue comes from (Markdown today, Amazon SP-API later). */

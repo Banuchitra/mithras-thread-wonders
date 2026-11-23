@@ -1,6 +1,5 @@
-import Link from 'next/link';
 import { SectionTitle } from '@/components/Ornament';
-import { CanadaFlag } from '@/components/CanadaFlag';
+import { EditableLink, EditableText } from '@/components/edit/Editable';
 import { ProductCard } from '@/components/ProductCard';
 import { PromoCarousel } from '@/components/PromoCarousel';
 import { VideoPanel } from '@/components/VideoPanel';
@@ -21,19 +20,19 @@ export default function Home() {
       </div>
 
       <section className="mx-auto max-w-[88rem] px-4 pt-16">
-        <SectionTitle title="Featured Designs" subtitle={<>In stock in Canada <CanadaFlag /></>} />
+        <SectionTitle title={<EditableText k="home.featured.title" label="Featured section — title">Featured Designs</EditableText>} subtitle={<EditableText k="home.featured.subtitle" label="Featured section — subtitle" flag>In stock in Canada — ships within Canada</EditableText>} />
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4">
           {featured.map((p, i) => <ProductCard key={p.sku} product={p} index={i} categoryName={categoryById.get(p.categoryId)?.name} />)}
         </div>
-        <div className="mt-10 text-center"><Link href="/shop/" className="btn btn-outline">View all designs</Link></div>
+        <div className="mt-10 text-center"><EditableLink k="home.featured.cta" href="/shop/" className="btn btn-outline">View all designs</EditableLink></div>
       </section>
 
       <div className="mt-16" />
       <section className="heritage flush-footer border-b border-white/10">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <SectionTitle title="Wholesale & Custom Orders" light />
-          <p className="mt-4 text-[#F3E3C3]">Boutiques and resellers anywhere in the world: choose any design, colour and size, and get a quote for bulk orders handmade to order in India.</p>
-          <Link href="/wholesale/" className="btn btn-gold mt-8">Request a quote</Link>
+          <SectionTitle title={<EditableText k="home.wholesale.title" label="Wholesale band — title">Wholesale & Custom Orders</EditableText>} light />
+          <EditableText as="p" k="home.wholesale.text" label="Wholesale band — text" multiline className="mt-4 block text-[#F3E3C3]">Boutiques and resellers anywhere in the world: choose any design, colour and size, and get a quote for bulk orders handmade to order in India.</EditableText>
+          <EditableLink k="home.wholesale.cta" href="/wholesale/" className="btn btn-gold mt-8">Request a quote</EditableLink>
         </div>
       </section>
     </>

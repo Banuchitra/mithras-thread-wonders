@@ -36,7 +36,8 @@ export function createApp(deps: Deps) {
   const now = () => (deps.now ? deps.now() : new Date());
   const iso = () => now().toISOString();
   const { store } = deps;
-  const app = new Hono<Env>();
+  // strict: false → /path and /path/ are the same route (the site adds trailing slashes).
+  const app = new Hono<Env>({ strict: false });
   const out = (u: UserRecord) => publicUser(u, deps.superAdminEmail);
   const checkPassword = (pw: unknown) => {
     if (typeof pw !== 'string' || pw.length < MIN_PASSWORD_LENGTH) {
@@ -141,7 +142,7 @@ export function createApp(deps: Deps) {
   });
 
   // ---------- signed-in ----------
-  const authed = new Hono<Env>();
+  const authed = new Hono<Env>({ strict: false });
   authed.use('*', async (c, next) => {
     const header = c.req.header('authorization') ?? '';
     const token = header.startsWith('Bearer ') ? header.slice(7) : '';
@@ -325,7 +326,7 @@ export function createApp(deps: Deps) {
     assertStaff(c.get('actor'));
     const body = await c.req.json<{ folder?: string; slug?: string; dataUrl?: string }>();
     const folder = body.folder ?? '';
-    if (!['products', 'promotions', 'collections'].includes(folder) || !ID_RE.test(body.slug ?? '')) throw new AccessError(400, 'Invalid upload location');
+    if (!['products', 'promotions', 'collections', 'site'].includes(folder) || !ID_RE.test(body.slug ?? '')) throw new AccessError(400, 'Invalid upload location');
     const m = /^data:image\/(webp|jpeg|png);base64,([A-Za-z0-9+/=]+)$/.exec(body.dataUrl ?? '');
     if (!m) throw new AccessError(400, 'Only WebP, JPEG or PNG images can be uploaded');
     if (m[2].length > 2_000_000) throw new AccessError(400, 'Photo is too large (max about 1.5 MB after resizing)');

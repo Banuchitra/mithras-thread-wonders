@@ -12,7 +12,7 @@ export function Ornament({ className = '', light = false }: { className?: string
   );
 }
 
-export function SectionTitle({ title, subtitle, light = false }: { title: string; subtitle?: React.ReactNode; light?: boolean }) {
+export function SectionTitle({ title, subtitle, light = false }: { title: React.ReactNode; subtitle?: React.ReactNode; light?: boolean }) {
   return (
     <div className="text-center">
       <h2 className={`text-3xl font-semibold sm:text-4xl ${light ? 'text-white' : 'text-brand-plum'}`}>{title}</h2>
