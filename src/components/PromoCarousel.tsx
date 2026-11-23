@@ -81,8 +81,8 @@ function Slide({ active, eyebrow, title, text, cta, secondary, art }: {
       aria-hidden={!active} role="group" aria-roledescription="slide">
       <div>
         <p className="eyebrow text-brand-gold-light">{eyebrow}</p>
-        <h2 className="mt-3 whitespace-pre-line text-3xl font-semibold leading-tight text-white sm:text-4xl 2xl:text-5xl">{title}</h2>
-        {text && <p className="mx-auto mt-4 max-w-md text-[#F3E3C3] md:mx-0">{text}</p>}
+        <h2 className="mt-3 whitespace-pre-line text-3xl font-semibold leading-tight text-white sm:text-5xl">{title}</h2>
+        {text && <p className="mx-auto mt-4 max-w-md text-lg text-[#F3E3C3] md:mx-0">{text}</p>}
         <div className="mt-6 flex flex-wrap justify-center gap-3 md:justify-start">
           {cta && btn(cta, 'btn btn-gold')}
           {secondary && btn(secondary, 'btn btn-ghost-light')}

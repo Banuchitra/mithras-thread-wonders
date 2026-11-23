@@ -16,11 +16,11 @@ export function AccountMenu() {
   }, []);
 
   const icon = (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-7 w-7 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v1.5h16V19c0-2.8-3.6-5-8-5Z" />
     </svg>
   );
-  const btn = 'flex h-11 w-11 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet';
+  const btn = 'flex h-12 w-12 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet';
 
   if (!user) return <Link href="/account/" aria-label="Sign in" title="Sign in" className={btn}>{icon}</Link>;
 
@@ -30,7 +30,7 @@ export function AccountMenu() {
   return (
     <div ref={ref} className="relative">
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-haspopup="menu" aria-label="Account menu"
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-violet font-heading text-lg font-semibold text-white ring-2 ring-brand-gold-light">
+        className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-violet font-heading text-xl font-semibold text-white ring-2 ring-brand-gold-light">
         {initial}
       </button>
       {open && (

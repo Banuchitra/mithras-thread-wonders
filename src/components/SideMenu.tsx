@@ -67,7 +67,6 @@ export function SideMenu({ tree, brandName }: { tree: CollectionNode[]; brandNam
               <Link href="/wholesale/" className={link}>Wholesale &amp; custom orders</Link>
               <Link href="/about/" className={link}>About us</Link>
               <Link href="/account/" className={link}>My account</Link>
-              <Link href="/cart/" className={link}>Cart</Link>
             </div>
           </div>
         </nav>

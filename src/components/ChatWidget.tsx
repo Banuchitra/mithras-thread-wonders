@@ -7,6 +7,7 @@ import { answer, type AssistantProduct } from '@/domain/assistant';
 import { whatsappUrl } from '@/domain/channels';
 import { asset } from '@/lib/paths';
 import { Monogram } from './Monogram';
+import { WithCanadaFlag } from './CanadaFlag';
 
 type Msg = { from: 'bot' | 'you'; text: string; products?: AssistantProduct[]; whatsapp?: string; link?: { href: string; label: string } };
 
@@ -59,7 +60,7 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
             {msgs.map((m, i) => (
               <div key={i} className={m.from === 'you' ? 'flex justify-end' : ''}>
                 <div className={`max-w-[90%] rounded-2xl px-3 py-2 text-sm ${m.from === 'you' ? 'bg-brand-violet text-white' : 'bg-white text-ink shadow-sm'}`}>
-                  <p>{m.text}</p>
+                  <p><WithCanadaFlag text={m.text} /></p>
                   {m.products && (
                     <ul className="mt-2 space-y-2">
                       {m.products.map((p) => (
