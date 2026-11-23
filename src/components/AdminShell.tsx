@@ -8,7 +8,6 @@ import { ADMIN_BACKEND } from '@/lib/content-client';
 import { useAuth } from './AuthProvider';
 import { Icon } from './icons';
 import { Monogram } from './Monogram';
-import { AdminAssistant } from './AdminAssistant';
 
 // Admin frame: purple sidebar with the monogram, account card and icon navigation (top bar on phones).
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -65,7 +64,6 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
       <div className="min-w-0 flex-1">{children}</div>
-      <AdminAssistant />
     </div>
   );
 }

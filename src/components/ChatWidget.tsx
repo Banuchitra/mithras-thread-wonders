@@ -8,6 +8,8 @@ import { whatsappUrl } from '@/domain/channels';
 import { asset } from '@/lib/paths';
 import { Monogram } from './Monogram';
 import { WithCanadaFlag } from './CanadaFlag';
+import { AdminAssistant } from './AdminAssistant';
+import { useAuth } from './AuthProvider';
 
 type Msg = { from: 'bot' | 'you'; text: string; products?: AssistantProduct[]; whatsapp?: string; link?: { href: string; label: string } };
 
@@ -25,7 +27,9 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
   const end = useRef<HTMLDivElement>(null);
   useEffect(() => { end.current?.scrollIntoView({ block: 'end' }); }, [msgs, open]);
   const pathname = usePathname();
-  // Customers' assistant: not needed in the admin console (and it would cover the Save bar).
+  const { user } = useAuth();
+  // One assistant in one place (bottom-right): signed-in staff get the Admin Assistant on every page.
+  if (user && !user.mustChangePassword && (user.role === 'admin' || user.role === 'editor')) return <AdminAssistant />;
   if (pathname?.startsWith('/admin')) return null;
 
   function ask(q: string) {
@@ -47,11 +51,11 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
   return (
     <div className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {open && (
-        <section aria-label="Shopping assistant" className="flex h-[min(34rem,calc(100vh-7rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-brand-gold bg-white shadow-2xl">
+        <section aria-label="Shopping Assistant" className="flex h-[min(34rem,calc(100vh-7rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-brand-gold bg-white shadow-2xl">
           <header className="heritage flex items-center gap-3 px-4 py-3">
             <Monogram variant="light" size={34} />
             <div className="min-w-0 flex-1">
-              <p className="font-heading text-lg font-semibold leading-tight text-white">Shopping assistant</p>
+              <p className="font-heading text-lg font-semibold leading-tight text-white">Shopping Assistant</p>
               <p className="text-xs text-[#F3E3C3]">Find designs · custom orders</p>
             </div>
             <button type="button" onClick={() => setOpen(false)} aria-label="Close chat" className="carousel-arrow">×</button>
