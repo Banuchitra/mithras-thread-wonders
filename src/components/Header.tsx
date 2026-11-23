@@ -52,19 +52,10 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
 
         <div className="ml-auto flex items-center gap-1">
           <AccountMenu />
-          <IconLink href="/cart/" label="Cart"><path d="M2.5 3.5h2.3l2.6 11a1.6 1.6 0 0 0 1.6 1.2h8.4a1.6 1.6 0 0 0 1.5-1.1l2-6.6H6" /><circle cx="9.6" cy="19.6" r="1.5" /><circle cx="17.2" cy="19.6" r="1.5" /></IconLink>
+          {/* Cart icon hidden until the cart is built (Feature 8). */}
         </div>
       </div>
       <div className="gold-rule" />
     </header>
-  );
-}
-
-function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
-  return (
-    <Link href={href} aria-label={label} title={label}
-      className="flex h-12 w-12 items-center justify-center rounded-full text-brand-plum transition hover:bg-cream hover:text-brand-violet">
-      <svg viewBox="0 0 24 24" className="h-7 w-7 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
-    </Link>
   );
 }
