@@ -9,7 +9,7 @@ export function ActionButtons({ product, settings }: { product: Product; setting
   const link = pageUrl(`/products/${product.slug}/`);
   return (
     <div className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <a className="btn btn-primary" target="_blank" rel="noopener"
           href={whatsappUrl(settings.whatsapp, productOrderMessage(product, link))}>
           <WhatsAppIcon /> Order on WhatsApp

@@ -3,9 +3,10 @@
 import { API_CONFIGURED } from '@/lib/api';
 import { ADMIN_BACKEND } from '@/lib/content-client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
-import { AccountsComingSoon, AuthCard, Field, FormMessage, PasswordField, strength } from '@/components/forms';
+import { AccountsComingSoon, AuthCard, FormMessage, PasswordField, strength } from '@/components/forms';
 
 export default function AccountPage() {
   if (ADMIN_BACKEND === 'github') return <AdminPasswordGate />;
@@ -20,27 +21,33 @@ function AccountPageInner() {
   return <MyAccount />;
 }
 
+// Only the shop owner signs in (no customer accounts), so this asks for the admin password only.
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? 'mithras.canada@gmail.com';
+
 function SignIn() {
   const { signIn } = useAuth();
-  const [email, setEmail] = useState('');
+  const router = useRouter();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setBusy(true); setError('');
-    try { await signIn(email, password); } catch (err) { setError((err as Error).message); } finally { setBusy(false); }
+    try {
+      const u = await signIn(ADMIN_EMAIL, password);
+      if (!u.mustChangePassword && (u.role === 'admin' || u.role === 'editor')) router.push('/admin/'); // straight to the dashboard
+    } catch (err) {
+      const msg = (err as Error).message;
+      setError(msg === 'Email or password is incorrect' ? 'That password is not correct' : msg);
+    } finally { setBusy(false); }
   }
   return (
-    <AuthCard title="Sign in" subtitle="Welcome back to Mithra's Thread Wonders">
+    <AuthCard title="Admin sign in" subtitle="For the shop owner">
       <form onSubmit={submit} className="space-y-4">
         <FormMessage error={error} />
-        <Field label="Email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-        <PasswordField label="Password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-        <div className="text-right text-sm"><Link href="/account/forgot/" className="font-semibold text-brand-blue hover:underline">Forgot password?</Link></div>
+        <PasswordField label="Admin password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit" disabled={busy} className="btn btn-primary w-full disabled:opacity-60">{busy ? 'Signing in…' : 'Sign in'}</button>
       </form>
-      <p className="mt-6 text-center text-sm text-muted">New here? <Link href="/account/signup/" className="font-semibold text-brand-violet hover:underline">Create an account</Link></p>
-      <p className="mt-2 text-center text-xs text-muted">You don’t need an account to order — use WhatsApp on any design.</p>
+      <p className="mt-6 text-center text-xs text-muted">Customers don’t need an account — order on WhatsApp from any design.</p>
     </AuthCard>
   );
 }
@@ -76,7 +83,7 @@ function MyAccount() {
   if (!user) return null;
   const staff = user.role === 'admin' || user.role === 'editor';
   return (
-    <div className="mx-auto grid max-w-4xl gap-6 px-4 py-12 md:grid-cols-2">
+    <div className="mx-auto grid grid-cols-1 max-w-4xl gap-6 px-4 py-12 md:grid-cols-2">
       <section className="rounded-2xl border border-brand-gold bg-white p-6">
         <h1 className="text-3xl font-semibold text-brand-plum">My account</h1>
         <dl className="mt-4 space-y-2 text-sm">
@@ -99,21 +106,14 @@ function MyAccount() {
 
 /** Live site: the shop owner signs in with the admin password only. */
 function AdminPasswordGate() {
-  const { user, loading, signInWithPassword, signOut } = useAuth();
+  const { user, loading, signInWithPassword } = useAuth();
+  const router = useRouter();
+  useEffect(() => { if (user) router.replace('/admin/'); }, [user, router]);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   if (loading) return <AuthCard title="Admin"><p className="text-center text-muted">Loading…</p></AuthCard>;
-  if (user) {
-    return (
-      <AuthCard title="You’re signed in" subtitle="Edit products, offers, categories and the website.">
-        <div className="flex flex-wrap justify-center gap-3">
-          <Link href="/admin/" className="btn btn-primary">Open admin</Link>
-          <button type="button" onClick={signOut} className="btn btn-outline">Sign out</button>
-        </div>
-      </AuthCard>
-    );
-  }
+  if (user) return <AuthCard title="Opening admin…"><p className="text-center text-muted">One moment…</p></AuthCard>;
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setBusy(true); setError('');
     try { await signInWithPassword(password); setPassword(''); } catch (err) { setError((err as Error).message); } finally { setBusy(false); }

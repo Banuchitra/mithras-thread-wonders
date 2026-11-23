@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: 'About us' };
 export default function AboutPage() {
   const { settings } = loadCatalog();
   return (
-    <div className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-12 md:grid-cols-[1fr_1.4fr]">
+    <div className="mx-auto grid grid-cols-1 max-w-5xl items-center gap-10 px-4 py-12 md:grid-cols-[1fr_1.4fr]">
       <div className="float mx-auto w-64 rounded-full p-2 ring-1 ring-brand-gold md:w-full"><img src={asset('/images/logo.webp')} alt={`${settings.brandName} logo`} className="rounded-full shadow-xl" /></div>
       <div>
         <p className="eyebrow text-brand-gold-text">{settings.tagline}</p>

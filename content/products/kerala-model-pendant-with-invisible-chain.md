@@ -3,6 +3,27 @@ sku: KERALA-001A
 slug: kerala-model-pendant-with-invisible-chain
 title: Mithras Canada Kerala Model Pendant with Invisible Chain
 subtitle: '5 Green & Red Stone Pendants with Hook, Gold-Tone Finish, Kerala Tradition'
+price: '27.99'
+currency: CAD
+categoryId: invisible-chains
+availability: ships-from-canada
+customisable: true
+featured: false
+status: active
+description: >-
+  Elevate your traditional look with this stunning Kerala model pendant necklace
+  from MITHRAS CANADA. Inspired by the rich jewellery heritage of South India,
+  this beautifully crafted piece features five ornate shield-shaped pendants
+  adorned with vibrant green enamel accents and delicate ruby-red floral
+  centres, all set in a warm gold-toned finish. The intricate detailing and
+  granulated beadwork reflect classic Kerala craftsmanship, making it a truly
+  eye-catching accessory. The pendant is strung on a sleek, barely-there
+  invisible chain that keeps the focus entirely on the centrepiece, giving it a
+  modern yet traditional appeal. Secured with an adjustable hook-and-ring clasp,
+  this necklace offers a comfortable and secure fit. Perfect for weddings,
+  festivals, and cultural celebrations, this piece pairs beautifully with
+  sarees, salwar suits, and traditional ethnic wear. A timeless addition to any
+  jewellery collection.
 bullets:
   - >-
     KERALA TRADITIONAL DESIGN: Features five elegant pendant motifs inspired by
@@ -19,35 +40,6 @@ bullets:
   - >-
     VERSATILE WEAR: Perfect for festive occasions, cultural celebrations,
     weddings, and traditional ethnic ensembles.
-description: >-
-  Elevate your traditional look with this stunning Kerala model pendant necklace
-  from MITHRAS CANADA. Inspired by the rich jewellery heritage of South India,
-  this beautifully crafted piece features five ornate shield-shaped pendants
-  adorned with vibrant green enamel accents and delicate ruby-red floral
-  centres, all set in a warm gold-toned finish. The intricate detailing and
-  granulated beadwork reflect classic Kerala craftsmanship, making it a truly
-  eye-catching accessory. The pendant is strung on a sleek, barely-there
-  invisible chain that keeps the focus entirely on the centrepiece, giving it a
-  modern yet traditional appeal. Secured with an adjustable hook-and-ring clasp,
-  this necklace offers a comfortable and secure fit. Perfect for weddings,
-  festivals, and cultural celebrations, this piece pairs beautifully with
-  sarees, salwar suits, and traditional ethnic wear. A timeless addition to any
-  jewellery collection.
-categoryId: invisible-chains
-availability: ships-from-canada
-customisable: true
-featured: false
-images:
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/studio.webp
-    alt: Mithras Canada Kerala Model Pendant with Invisible Chain
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/1.webp
-    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 2
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/2.webp
-    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 3
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/3.webp
-    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 4
-  - src: /images/products/kerala-model-pendant-with-invisible-chain/4.webp
-    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 5
 specs:
   Chain Type: Box
   Gem Type: Crystal
@@ -82,12 +74,21 @@ specs:
     5 Kerala model Shield type Green & Red stone pendants with Golden bindi
     balls & Adjustable hook
   Country of Origin: India
+images:
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/studio.webp
+    alt: Mithras Canada Kerala Model Pendant with Invisible Chain
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/1.webp
+    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 2
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/2.webp
+    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 3
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/3.webp
+    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 4
+  - src: /images/products/kerala-model-pendant-with-invisible-chain/4.webp
+    alt: Mithras Canada Kerala Model Pendant with Invisible Chain — view 5
 listings:
   - channel: amazon
     marketplace: ca
     asin: B0HRCZFNV6
-status: active
-price: '27.99'
-currency: CAD
+video: ''
 ---
 

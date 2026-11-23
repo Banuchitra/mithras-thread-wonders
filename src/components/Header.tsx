@@ -11,11 +11,11 @@ export function Header({ brandName, tagline, tree }: { brandName: string; taglin
     <header className="sticky top-0 z-30 bg-white/90 backdrop-blur">
       <div className="relative mx-auto flex max-w-[88rem] items-center gap-3 px-4 py-3">
         <SideMenu tree={tree} brandName={brandName} />
-        <Link href="/" className="flex min-w-0 items-center gap-3">
+        <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
           <img src={asset('/images/logo.webp')} alt="" width={52} height={52}
-            className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-brand-gold ring-offset-2 sm:h-16 sm:w-16" />
+            className="h-11 w-11 shrink-0 rounded-full object-cover ring-1 ring-brand-gold ring-offset-2 sm:h-16 sm:w-16" />
           <span className="min-w-0">
-            <span className="block truncate font-heading text-xl font-semibold leading-tight text-brand-plum sm:text-[1.9rem]">{brandName}</span>
+            <span className="block font-heading text-[1.15rem] font-semibold leading-[1.15] text-brand-plum max-[360px]:text-base sm:truncate sm:text-[1.9rem] sm:leading-tight">{brandName}</span>
             <span className="eyebrow hidden text-xs text-brand-gold-text sm:block">{tagline}</span>
           </span>
         </Link>

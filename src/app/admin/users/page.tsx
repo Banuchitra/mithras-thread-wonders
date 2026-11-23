@@ -54,7 +54,7 @@ function Users() {
       <h1 className="mt-1 text-4xl font-semibold text-brand-plum">User management</h1>
       <div className="mt-4 space-y-2"><FormMessage error={error} success={notice} /></div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
         <section className="overflow-hidden rounded-2xl border border-brand-gold bg-white">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4">
             <h2 className="text-2xl font-semibold text-brand-plum">People ({users.length})</h2>

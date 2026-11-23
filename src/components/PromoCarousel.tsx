@@ -77,7 +77,7 @@ function Slide({ active, eyebrow, title, text, cta, secondary, art }: {
       ? <a href={c.href} target="_blank" rel="noopener" className={cls} tabIndex={active ? 0 : -1}>{c.label}</a>
       : <Link href={c.href} className={cls} tabIndex={active ? 0 : -1}>{c.label}</Link>;
   return (
-    <div className="grid w-full shrink-0 items-center gap-6 px-6 pb-14 pt-10 text-center sm:px-10 md:grid-cols-[1.25fr_1fr] md:text-left lg:px-14"
+    <div className="grid grid-cols-1 w-full shrink-0 items-center gap-6 px-6 pb-14 pt-10 text-center sm:px-10 md:grid-cols-[1.25fr_1fr] md:text-left lg:px-14"
       aria-hidden={!active} role="group" aria-roledescription="slide">
       <div>
         <p className="eyebrow text-brand-gold-light">{eyebrow}</p>

@@ -1,5 +1,7 @@
 // Browser client for the in-house API (api/). Session token kept in localStorage (per browser).
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8787';
+// Development: same origin — the dev server forwards /api/* to the local API (next.config.ts), so this works
+// from the Mac and from a phone on the same Wi-Fi.
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? '';
 /** False on the public site until the API is deployed — account/admin/upload features then show a fallback. */
 export const API_CONFIGURED = Boolean(process.env.NEXT_PUBLIC_API_URL) || process.env.NODE_ENV !== 'production';
 const KEY = 'mtw-session';

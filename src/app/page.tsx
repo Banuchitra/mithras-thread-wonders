@@ -14,7 +14,7 @@ export default function Home() {
     <>
       <div className="mx-auto max-w-[88rem] px-4 pt-6 sm:pt-8">
         <h1 className="sr-only">{settings.brandName} — {settings.tagline}</h1>
-        <div className="grid gap-5 lg:grid-cols-[2fr_1fr]">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[2fr_1fr]">
           <PromoCarousel promotions={promotions} brand={{ tagline: settings.tagline, logo: '/images/logo.webp' }} />
           <VideoPanel promotions={promotions} />
         </div>

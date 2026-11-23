@@ -98,7 +98,7 @@ function Dashboard() {
       </section>
 
       {/* Quick actions */}
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {actions.map((a) => (
           <Link key={a.title} href={a.href} className="group flex items-start gap-4 rounded-2xl border border-line bg-white/90 p-5 transition hover:border-brand-violet hover:bg-white hover:shadow-lg">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cream text-brand-violet ring-1 ring-brand-gold transition group-hover:bg-brand-violet group-hover:text-white"><Icon name={a.icon} className="h-6 w-6" /></span>

@@ -95,13 +95,13 @@ function Editor() {
   return (
     <AdminPage title={isNew ? 'Add a product' : `Edit: ${p.title}`} crumb="Products"
       actions={<div className="flex gap-2">{!isNew && <Link href={`/products/${p.slug}/`} target="_blank" className="btn btn-outline">View on site</Link>}<Link href="/admin/products/" className="btn btn-outline">Back to list</Link></div>}>
-      <form onSubmit={save} className="grid gap-6 lg:grid-cols-[3fr_2fr]">
+      <form onSubmit={save} className="grid grid-cols-1 gap-6 lg:grid-cols-[3fr_2fr]">
         <div className="space-y-6">
           <section className={`${panel} space-y-4 p-6`}>
             <h2 className="text-2xl font-semibold text-brand-plum">Details</h2>
             <Field label="Title" required value={p.title} onChange={(e) => set('title', e.target.value)} />
             <Field label="Subtitle (optional)" value={p.subtitle ?? ''} onChange={(e) => set('subtitle', e.target.value)} />
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field label="SKU" required value={p.sku} onChange={(e) => set('sku', e.target.value)} hint="Exactly as in Amazon Seller Central, if listed there." />
               <Field label="Price (CAD)" value={p.price} onChange={(e) => set('price', e.target.value)} placeholder="24.99" hint="Leave empty for “Price on request”." />
             </div>
@@ -178,7 +178,7 @@ function Editor() {
             <Field label="Product video (optional)" value={p.video ?? ''} onChange={(e) => set('video', e.target.value)} placeholder="Instagram reel or YouTube link" />
           </section>
 
-          <div className="sticky bottom-4 space-y-2 rounded-2xl border border-brand-gold bg-white/95 p-4 shadow-lg backdrop-blur">
+          <div className="sticky bottom-24 space-y-2 rounded-2xl border border-brand-gold bg-white/95 p-4 shadow-lg backdrop-blur">
             <FormMessage error={msg.error} success={busy || msg.success} />
             <button type="submit" disabled={!!busy} className="btn btn-primary w-full disabled:opacity-60">{isNew ? 'Create product' : 'Save changes'}</button>
           </div>
