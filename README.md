@@ -63,6 +63,83 @@ Browser ── static site on GitHub Pages (Next.js export) ── content/*.md,
 
 ---
 
+## Learning topics
+
+This site was built to learn the topics below, hands-on. Status:
+✅ applied in this repo · 🟡 partly, or local only · ⏳ later (AWS phase, with the DVA-C02 course) · ➖ not used here.
+
+### 1. Login and access
+| Topic | Status | Where / how |
+|---|---|---|
+| OAuth | 🟡 | Pages CMS signs in with a GitHub OAuth app; the live admin uses a GitHub fine-grained token (not OAuth) |
+| JWT | ✅ | Own HS256 session tokens with token versioning (revoked on password change) — `api/src/adapters/sessions.ts` |
+| Cognito | ⏳ | Compared in [ADR-004](aidlc/decisions/ADR-004-auth-and-backend.md); in-house auth chosen for $0 ([ADR-005](aidlc/decisions/ADR-005-in-house-auth.md)) |
+| Password security | ✅ | PBKDF2 hashing, lockout after 5 attempts, one-time reset links — `api/src/domain/passwords.ts`, `api/src/app.ts` |
+
+### 2. Secrets and network safety
+| Topic | Status | Where / how |
+|---|---|---|
+| Secrets: build time vs runtime | ✅ | **Build time:** GitHub Actions secrets `ADMIN_PASSWORD` / `ADMIN_GITHUB_TOKEN` used only during deploy (`scripts/seal-admin-key.ts`). **Runtime:** Worker secrets `SESSION_SECRET` in `api/.dev.vars` (git-ignored) |
+| Encryption | ✅ | Admin key published only as PBKDF2 + AES-256-GCM ciphertext — `src/lib/admin-crypto.ts` |
+| AWS Secrets Manager | ⏳ | Same pattern, AWS service later |
+| CORS / same-origin | ✅ | API origin allow-list; dev proxy `/api` → local API (`next.config.ts`) |
+| VPC | ⏳ | Not needed for a static site; AWS phase |
+
+### 3. Event-driven backend
+| Topic | Status | Where / how |
+|---|---|---|
+| Serverless functions | 🟡 | Cloudflare Worker API (`api/`) — runs locally, not deployed |
+| Lambda | ⏳ | The Worker's ports/adapters are designed to move to Lambda |
+| SQS, EventBridge, Step Functions | ⏳ | Planned for Amazon SP-API sync — growth path in [`aidlc/02-design.md`](aidlc/02-design.md) |
+
+### 4. Data and infrastructure
+| Topic | Status | Where / how |
+|---|---|---|
+| Database + provisioning | 🟡 | Cloudflare D1 (SQLite) provisioned locally with wrangler; object storage R2 for private photos |
+| Drizzle ORM migrations | ✅ | Schema `api/src/adapters/schema.ts` → migrations in `api/migrations/` |
+| Aurora PostgreSQL | ⏳ | AWS phase (D1 used for $0) |
+| Infra footprint | ✅ | GitHub Pages + GitHub Actions only — $0; no servers in production |
+| Content as data | ✅ | Products, categories, offers, settings as files in `content/`; money stored in minor units ([ADR-002](aidlc/decisions/ADR-002-money-minor-units.md)) |
+
+### 5. Frontend and web delivery
+| Topic | Status | Where / how |
+|---|---|---|
+| React | ✅ | React 19 components (`src/components/`) |
+| Next.js | ✅ | App Router, static export, dynamic routes, metadata, rewrites — `src/app/`, `next.config.ts` |
+| Server Actions | ➖ | Not possible with a static export (no server) |
+| Vite | 🟡 | Vitest runs on Vite; the site itself uses Next.js |
+| Tailwind | ✅ | Tailwind CSS 4 theme tokens from the monogram — `src/app/globals.css` |
+| CDN / CloudFront | 🟡 | GitHub Pages CDN; CloudFront in the AWS phase |
+| Node | ✅ | Build scripts, imports, image processing (sharp), local helpers — `scripts/` |
+| Koa | ➖ | Hono used instead (same middleware idea, runs on Workers) |
+| BFF (Backend for Frontend) | ✅ | Worker API shapes data for the site; dev proxy so the browser talks to one origin |
+| Mobile / Safari | ✅ | Tested in WebKit at iPhone sizes (Playwright); JPEG fallback where WebP isn't supported |
+
+### 6. Observability and architecture
+| Topic | Status | Where / how |
+|---|---|---|
+| Hexagonal architecture | ✅ | Ports: `CatalogSource`, `Store`, `ContentStore`, `InquiryStore`, `PhotoStore`; adapters for Markdown, D1, R2, GitHub, local bridge |
+| Domain-Driven Design | ✅ | Pure domain modules in `src/domain/` and `api/src/domain/` (products, money, categories, promotions, access rules) |
+| AIDLC governance | ✅ | Intent → requirements → design → units → ADRs in [`aidlc/`](aidlc/); one branch + PR per unit |
+| Testing / TDD | ✅ | Tests written first for domain logic — `tests/unit/`, `api/test/`; CI on every pull request |
+| CloudWatch, Pino logs | ⏳ | AWS phase |
+
+### Agentic workflow (Claude Code 101 / Claude Code in Action)
+| Practice | Status | Where |
+|---|---|---|
+| CLAUDE.md project rules | ✅ | [`CLAUDE.md`](CLAUDE.md) |
+| Plan mode → build → review → PR | ✅ | Every unit; plans in [`aidlc/units/`](aidlc/units/) |
+| Custom commands | ✅ | `.claude/commands/` — `/aidlc-inception`, `/new-unit`, `/unit-review`, `/learn-note` |
+| Subagents | ✅ | `.claude/agents/` — `reviewer`, `a11y-auditor`, `content-checker` |
+| Hooks | ⏳ | Planned (auto lint/typecheck after edits) — not added yet |
+
+### Learning hub
+`npx serve learning` opens local study pages with diagrams, links and quizzes. Done: **AIDLC**, **Agentic workflow**.
+Remaining topic pages (Next.js, Tailwind, hexagonal/DDD, testing & CI, OAuth/JWT, GitHub Pages, AWS roadmap) are
+listed on the hub's home page.
+
+---
+
 ## Run it locally
 
 Requirements: Node 24, npm.
