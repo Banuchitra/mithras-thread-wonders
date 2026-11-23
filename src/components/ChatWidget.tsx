@@ -94,11 +94,11 @@ export function ChatWidget({ catalogue, whatsapp }: { catalogue: AssistantProduc
         </section>
       )}
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? 'Close shopping assistant' : 'Open shopping assistant'}
-        className="heritage flex items-center gap-3 rounded-full py-2 pl-2 pr-5 text-white shadow-2xl ring-2 ring-brand-gold-light transition hover:-translate-y-0.5">
+        className="heritage flex items-center gap-3 rounded-full p-1.5 text-white shadow-2xl ring-2 ring-brand-gold-light transition hover:-translate-y-0.5 sm:py-2 sm:pl-2 sm:pr-5">
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-brand-gold-light">
           <Monogram variant="light" size={46} />
         </span>
-        <span className="text-left leading-tight">
+        <span className="hidden text-left leading-tight sm:block">
           <span className="block font-heading text-xl font-semibold">{open ? 'Close' : 'Ask us'}</span>
           {!open && <span className="hidden text-xs text-[#F3E3C3] sm:block">Find designs · custom orders</span>}
         </span>
