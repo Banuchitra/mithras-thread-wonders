@@ -13,7 +13,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         <p className="eyebrow mt-1 text-[0.7rem] text-brand-gold-light">{settings.tagline}</p>
         <Ornament className="mt-3" light />
       </div>
-      <div className="mx-auto grid max-w-4xl gap-8 px-4 py-8 text-center text-sm text-[#F3E3C3] sm:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 max-w-4xl gap-8 px-4 py-8 text-center text-sm text-[#F3E3C3] sm:grid-cols-3">
         <p>Handmade in India<br />Ships within Canada <CanadaFlag /><br />Wholesale worldwide</p>
         <ul className="space-y-1">
           <li><Link className="hover:text-white" href="/shop/">All designs</Link></li>

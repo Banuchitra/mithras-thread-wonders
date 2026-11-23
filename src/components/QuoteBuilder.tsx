@@ -90,7 +90,7 @@ export function QuoteBuilder({ whatsapp, categories }: { whatsapp: string; categ
         <legend className="font-heading text-2xl font-semibold text-brand-plum">What would you like?</legend>
         <datalist id="quote-categories">{categories.map((c) => <option key={c} value={c} />)}</datalist>
         {lines.map((line, i) => (
-          <div key={i} className="grid gap-3 rounded-lg bg-cream p-3 sm:grid-cols-[2fr_1fr_3fr_auto] sm:items-end">
+          <div key={i} className="grid grid-cols-1 gap-3 rounded-lg bg-cream p-3 sm:grid-cols-[2fr_1fr_3fr_auto] sm:items-end">
             <label className="text-sm">
               <span className="mb-1 block font-medium">Item {i + 1}{line.likeSku ? ` (like ${line.likeSku})` : ''}</span>
               <input className={input} list="quote-categories" value={line.item} placeholder="e.g. Silk thread bangles" onChange={(e) => update(i, { item: e.target.value })} />
@@ -140,7 +140,7 @@ export function QuoteBuilder({ whatsapp, categories }: { whatsapp: string; categ
         </label>
       </fieldset>
 
-      <fieldset className="grid gap-3 sm:grid-cols-2">
+      <fieldset className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <legend className="mb-2 font-heading text-2xl font-semibold text-brand-plum">About you</legend>
         <label className="text-sm"><span className="mb-1 block font-medium">Your name</span>
           <input className={input} value={name} required autoComplete="name" onChange={(e) => setName(e.target.value)} /></label>

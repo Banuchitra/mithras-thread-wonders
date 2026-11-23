@@ -63,8 +63,8 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
           <Link className="hover:underline" href={`/shop/${cat.collection.id}/${cat.id}/`}>{cat.name}</Link>
         </nav>
       )}
-      <div className="mt-4 grid gap-8 md:grid-cols-2 md:gap-12">
-        <div className="space-y-4 self-start md:sticky md:top-28">
+      <div className="mt-4 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+        <div className="min-w-0 space-y-4 self-start md:sticky md:top-28">
           <div className="arch-frame"><Gallery images={product.images} /></div>
           <VideoPlayer url={product.video} title={product.title} poster={product.images[0]?.src} />
         </div>
@@ -89,7 +89,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
         </div>
       </div>
 
-      <section className="mt-12 grid gap-8 md:grid-cols-2 md:gap-12">
+      <section className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
         {product.description && (
           <div>
             <h2 className="text-2xl font-semibold text-brand-plum">Product description</h2>

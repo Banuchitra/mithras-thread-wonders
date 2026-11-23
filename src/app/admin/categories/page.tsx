@@ -32,7 +32,7 @@ function Categories() {
     <AdminPage title="Collections & categories" crumb="Categories">
       <p className="text-muted">These build the Shop menu and the ☰ menu automatically. Order: lower numbers show first.</p>
       <div className="mt-4"><FormMessage error={msg.error || collections.error} success={msg.success} /></div>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {cols.map((col) => (
           <section key={col.id} className={`${panel} p-5`}>
             <Row doc={col} kind="collections" onSave={(d) => save('collections', d, 'Collection saved.')} onDelete={() => remove('collections', col.id)} big />

@@ -17,7 +17,7 @@ function Website() {
   const { user } = useAuth();
   return (
     <AdminPage title="Customise the website" crumb="Website">
-      <div className="grid gap-6 xl:grid-cols-[2fr_3fr]">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[2fr_3fr]">
         {user?.role === 'admin' ? <Settings /> : <p className={`${panel} p-6 text-muted`}>Only admins can change site settings.</p>}
         <Promotions />
       </div>
@@ -48,7 +48,7 @@ function Settings() {
       <Field label="Announcement bar (top of every page)" value={s.announcement ?? ''} onChange={(e) => set('announcement', e.target.value)} hint="Leave empty to hide the bar." />
       <Field label="Brand name" required value={s.brandName} onChange={(e) => set('brandName', e.target.value)} />
       <Field label="Tagline" value={s.tagline} onChange={(e) => set('tagline', e.target.value)} />
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="WhatsApp (with country code)" required value={s.whatsapp} onChange={(e) => set('whatsapp', e.target.value)} />
         <Field label="Instagram handle" value={s.instagram} onChange={(e) => set('instagram', e.target.value)} />
       </div>
@@ -132,7 +132,7 @@ function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => voi
 
   return (
     <form onSubmit={save} className="mt-4 space-y-3 rounded-xl border border-brand-gold bg-cream p-4">
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Field label="Headline" required value={p.title} onChange={(e) => set('title', e.target.value)} />
         <label className="block text-sm"><span className="mb-1 block font-semibold">Where to show</span>
           <select value={p.placement} onChange={(e) => set('placement', e.target.value)} className={inputClass}>
@@ -141,7 +141,7 @@ function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => voi
         </label>
       </div>
       <Field label="Text" value={p.subtitle} onChange={(e) => set('subtitle', e.target.value)} />
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Field label="Button text" value={p.ctaLabel} onChange={(e) => set('ctaLabel', e.target.value)} placeholder="Shop now" />
         <Field label="Button link" value={p.ctaHref} onChange={(e) => set('ctaHref', e.target.value)} placeholder="/shop/bangles/" />
       </div>
@@ -160,7 +160,7 @@ function PromoForm({ promo, onDone }: { promo: Doc; onDone: (ok?: string) => voi
         </label>
         {busy && <span className="text-sm text-muted">{busy}</span>}
       </div>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Field label="Show from" type="date" value={p.startDate ?? ''} onChange={(e) => set('startDate', e.target.value)} />
         <Field label="Show until" type="date" value={p.endDate ?? ''} onChange={(e) => set('endDate', e.target.value)} />
         <Field label="Order" type="number" value={p.order} onChange={(e) => set('order', Number(e.target.value))} />
